@@ -1,3 +1,6 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
     --ligth-bg-0: #efefef;
     --ligth-bg-1: #fafafa;
@@ -5,31 +8,37 @@
 
     --dark-bg-0: #333;
     --dark-bg-1: #4a4a4a;
-    --dark-bg: #e8e8e8;
+    --dark-fg: #ededed;
     
     --bg-0: var(--ligth-bg-0);
     --bg-1: var(--ligth-bg-1);
-    --fg: var(var(--ligth-fg));
+    --fg: var(--ligth-fg);
+
+    --fs-40: 1rem;
+    --fs-50: 1.1rem;
+    --fs-60: 1.4rem;
+    --fs-70: 2rem;
+    --fs-80: 4rem;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-0: var(--dark-bg-0);
         --bg-1: var(--dark-bg-1);
-        --fg: var(var(--dark-fg));
+        --fg: var(--dark-fg);
     }
 }
 
 body.ligth {
     --bg-0: var(--ligth-bg-0);
     --bg-1: var(--ligth-bg-1);
-    --fg: var(var(--ligth-fg));
+    --fg: var(--ligth-fg);
 }
 
 body.dark {
     --bg-0: var(--dark-bg-0);
     --bg-1: var(--dark-bg-1);
-    --fg: var(var(--dark-fg));
+    --fg: var(--dark-fg);
 }
 
 :where(button) {
@@ -42,9 +51,85 @@ body.dark {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 body {
     background-color: var(--bg-0);
     color: var(--fg);
 }
+
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+@media (min-width: 50rem) {
+    header {
+        align-items: center;
+    }
+}
+
+h1 {
+    font-size: var(--fs-80);
+    font-weight: 700;
+}
+
+.header__desc {
+    margin-top: 1rem;
+    font-size: var(--fs-70);
+    font-weight: 500;
+    animation-delay: 630ms;
+    animation-duration: .4s;
+}
+
+.slide-up {
+    position: relative;
+    animation-name: slide-up;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+.slide-down {
+    position: relative;
+    animation-name: slide-down;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+h1 span {
+    display: inline-block;
+    animation-duration: 500ms;
+}
+h1 span:nth-of-type(2) { animation-delay: 75ms; }
+h1 span:nth-of-type(3) { animation-delay: 150ms; }
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+        clip-path: inset(0 0 80% 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-80%);
+        clip-path: inset(80% 0 0 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+    }
+}
+
