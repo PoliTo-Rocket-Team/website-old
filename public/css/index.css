@@ -51,18 +51,20 @@ body.dark {
     --fg: var(--dark-fg);
 }
 
-:where(button) {
-    background: none;
-    font-size: 1em;
-    border: none;
-    color: var(--fg);
-}
-
 *, *::before, *::after {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+button {
+    background: none;
+    font-size: 1em;
+    border: none;
+    color: var(--fg);
+    cursor: pointer;
+    padding: .4rem 1rem;
 }
 
 html { height: 100%; }
@@ -126,7 +128,7 @@ header {
     width: 100%;
     height: 100%;
     background-color: var(--bg-0);
-    opacity: .3;
+    opacity: .2;
 }
 
 h1 {
@@ -153,6 +155,7 @@ h1 {
 
 @media (min-width: 50rem) {
     .header__text {
+        padding: 3rem;
         justify-items: center;
     }
 }
