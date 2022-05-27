@@ -1,0 +1,31 @@
+{
+  "name": "prt-website",
+  "version": "0.1.0",
+  "description": "Website files of the PoliTo Rocket Team",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "dev": "rollup -w -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PoliTo-Rocket-Team/website.git"
+  },
+  "author": "Federico Guglielmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PoliTo-Rocket-Team/website/issues"
+  },
+  "homepage": "https://github.com/PoliTo-Rocket-Team/website#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/three": "^0.140.0",
+    "rollup": "^2.74.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "three": "^0.141.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.2"
+  }
+}
