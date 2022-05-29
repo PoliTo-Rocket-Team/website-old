@@ -3,11 +3,13 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 
 const production = !process.env.ROLLUP_WATCH;
+const three = process.env.THREE;
 
-export default {
-    input: "src/index.ts",
+/**@type {import("rollup").RollupOptions} */
+const config = three ? {
+    input: "src/rocket.ts",
     output: {
-        file: "public/js/index.js",
+        file: "public/js/rocket.js",
         format: "iife"
     },
     plugins: [
@@ -16,3 +18,16 @@ export default {
         production && terser()
     ]
 }
+: {
+    input: "src/index.ts",
+    output: {
+        file: "public/js/index.js",
+        format: "iife",
+    },
+    plugins: [
+        typescript(),
+        production && terser()
+    ]
+}
+
+export default config;

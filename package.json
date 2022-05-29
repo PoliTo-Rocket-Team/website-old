@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
-    "dev": "rollup -w -c"
+    "dev": "rollup -w -c",
+    "build-three": "rollup -c --environment THREE",
+    "dev-three": "rollup -c -w --environment THREE"
   },
   "repository": {
     "type": "git",
