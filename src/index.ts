@@ -1,8 +1,9 @@
-import { ArrowHelper, BoxGeometry, Color, DirectionalLight, Euler, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { ArrowHelper, Color, DirectionalLight, Euler, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { wait } from "./utils";
 
-const liftoff_heigth = 12.5;
-const liftoff_coefficient = .01;
+const liftoff_heigth = 20;
+const liftoff_coefficient = 4e-3;
 const camera_distance = 7.5;
 const FOV = 75;
 const rot = new Euler(Math.PI/3, Math.PI/4, Math.PI/16, 'YXZ');
@@ -13,14 +14,16 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", set
 
 const camera = new PerspectiveCamera(FOV, window.innerWidth/window.innerHeight, .1, 100);
 camera.rotation.copy(rot);
-camera.position.set(0, 0, liftoff_heigth + 1);
+camera.position.set(0, 0, liftoff_heigth + 5);
 camera.position.add(new Vector3(0,0,camera_distance).applyEuler(rot));
+// camera.position.z = 20;
 
-const light = new DirectionalLight(0xffffff, .8);
+const light = new DirectionalLight(0xffffff, 1);
 light.position.set(2, -.2, 1);
 scene.add(light);
 
 const renderer = new WebGLRenderer({antialias: true});
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 const place = document.querySelector(".header__canvas") as HTMLDivElement;
 place.appendChild(renderer.domElement);
@@ -42,7 +45,7 @@ function startAnimation(obj: Object3D) {
         obj.rotateZ(2e-3);
 
         if(height < liftoff_heigth) {
-            height += liftoff_coefficient*(liftoff_heigth - height);
+            height += liftoff_coefficient*Math.pow(liftoff_heigth-height, 1.5);
             obj.position.z = height;
         }
         if(changedSize) {
@@ -72,22 +75,25 @@ function addAxisArrows(origin?: Vector3) {
         new ArrowHelper(new Vector3(0,0,1), origin, 1, 0x0000ff, .2, .1)
     );
 }
-
+    
 async function loadScene() {
+    await wait(1000);
     try {
-        // const loader = new VRMLLoader();
-        // const rocket = await loader.loadAsync("./assets/assieme_2022-05-25.wrl", onProgress);
-        // scene.add(rocket);
-        
         addAxisArrows();
         addAxisArrows(new Vector3(0,0,liftoff_heigth));
 
-        const geometry = new BoxGeometry(1, 1, 1);
-        const material = new MeshStandardMaterial({ color: 0xff7f50 })
-        const cube = new Mesh(geometry, material);
-        scene.add(cube);
+        const loader = new GLTFLoader();
+        const gltf = await loader.loadAsync("./assets/Assieme_3D_tolleranze_2mm_20.gltf", onProgress);
+        const rocket = gltf.scene;
+        rocket.scale.multiplyScalar(3.5e-3);
+        scene.add(rocket);
+        startAnimation(rocket);
 
-        startAnimation(cube);
+        // const geometry = new BoxGeometry(1, 1, 1);
+        // const material = new MeshStandardMaterial({ color: 0xff7f50 })
+        // const cube = new Mesh(geometry, material);
+        // scene.add(cube);
+        // startAnimation(cube);
     } catch(e) {
         console.log("Couldn't load the rocket");
         console.dir(e);

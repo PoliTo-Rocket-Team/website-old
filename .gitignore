@@ -1,2 +1,6 @@
 .vscode/
 node_modules/
+public/assets/*.amf
+public/js/worker*
+src/worker*
+discarded/
