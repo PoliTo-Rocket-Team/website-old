@@ -1,8 +1,11 @@
 (function () {
-	'use strict';
+    'use strict';
 
-	const see_more = document.getElementById("see-more");
-	see_more.addEventListener("click", e => {
-	});
+    const see_more = document.getElementById("see-more");
+    document.querySelector("header");
+    const main = document.querySelector("main");
+    see_more.addEventListener("click", e => {
+        main.scrollIntoView({ behavior: "smooth" });
+    });
 
 })();

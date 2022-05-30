@@ -12,7 +12,9 @@ const scene = new Scene();
 setSceneBg();
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setSceneBg);
 
-const camera = new PerspectiveCamera(FOV, window.innerWidth/window.innerHeight, .1, 100);
+
+const header = document.querySelector("header") as HTMLElement;
+const camera = new PerspectiveCamera(FOV, header.offsetWidth/header.offsetHeight, .1, 100);
 camera.rotation.copy(rot);
 camera.position.set(1, 0, liftoff_heigth + 6);
 camera.position.add(new Vector3(0,0,camera_distance).applyEuler(rot));
@@ -24,7 +26,7 @@ scene.add(light);
 
 const renderer = new WebGLRenderer({antialias: true});
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(header.offsetWidth, header.offsetHeight);
 const place = document.querySelector(".header__canvas") as HTMLDivElement;
 place.appendChild(renderer.domElement);
 
@@ -35,13 +37,15 @@ function randomDisplacement(w: number = 3e-3) { return (Math.random()-0.5)*w; }
 function startAnimation(obj: Object3D) {
     let height = 0;
     let changedSize = false;
-    let req = requestAnimationFrame(animate);
+    let req: number;
     window.addEventListener("resize", onResize);
+    const obs = new IntersectionObserver(entries => entries.forEach(entry => {
+        if(entry.isIntersecting) req = requestAnimationFrame(animate);
+        else cancelAnimationFrame(req);
+    }))
+    obs.observe(header);
 
-    function animate() {
-        obj.position.x += randomDisplacement();
-        obj.position.y += randomDisplacement();
-        obj.position.z += randomDisplacement();
+    function animate(time: number) {
         obj.rotateZ(2e-3);
 
         if(height < liftoff_heigth) {
@@ -49,8 +53,10 @@ function startAnimation(obj: Object3D) {
             obj.position.z = height;
         }
         if(changedSize) {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth/window.innerHeight;
+            const h = header.offsetHeight;
+            const w = header.offsetWidth;
+            renderer.setSize(w,h);
+            camera.aspect = w/h;
             camera.updateProjectionMatrix();
             changedSize = false;
         }
@@ -82,7 +88,7 @@ async function loadScene() {
         // addAxisArrows(new Vector3(0,0,liftoff_heigth));
 
         const loader = new GLTFLoader();
-        const gltf = await loader.loadAsync("./assets/Part_3D_tolleranze_2mm_20.glb", onProgress);
+        const gltf = await loader.loadAsync("./assets/Part_3D_tolleranze_1mm_10.glb", onProgress);
         const rocket = gltf.scene;
         rocket.scale.multiplyScalar(3.5e-3);
         scene.add(rocket);
