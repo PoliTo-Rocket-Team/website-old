@@ -77,6 +77,15 @@ body {
     background-color: var(--bg-0);
     color: var(--fg);
 }
+body.no-scroll { overflow-y: hidden; }
+
+.content {
+    transition: transform 350ms ease, filter 350ms ease;
+}
+body.no-scroll .content {
+    transform: translateX(calc(-3 * var(--pad)));
+    filter: brightness(.75);
+}
 
 nav {
     position: fixed;
@@ -84,10 +93,75 @@ nav {
     left: 0;
     width: 100%;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: .8rem;
+    font-size: var(--fs-50);
+
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .links {
     list-style: none;
+    display: flex;
+}
+
+.links a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--fg);
+    font-weight: 500;
+}
+
+.burger {
+    padding: 0;
+    z-index: 110;
+}
+.burger svg { display: block; }
+.burger line {
+    transform-origin: center center;
+    transition: opacity 250ms ease 100ms, transform 350ms ease;
+}
+.open .burger line.middle {
+    transition: opacity 250ms ease;
+    opacity: 0;
+}
+.burger line.top { transform: translateY(-25%); }
+.burger line.bottom { transform: translateY(25%); }
+.open .burger line.top { transform: rotate(45deg); }
+.open .burger line.bottom { transform: rotate(-45deg); }
+
+@media (max-width: 50rem) {
+    .links {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100%;
+        z-index: 102;
+
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 2rem;
+        background-color: var(--bg-1);
+        
+        transform: translateX(100%);
+        transition: transform 350ms ease;
+    }
+    .open .links { transform: translateX(0); }
+    .links li + li { margin-top: 1rem; }
+    .links a { font-size: var(--fs-60); }
+}
+
+@media (min-width: 50rem) {
+    .burger { display: none; }
+    .links {
+        flex-direction: row;
+        align-items: center;
+    }
+    .links li { margin-right: 2ch; }
 }
 
 header {
@@ -278,6 +352,7 @@ h1 span:nth-of-type(3) { animation-delay: 150ms; }
 
 main {
     padding: var(--pad);
+    background-color: var(--bg-0);
 }
 
 h2 {
