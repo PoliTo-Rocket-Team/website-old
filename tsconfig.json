@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "downlevelIteration": true,
-        "strictNullChecks": true,
         "target": "ES2017"
     },
     "buildOptions": {

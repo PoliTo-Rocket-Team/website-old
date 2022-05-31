@@ -77,12 +77,10 @@ body {
     background-color: var(--bg-0);
     color: var(--fg);
 }
-body.no-scroll { overflow-y: hidden; }
+body.has-nav-open { overflow-y: hidden; }
 
-.content {
-    transition: transform 350ms ease, filter 350ms ease;
-}
-body.no-scroll .content {
+[data-nav-closer] { transition: transform 350ms ease, filter 350ms ease; }
+[data-nav-closer].has-nav-open {
     transform: translateX(calc(-3 * var(--pad)));
     filter: brightness(.75);
 }
@@ -122,16 +120,16 @@ nav {
 .burger svg { display: block; }
 .burger line {
     transform-origin: center center;
-    transition: opacity 250ms ease 100ms, transform 350ms ease;
+    transition: opacity 250ms ease 50ms, transform 350ms ease;
 }
-.open .burger line.middle {
+.burger.active line.middle {
     transition: opacity 250ms ease;
     opacity: 0;
 }
 .burger line.top { transform: translateY(-25%); }
 .burger line.bottom { transform: translateY(25%); }
-.open .burger line.top { transform: rotate(45deg); }
-.open .burger line.bottom { transform: rotate(-45deg); }
+.burger.active line.top { transform: rotate(-45deg); }
+.burger.active line.bottom { transform: rotate(45deg); }
 
 @media (max-width: 50rem) {
     .links {
