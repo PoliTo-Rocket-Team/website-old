@@ -9,12 +9,12 @@ const FOV = 75;
 const rot = new Euler(Math.PI/3, Math.PI/4, Math.PI/16, 'YXZ');
 
 const scene = new Scene();
-setSceneBg();
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setSceneBg);
+const media = window.matchMedia("(prefers-color-scheme: dark)");
+function setSceneBg(dark: boolean) { scene.background = new Color(dark ? 0x333333 : 0xefefef); }
+media.addEventListener("change", ev => setSceneBg(ev.matches))
 
 
-const header = document.querySelector("header") as HTMLElement;
-const camera = new PerspectiveCamera(FOV, header.offsetWidth/header.offsetHeight, .1, 100);
+const camera = new PerspectiveCamera(FOV, 1, .1, 100);
 camera.rotation.copy(rot);
 camera.position.set(1, 0, liftoff_heigth + 6);
 camera.position.add(new Vector3(0,0,camera_distance).applyEuler(rot));
@@ -24,20 +24,21 @@ const light = new DirectionalLight(0xffffff, 1);
 light.position.set(2, -.2, 1);
 scene.add(light);
 
-const renderer = new WebGLRenderer({antialias: true});
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(header.offsetWidth, header.offsetHeight);
-const place = document.querySelector(".header__canvas") as HTMLDivElement;
-place.appendChild(renderer.domElement);
-
-function setSceneBg() { scene.background = new Color(getComputedStyle(document.body).background); }
-
 function randomDisplacement(w: number = 3e-3) { return (Math.random()-0.5)*w; }
 
 function startAnimation(obj: Object3D) {
     let height = 0;
     let changedSize = false;
     let req: number;
+    
+    const header = document.querySelector("header") as HTMLElement;
+    const renderer = new WebGLRenderer({antialias: true});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    setSizes()
+    setSceneBg(media.matches);
+    const place = header.querySelector(".header__canvas") as HTMLDivElement;
+    place.appendChild(renderer.domElement);
+
     window.addEventListener("resize", onResize);
     const obs = new IntersectionObserver(entries => entries.forEach(entry => {
         if(entry.isIntersecting) req = requestAnimationFrame(animate);
@@ -52,18 +53,20 @@ function startAnimation(obj: Object3D) {
             height += liftoff_coefficient*Math.pow(liftoff_heigth-height, 1.5);
             obj.position.z = height;
         }
-        if(changedSize) {
-            const h = header.offsetHeight;
-            const w = header.offsetWidth;
-            renderer.setSize(w,h);
-            camera.aspect = w/h;
-            camera.updateProjectionMatrix();
-            changedSize = false;
-        }
+        if(changedSize) setSizes();
         renderer.render(scene, camera);
         req = requestAnimationFrame(animate);
     }
     function onResize() { changedSize = true; }
+
+    function setSizes() {
+        const h = header.offsetHeight;
+        const w = header.offsetWidth;
+        renderer.setSize(w,h);
+        camera.aspect = w/h;
+        camera.updateProjectionMatrix();
+        changedSize = false;
+    }
 }
 
 const scene_progress = document.querySelector(".scene-progress") as HTMLDivElement;
