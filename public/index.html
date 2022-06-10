@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index2.css">
     <meta name="author" content="Federico Guglielmi">
 
     <title>PoliTo Rocket Team</title>
     <meta name="description" content="Discover the newborn Rocket Team of the Polytechnic of Turin">
 </head>
 <body>
-    <nav class="fade-in after-title" data-nav="main">
+    <!-- <nav class="fade-in after-title" data-nav="main">
         <ul class="links">
             <li><a href="./sponsors">Sponsors</a></li>
             <li><a href="./projects">Projects</a></li>
@@ -19,12 +19,12 @@
         <button style="display: none;" id="toggle-dark">dark</button>
         <button class="burger on-sm" aria-hidden="true" data-nav-btn="main">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="2.2em" height="2.2em">
-                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg)" stroke-linecap="round" class="top" />
-                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg)" stroke-linecap="round" class="middle" />
-                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg)" stroke-linecap="round" class="bottom" />
+                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg-0)" stroke-linecap="round" class="top" />
+                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg-0)" stroke-linecap="round" class="middle" />
+                <line x1="10" x2="54" y1="32" y2="32" stroke-width="6" stroke="var(--fg-0)" stroke-linecap="round" class="bottom" />
             </svg>
         </button>
-    </nav>
+    </nav> -->
     <header class="content" data-nav-closer="main">
         <div class="scene-progress"></div>
         <div class="header__canvas"></div>
@@ -46,8 +46,80 @@
         </div>
     </header>
     <main class="content" data-nav-closer="main">
-        <h2>Meet us</h2>
-        <p>We are the PoliTo Rocket</p>
+        <section aria-labelledby="identity-title">
+            <h2 id="identity-title">Who are we?</h2>
+            <p>We are the newly established rocketry student team of the Polytechnic University of Turin, entirely dedicated to the design and construction of high-powered sounding rockets.</p>
+            <p>The people behind it are engineering students from different courses with great plans for the future.</p>
+        </section>
+        <section aria-labelledby="timeline-title">
+            <h2 id="timeline-title">Our timeline</h2>
+            <div class="timeline">
+                <div class="timeline__track">
+                    <div class="base"></div>
+                    <div class="now" id="timeline-now"></div>
+                </div>
+                <div class="timeline__body">
+                    <article class="event">
+                        <time datetime="2022-5">May 2022</time>
+                        <div class="event__body">
+                            <h3>The beginning</h3>
+                            <p>Inspired by the PoliMi Rocket Team, eight students join and moved the first steps towards an official team</p>
+                        </div>
+                    </article>
+                    <article class="event">
+                        <time datetime="2022-6">June 2022</time>
+                        <div class="event__body">
+                            <h3>We are official</h3>
+                            <p>Polytechnic University of Turin officially approved the team</p>
+                        </div>
+                    </article>
+                    <article class="event">
+                        <time datetime="2023-1">January 2023</time>
+                        <div class="event__body">
+                            <h3>Cavour launch</h3>
+                            <p>Polytechnic University of Turin officially approved the team</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section aria-labelledby="contact-title">
+            <h2 id="contact-title">Get in touch</h2>
+            <p>We are eager to get in touch with you! Whether you want to join us, sponsor us, or simply know some more about us, feel free to write us an email: <a href="mailto:info@politorocketteam.it">info@politorocketteam.it</a></p>
+            <p>We are also on instagram and linkedin: we are just one direct message away.</p>
+            <div class="socials">
+                <a href="https://instagram.com/politorocketteam?igshid=YmMyMTA2M2Y=">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+                        <title>Instagram</title>
+                        <radialGradient id="insta-grad-1" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#fd5"></stop>
+                            <stop offset=".328" stop-color="#ff543f"></stop>
+                            <stop offset=".348" stop-color="#fc5245"></stop>
+                            <stop offset=".504" stop-color="#e64771"></stop>
+                            <stop offset=".643" stop-color="#d53e91"></stop>
+                            <stop offset=".761" stop-color="#cc39a4"></stop>
+                            <stop offset=".841" stop-color="#c837ab"></stop>
+                        </radialGradient>
+                        <path fill="url(#insta-grad-1)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"></path>
+                        <radialGradient id="insta-grad-2" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#4168c9"></stop>
+                            <stop offset=".999" stop-color="#4168c9" stop-opacity="0"></stop>
+                        </radialGradient>
+                        <path fill="url(#insta-grad-2)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"></path>
+                        <path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"></path>
+                        <circle cx="31.5" cy="16.5" r="1.5" fill="#fff"></circle>
+                        <path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/company/politorocketteam">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+                        <title>Linkedin</title>
+                        <path fill="#0288D1" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"></path>
+                        <path fill="#FFF" d="M12 19H17V36H12zM14.485 17h-.028C12.965 17 12 15.888 12 14.499 12 13.08 12.995 12 14.514 12c1.521 0 2.458 1.08 2.486 2.499C17 15.887 16.035 17 14.485 17zM36 36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698-1.501 0-2.313 1.012-2.707 1.99C24.957 25.543 25 26.511 25 27v9h-5V19h5v2.616C25.721 20.5 26.85 19 29.738 19c3.578 0 6.261 2.25 6.261 7.274L36 36 36 36z"></path>
+                    </svg>
+                </a>
+            </div>
+        </section>
     </main>
     <footer class="content" data-nav-closer="main"></footer>
     <script src="./js/index.js" defer></script>

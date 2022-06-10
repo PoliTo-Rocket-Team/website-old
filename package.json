@@ -8,7 +8,8 @@
     "build": "rollup -c",
     "dev": "rollup -w -c",
     "build-three": "rollup -c --environment THREE",
-    "dev-three": "rollup -c -w --environment THREE"
+    "dev-three": "rollup -c -w --environment THREE",
+    "dev-scss": "sass --watch src/scss/index.scss public/css/index2.css"
   },
   "repository": {
     "type": "git",

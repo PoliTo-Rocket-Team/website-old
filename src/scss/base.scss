@@ -1,0 +1,95 @@
+@use "./font.scss";
+
+$accent-hue: 12;
+
+:root {
+    --ligth-bg-0: #efefef;
+    --ligth-bg-1: #fafafa;
+    --ligth-fg-0: #212121;
+    --ligth-fg-1: #555;
+
+    --dark-bg-0: #333333;
+    --dark-bg-1: #4a4a4a;
+    --dark-fg-0: #ededed;
+    --dark-fg-1: #aaa;
+
+
+    --fs-40: 1rem;
+    --fs-50: 1.1rem;
+    --fs-60: 1.4rem;
+    --fs-70: 2rem;
+    --fs-80: 4rem;
+
+    --pad: 1rem;
+
+    --accent-20: hsl(#{$accent-hue}, 60%, 60%);
+    --accent-30: hsl(#{$accent-hue}, 50%, 55%);
+    --accent-40: hsl(#{$accent-hue}, 50%, 50%);
+    --accent-50: hsl(#{$accent-hue}, 45%, 45%);
+    --accent-60: hsl(#{$accent-hue}, 50%, 40%);
+    --accent-70: hsl(#{$accent-hue}, 50%, 35%);
+    --accent-80: hsl(#{$accent-hue}, 50%, 30%);
+}
+
+@mixin light-theme {
+    --bg-0: var(--ligth-bg-0);
+    --bg-1: var(--ligth-bg-1);
+    --fg-0: var(--ligth-fg-0);
+    --fg-1: var(--ligth-fg-1);
+}
+
+@mixin dark-theme {
+    --bg-0: var(--dark-bg-0);
+    --bg-1: var(--dark-bg-1);
+    --fg-0: var(--dark-fg-0);
+    --fg-1: var(--dark-fg-1);
+}
+
+:root { @include light-theme; }
+@media (prefers-color-scheme: dark) {
+    :root { @include dark-theme; }
+}
+
+$width-th-1: 50rem;
+$width-th-2: 70rem;
+
+@media (min-width: $width-th-1) {
+    :root {
+        --fs-40: 1rem;
+        --fs-50: 1.15rem;
+        --fs-60: 1.5rem;
+        --fs-70: 2.2rem;
+        --fs-80: 4.5rem;
+
+        --pad: max(2rem, 1vw);
+    }
+}
+
+body.ligth { @include light-theme; }
+body.dark { @include dark-theme; }
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+button {
+    background: none;
+    font-size: 1em;
+    border: none;
+    color: var(--fg-0);
+    cursor: pointer;
+    padding: .4rem 1rem;
+}
+
+a {
+    color: var(--accent-40);
+    text-decoration-color: var(--accent-30);
+}
+
+.text-outline {
+    color: transparent;
+    text-shadow: 0 0 0 .05em var(--fg-0);
+}

@@ -4,3 +4,4 @@ public/assets/*.amf
 public/js/worker*
 src/worker*
 discarded/
+*.css.map
