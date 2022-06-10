@@ -13,7 +13,6 @@ $accent-hue: 12;
     --dark-fg-0: #ededed;
     --dark-fg-1: #aaa;
 
-
     --fs-40: 1rem;
     --fs-50: 1.1rem;
     --fs-60: 1.4rem;
@@ -22,8 +21,8 @@ $accent-hue: 12;
 
     --pad: 1rem;
 
-    --accent-20: hsl(#{$accent-hue}, 60%, 60%);
-    --accent-30: hsl(#{$accent-hue}, 50%, 55%);
+    --accent-20: hsl(#{$accent-hue}, 66%, 63%);
+    --accent-30: hsl(#{$accent-hue}, 58%, 56%);
     --accent-40: hsl(#{$accent-hue}, 50%, 50%);
     --accent-50: hsl(#{$accent-hue}, 45%, 45%);
     --accent-60: hsl(#{$accent-hue}, 50%, 40%);
@@ -34,8 +33,13 @@ $accent-hue: 12;
 @mixin light-theme {
     --bg-0: var(--ligth-bg-0);
     --bg-1: var(--ligth-bg-1);
+    --bg-2: var(--dark-bg-1);
     --fg-0: var(--ligth-fg-0);
     --fg-1: var(--ligth-fg-1);
+    --fg-2: var(--dark-fg-0);
+    --bg-sel: var(--accent-60);
+    --fg-sel: var(--ligth-bg-1);
+    --fg-link: var(--accent-50);
 }
 
 @mixin dark-theme {
@@ -43,6 +47,9 @@ $accent-hue: 12;
     --bg-1: var(--dark-bg-1);
     --fg-0: var(--dark-fg-0);
     --fg-1: var(--dark-fg-1);
+    --bg-sel: var(--accent-30);
+    // --fg-sel: var(--dark-fg-0);
+    --fg-link: var(--accent-20);
 }
 
 :root { @include light-theme; }
@@ -75,6 +82,11 @@ body.dark { @include dark-theme; }
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+::selection {
+    background-color: var(--bg-sel);
+    color: var(--fg-sel);
+}
+
 button {
     background: none;
     font-size: 1em;
@@ -85,8 +97,7 @@ button {
 }
 
 a {
-    color: var(--accent-40);
-    text-decoration-color: var(--accent-30);
+    color: var(--fg-link);
 }
 
 .text-outline {

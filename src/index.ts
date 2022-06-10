@@ -8,8 +8,21 @@ see_more.addEventListener("click", e => {
     main.scrollIntoView({ behavior: "smooth" }); 
 });
 
+function throttle(fn: () => any, ms: number) {
+    let will_call = false;
+    return function() {
+        if(will_call) return;
+        will_call = true;
+        setTimeout(() => { fn(); will_call = false });
+    }
+}
+
 const timeline_now = document.getElementById("timeline-now") as HTMLDivElement;
-timeline_now.style.setProperty("--top", window.innerHeight/2 + "px")
+function setTimelineTop() {
+    timeline_now.style.setProperty("--top", window.innerHeight/2 + "px")
+}
+window.addEventListener("resize", throttle(setTimelineTop, 200));
+setTimelineTop();
 
 // let request: number;
 // const timeline_track = timeline_now.parentElement;

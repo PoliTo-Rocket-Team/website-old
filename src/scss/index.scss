@@ -290,9 +290,19 @@ h1 {
     }
 }
 
-
-main, footer {
+%content-container {
     padding: var(--pad);
+    @media (min-width: $width-th-1) {
+        & {
+            max-width: $width-th-1;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+main {
+    @extend %content-container;
     background-color: var(--bg-0);
 }
 main p + p {
@@ -305,18 +315,19 @@ h2 {
     margin-top: 2em;
 }
 
-$track-size: 1.5rem;
+$point-radius: .75rem;
 $extreme-radius: .5rem;
 
 .timeline {
     display: grid;
-    grid-template-columns: $track-size 1fr;
+    grid-template-columns: 2*$point-radius 1fr;
     column-gap: var(--pad);
 }
 
-%extremes {
+%extreme {
     content: '';
     position: absolute;
+    z-index: 10;
     left: 50%;
     width: 1rem;
     height: 1rem;
@@ -327,36 +338,34 @@ $extreme-radius: .5rem;
 
 .timeline__track {
     position: relative;
-    padding-top: $extreme-radius;
-    padding-bottom: $extreme-radius;
 
     &::before {
-        @extend %extremes;
-        top: 0;
+        @extend %extreme;
+        top: $point-radius - $extreme-radius;
     }
     &::after {
-        @extend %extremes;
-        bottom: 0;
+        @extend %extreme;
+        bottom: $point-radius - $extreme-radius;
     }
 
     .base {
         position: absolute;
         left: 50%;
-        top: 2*$extreme-radius;
-        bottom: 2*$extreme-radius;
-        height: calc(100% - 4*$extreme-radius);
+        top: $point-radius;
+        bottom: $point-radius;
+        height: calc(100% - 2*$point-radius);
         outline: 1px solid var(--accent-50);
         transform: translateX(-50%);
     }
 
     .now {
-        --top: 50%;
+        --top: 50%;   
         position: sticky;
         top: var(--top);
-        transform: translateY(-50%);
-
-        width: $track-size;
-        height: $track-size;
+        z-index: 20;
+        
+        width: 2*$point-radius;
+        height: 2*$point-radius;
         background-color: var(--bg-0);
         border: 2px solid var(--accent-50);
         border-radius: 50%;
@@ -397,6 +406,12 @@ $extreme-radius: .5rem;
     h3 {
         margin-bottom: .3em;
     }
+
+    @media (min-width: $width-th-1) {
+        & {
+            max-width: fit-content;
+        }
+    }
 }
 
 .socials {
@@ -410,5 +425,20 @@ $extreme-radius: .5rem;
         display: block;
         width: 3.5rem;
         height: auto;
+    }
+}
+
+svg.divider {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+footer {
+    color: var(--fg-2);
+    background-color: var(--bg-2);
+    .body {
+        @extend %content-container;
+        text-align: center;
     }
 }
