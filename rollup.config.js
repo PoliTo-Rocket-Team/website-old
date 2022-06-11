@@ -7,7 +7,7 @@ const three = process.env.THREE;
 
 /**@type {import("rollup").RollupOptions} */
 const config = three ? {
-    input: "src/rocket.ts",
+    input: "src/ts/rocket.ts",
     output: {
         file: "public/js/rocket.js",
         format: "iife"
@@ -19,7 +19,7 @@ const config = three ? {
     ]
 }
 : {
-    input: "src/index.ts",
+    input: "src/ts/index.ts",
     output: {
         file: "public/js/index.js",
         format: "iife",
