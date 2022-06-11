@@ -17,8 +17,12 @@ function throttle(fn: () => any, ms: number) {
     }
 }
 
+let lastDocHeight: number;
 const timeline_now = document.getElementById("timeline-now") as HTMLDivElement;
 function setTimelineTop() {
+    const currentHeight = document.documentElement.clientHeight;
+    if(currentHeight === lastDocHeight) return;
+    lastDocHeight = currentHeight;
     timeline_now.style.setProperty("--top", window.innerHeight/2 + "px")
 }
 window.addEventListener("resize", throttle(setTimelineTop, 200));
