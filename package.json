@@ -9,7 +9,7 @@
     "dev": "rollup -w -c",
     "build-three": "rollup -c --environment THREE",
     "dev-three": "rollup -c -w --environment THREE",
-    "scss": "sass --watch src/scss/index.scss public/css/index2.css"
+    "scss": "sass --watch src/scss/index.scss public/css/index.css"
   },
   "repository": {
     "type": "git",
