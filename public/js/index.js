@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function setupNavigation(identifier) {
+    function setupNavigation(identifier, deltaY) {
         const nav = document.getElementById(identifier);
         const btn = document.querySelector(`[data-nav-btn="${identifier}"]`);
         if (!nav || !btn)
@@ -49,7 +49,7 @@
         let lastY = window.scrollY;
         function onScroll() {
             let currentY = window.scrollY;
-            nav.classList.toggle("down", currentY > 120);
+            nav.classList.toggle("down", currentY > deltaY);
             nav.classList.toggle("hide", currentY > lastY);
             lastY = currentY;
         }
@@ -82,7 +82,7 @@
         }
     }
 
-    setupNavigation("main-nav");
+    setupNavigation("main-nav", 100);
     setupThemePreference();
     const see_more = document.getElementById("see-more");
     const main = document.querySelector("main");

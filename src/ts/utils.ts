@@ -1,6 +1,6 @@
 export function wait(ms: number) { return new Promise<void>(res => setTimeout(res,ms)) }
 
-export function setupNavigation(identifier: string) {
+export function setupNavigation(identifier: string, deltaY: number) {
     const nav = document.getElementById(identifier);
     const btn = document.querySelector(`[data-nav-btn="${identifier}"]`);
     if(!nav || !btn) return alert("No navbar with identifier " + identifier);
@@ -47,7 +47,7 @@ export function setupNavigation(identifier: string) {
     let lastY = window.scrollY;
     function onScroll() {
         let currentY = window.scrollY;
-        nav.classList.toggle("down", currentY > 120);
+        nav.classList.toggle("down", currentY > deltaY);
         nav.classList.toggle("hide", currentY > lastY);
         lastY = currentY;
     }

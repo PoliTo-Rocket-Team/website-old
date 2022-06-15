@@ -1,6 +1,6 @@
 import { setupNavigation, setupThemePreference, throttle } from './utils';
 
-setupNavigation("main-nav");
+setupNavigation("main-nav", 100);
 setupThemePreference();
 
 const see_more = document.getElementById("see-more") as HTMLButtonElement;
