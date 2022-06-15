@@ -303,8 +303,10 @@ nav.open::before {
   border-radius: 1.5em;
   padding: 0.3em;
   display: flex;
-  margin-right: 1ch;
   box-shadow: inset 0 0 10px var(--bg-0);
+}
+.theme label {
+  cursor: pointer;
 }
 .theme label + label {
   margin-left: 0.3em;
@@ -328,6 +330,7 @@ nav.open::before {
 }
 
 .links {
+  z-index: 1;
   list-style: none;
   display: flex;
 }
@@ -341,6 +344,7 @@ nav.open::before {
 .burger {
   padding: 0;
   z-index: 110;
+  margin-left: 1ch;
 }
 .burger svg {
   display: block;
@@ -393,6 +397,9 @@ nav.open::before {
   }
 }
 @media (min-width: 50rem) {
+  nav {
+    padding: 1rem;
+  }
   .burger {
     display: none;
   }
