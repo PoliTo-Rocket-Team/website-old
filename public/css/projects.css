@@ -296,6 +296,17 @@ nav.down::before {
 nav.open::before {
   filter: brightness(0.75);
 }
+nav .logo {
+  z-index: 1;
+  color: var(--fg-0);
+  text-decoration: none;
+  margin-right: auto;
+}
+nav .logo svg {
+  display: block;
+  height: 2.2em;
+  width: auto;
+}
 
 .theme {
   z-index: 110;

@@ -205,6 +205,18 @@ nav {
         border-bottom-color: #7777;
     }
     &.open::before { filter: brightness(.75); }
+
+    .logo {
+        z-index: 1;
+        color: var(--fg-0);
+        text-decoration: none;
+        margin-right: auto;
+        svg {
+            display: block;
+            height: 2.2em;
+            width: auto;
+        }
+    }
 }
 
 .theme {
