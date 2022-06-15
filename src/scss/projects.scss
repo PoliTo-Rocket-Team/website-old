@@ -1,30 +1,7 @@
 @import "./base.scss";
 
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: var(--bg-1);
-    border-bottom: 2px solid #8883;
-    padding: .6rem 1rem;
-}
-.links {
-    list-style: none;
-    display: flex;
-    justify-content: right;
-
-    li + li {
-        margin-left: 2ch;
-    }
-    a {
-        color: var(--fg-0);
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 500;
-    }
-}
-
 main {
+    margin-top: 5.5rem;
     padding: var(--pad);
     min-height: 100vh;
 }
