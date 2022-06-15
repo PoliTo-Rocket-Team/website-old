@@ -63,9 +63,10 @@
             setTimeout(() => { fn(); will_call = false; }, ms);
         };
     }
+    const thememedia = window.matchMedia("(prefers-color-scheme: dark)");
     function setupThemePreference() {
         const btns = document.querySelectorAll('input[type="radio"][name="theme"]');
-        let initial = localStorage.getItem("theme");
+        const initial = localStorage.getItem("theme");
         if (initial) {
             document.body.setAttribute("data-theme", initial);
             for (var btn of btns) {
@@ -75,11 +76,16 @@
                 }
             }
         }
+        else {
+            document.body.setAttribute("data-theme", "system");
+        }
         for (var btn of btns)
             btn.addEventListener("change", onChange);
         function onChange() {
             document.body.setAttribute("data-theme", this.value);
             localStorage.setItem("theme", this.value);
+            const dark = this.value === "system" ? thememedia.matches : (this.value === "dark");
+            window.dispatchEvent(new CustomEvent("PRT:theme", { detail: { dark } }));
         }
     }
 

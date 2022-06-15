@@ -1,6 +1,6 @@
 import { ArrowHelper, Color, DirectionalLight, Euler, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { wait } from "./utils";
+import { wait, isThemeDark } from "./utils";
 
 const liftoff_heigth = 20;
 const liftoff_coefficient = 4e-3;
@@ -9,9 +9,7 @@ const FOV = 75;
 const rot = new Euler(Math.PI/3, Math.PI/4, Math.PI/16, 'YXZ');
 
 const scene = new Scene();
-const media = window.matchMedia("(prefers-color-scheme: dark)");
 function setSceneBg(dark: boolean) { scene.background = new Color(dark ? 0x333333 : 0xefefef); }
-media.addEventListener("change", ev => setSceneBg(ev.matches))
 
 
 const camera = new PerspectiveCamera(FOV, 1, .1, 100);
@@ -35,7 +33,8 @@ function startAnimation(obj: Object3D) {
     const renderer = new WebGLRenderer({antialias: true});
     renderer.setPixelRatio(window.devicePixelRatio);
     setSizes()
-    setSceneBg(media.matches);
+    setSceneBg(isThemeDark());
+    window.addEventListener("PRT:theme", (e: CustomEvent) => setSceneBg(e.detail.dark))
     const place = header.querySelector(".header__canvas") as HTMLDivElement;
     place.appendChild(renderer.domElement);
 
