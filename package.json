@@ -9,7 +9,9 @@
     "dev": "rollup -w -c",
     "build-three": "rollup -c --environment THREE",
     "dev-three": "rollup -c -w --environment THREE",
-    "scss": "sass --watch src/scss/index.scss public/css/index.css"
+    "scss:index": "sass --watch src/scss/index.scss public/css/index.css",
+    "scss:aboutus": "sass --watch src/scss/aboutus.scss public/css/aboutus.css",
+    "scss:projects": "sass --watch src/scss/projects.scss public/css/projects.css"
   },
   "repository": {
     "type": "git",

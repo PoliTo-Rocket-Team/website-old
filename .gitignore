@@ -5,3 +5,4 @@ public/js/worker*
 src/worker*
 discarded/
 *.css.map
+compiler.js
