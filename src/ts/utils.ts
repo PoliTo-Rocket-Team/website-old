@@ -42,6 +42,15 @@ export function setupNavigation(identifier: string) {
             openAction();
         }
     }
+
+    window.addEventListener("scroll", throttle(100, onScroll));
+    let lastY = window.scrollY;
+    function onScroll() {
+        let currentY = window.scrollY;
+        nav.classList.toggle("down", currentY > 120);
+        nav.classList.toggle("hide", currentY > lastY);
+        lastY = currentY;
+    }
 }
 
 export function throttle( ms: number, fn: () => any) {

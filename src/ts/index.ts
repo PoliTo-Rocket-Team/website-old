@@ -18,5 +18,5 @@ function setTimelineTop() {
     lastDocHeight = currentHeight;
     timeline_now.style.setProperty("--top", window.innerHeight/2 + "px")
 }
-window.addEventListener("resize", throttle(200, setTimelineTop));
+window.addEventListener("resize", throttle(100, setTimelineTop));
 setTimelineTop();

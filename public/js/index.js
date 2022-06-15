@@ -45,6 +45,14 @@
                 openAction();
             }
         }
+        window.addEventListener("scroll", throttle(100, onScroll));
+        let lastY = window.scrollY;
+        function onScroll() {
+            let currentY = window.scrollY;
+            nav.classList.toggle("down", currentY > 120);
+            nav.classList.toggle("hide", currentY > lastY);
+            lastY = currentY;
+        }
     }
     function throttle(ms, fn) {
         let will_call = false;
@@ -90,7 +98,7 @@
         lastDocHeight = currentHeight;
         timeline_now.style.setProperty("--top", window.innerHeight / 2 + "px");
     }
-    window.addEventListener("resize", throttle(200, setTimelineTop));
+    window.addEventListener("resize", throttle(100, setTimelineTop));
     setTimelineTop();
 
 })();
