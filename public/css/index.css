@@ -134,17 +134,7 @@
     --fg-link: var(--accent-20);
   }
 }
-@media (min-width: 50rem) {
-  :root {
-    --fs-40: 1rem;
-    --fs-50: 1.15rem;
-    --fs-60: 1.5rem;
-    --fs-70: 2.2rem;
-    --fs-80: 4.5rem;
-    --pad: max(2rem, 1vw);
-  }
-}
-body.ligth {
+body[data-theme=light] {
   --bg-0: var(--ligth-bg-0);
   --bg-1: var(--ligth-bg-1);
   --bg-2: var(--dark-bg-1);
@@ -156,13 +146,18 @@ body.ligth {
   --fg-link: var(--accent-50);
 }
 
-body.dark {
+body[data-theme=dark] {
   --bg-0: var(--dark-bg-0);
   --bg-1: var(--dark-bg-1);
   --fg-0: var(--dark-fg-0);
   --fg-1: var(--dark-fg-1);
   --bg-sel: var(--accent-30);
   --fg-link: var(--accent-20);
+}
+
+body {
+  background-color: var(--bg-0);
+  color: var(--fg-0);
 }
 
 *, *::before, *::after {
@@ -175,6 +170,16 @@ body.dark {
 ::selection {
   background-color: var(--bg-sel);
   color: var(--fg-sel);
+}
+
+h1 {
+  font-size: var(--fs-80);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--fs-70);
+  font-weight: 700;
 }
 
 button {
@@ -190,19 +195,63 @@ a {
   color: var(--fg-link);
 }
 
-.text-outline {
-  color: transparent;
-  text-shadow: 0 0 0 0.05em var(--fg-0);
+@supports (-webkit-text-stroke: 2px red) {
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.water-mark {
+  --t: 0;
+  position: fixed;
+  top: 10rem;
+  right: 0;
+  z-index: -1;
+  transform-origin: bottom right;
+  transform: translateY(-100%) rotate(-90deg) translateX(calc(100% * var(--t)));
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--fg-1);
+  opacity: 0.07;
+  width: max-content;
 }
 
+.bottom-line {
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.2);
+  margin-bottom: 0.45em;
+}
+
+svg.divider {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 50rem) {
+  :root {
+    --fs-40: 1rem;
+    --fs-50: 1.15rem;
+    --fs-60: 1.5rem;
+    --fs-70: 2.2rem;
+    --fs-80: 4.5rem;
+    --pad: max(2rem, 1vw);
+  }
+  .center-lg {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .water-mark {
+    font-size: max(6rem, 15vw);
+  }
+}
 html {
   height: 100%;
 }
 
 body {
   height: 100%;
-  background-color: var(--bg-0);
-  color: var(--fg-0);
 }
 body.has-nav-open {
   overflow-y: hidden;
@@ -229,6 +278,37 @@ nav {
   font-size: var(--fs-50);
   overflow-x: hidden;
   overflow-y: visible;
+}
+
+.theme {
+  z-index: 110;
+  background-color: var(--bg-1);
+  border-radius: 1.5em;
+  padding: 0.3em;
+  display: flex;
+  margin-left: 1ch;
+  margin-right: 1ch;
+  box-shadow: inset 0 0 10px var(--bg-0);
+}
+.theme label + label {
+  margin-left: 0.3em;
+}
+.theme input {
+  display: none;
+}
+.theme svg {
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+  color: var(--fg-1);
+  transition: color 200ms ease;
+}
+.theme input:checked + svg {
+  color: var(--accent-30);
+}
+.theme path {
+  fill: currentColor;
+  transform-origin: center;
 }
 
 .links {
@@ -369,8 +449,6 @@ header {
 }
 
 h1 {
-  font-size: var(--fs-80);
-  font-weight: 700;
   grid-row: 2;
 }
 h1 span {
@@ -525,7 +603,6 @@ main p + p {
 }
 
 h2 {
-  font-size: var(--fs-70);
   margin-bottom: 0.7em;
   margin-top: 2em;
 }
@@ -628,12 +705,6 @@ h2 {
 .socials svg {
   display: block;
   width: 3.5rem;
-  height: auto;
-}
-
-svg.divider {
-  display: block;
-  width: 100%;
   height: auto;
 }
 

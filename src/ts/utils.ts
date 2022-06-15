@@ -1,6 +1,6 @@
 export function wait(ms: number) { return new Promise<void>(res => setTimeout(res,ms)) }
 
-export function navSetup(identifier: string) {
+export function setupNavigation(identifier: string) {
     const nav = document.getElementById(identifier);
     const btn = document.querySelector(`[data-nav-btn="${identifier}"]`);
     if(!nav || !btn) return alert("No navbar with identifier " + identifier);
@@ -59,5 +59,24 @@ export function watermark(element: HTMLElement) {
     function setTrasl() {
         const t = .35 * window.scrollY / window.innerHeight;
         element.style.setProperty("--t", t.toFixed(12));
+    }
+}
+
+export function setupThemePreference() {
+    const btns = document.querySelectorAll('input[type="radio"][name="theme"]') as NodeListOf<HTMLInputElement>;
+    let initial = localStorage.getItem("theme");
+    if(initial) {
+        for(var btn of btns) {
+            if(btn.value === initial) {
+                btn.checked = true;
+                break;
+            }
+        }
+    }
+
+    for(var btn of btns) btn.addEventListener("change", onChange);
+    function onChange(this: HTMLInputElement) {
+        document.body.setAttribute("data-theme", this.value);
+        localStorage.setItem("theme", this.value);
     }
 }

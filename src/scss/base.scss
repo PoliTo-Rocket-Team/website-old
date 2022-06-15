@@ -60,8 +60,8 @@ $accent-hue: 12;
 $width-th-1: 50rem;
 $width-th-2: 70rem;
 
-body.ligth { @include light-theme; }
-body.dark { @include dark-theme; }
+body[data-theme="light"] { @include light-theme; }
+body[data-theme="dark"] { @include dark-theme; }
 
 body {
     background-color: var(--bg-0);

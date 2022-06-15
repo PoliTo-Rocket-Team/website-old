@@ -5,8 +5,6 @@ html { height: 100%; }
 
 body {
     height: 100%;
-    background-color: var(--bg-0);
-    color: var(--fg-0);
     &.has-nav-open { overflow-y: hidden; }
 }
 
@@ -32,6 +30,36 @@ nav {
 
     overflow-x: hidden;
     overflow-y: visible;
+}
+
+.theme {
+    z-index: 110;
+    background-color: var(--bg-1);
+    border-radius: 1.5em;
+    padding: .3em;
+    display: flex;
+    margin-left: 1ch;
+    margin-right: 1ch;
+    box-shadow: inset 0 0 10px var(--bg-0);
+
+    label + label {
+        margin-left: .3em;
+    }
+    input { display: none; }
+    svg {
+        display: block;
+        height: 1.5em;
+        width: 1.5em;
+        color: var(--fg-1);
+        transition: color 200ms ease;
+    }
+    input:checked + svg {
+        color: var(--accent-30);
+    }
+    path {
+        fill: currentColor;
+        transform-origin: center;
+    }
 }
 
 .links {
@@ -161,10 +189,7 @@ header {
 }
 
 h1 {
-    font-size: var(--fs-80);
-    font-weight: 700;
     grid-row: 2;
-
     span {
         display: inline-block;
         animation-duration: 500ms;
@@ -310,7 +335,6 @@ main p + p {
 }
 
 h2 {
-    font-size: var(--fs-70);
     margin-bottom: .7em;
     margin-top: 2em;
 }
@@ -426,12 +450,6 @@ $extreme-radius: .5rem;
         width: 3.5rem;
         height: auto;
     }
-}
-
-svg.divider {
-    display: block;
-    width: 100%;
-    height: auto;
 }
 
 footer {
