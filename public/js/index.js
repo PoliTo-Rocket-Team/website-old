@@ -46,6 +46,15 @@
             }
         }
     }
+    function throttle(ms, fn) {
+        let will_call = false;
+        return function () {
+            if (will_call)
+                return;
+            will_call = true;
+            setTimeout(() => { fn(); will_call = false; }, ms);
+        };
+    }
     function setupThemePreference() {
         const btns = document.querySelectorAll('input[type="radio"][name="theme"]');
         let initial = localStorage.getItem("theme");
@@ -72,15 +81,6 @@
     see_more.addEventListener("click", e => {
         main.scrollIntoView({ behavior: "smooth" });
     });
-    function throttle(fn, ms) {
-        let will_call = false;
-        return function () {
-            if (will_call)
-                return;
-            will_call = true;
-            setTimeout(() => { fn(); will_call = false; });
-        };
-    }
     let lastDocHeight;
     const timeline_now = document.getElementById("timeline-now");
     function setTimelineTop() {
@@ -90,7 +90,7 @@
         lastDocHeight = currentHeight;
         timeline_now.style.setProperty("--top", window.innerHeight / 2 + "px");
     }
-    window.addEventListener("resize", throttle(setTimelineTop));
+    window.addEventListener("resize", throttle(200, setTimelineTop));
     setTimelineTop();
 
 })();

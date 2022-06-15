@@ -1,4 +1,4 @@
-import { setupNavigation, setupThemePreference } from './utils';
+import { setupNavigation, setupThemePreference, throttle } from './utils';
 
 setupNavigation("main-nav");
 setupThemePreference();
@@ -10,15 +10,6 @@ see_more.addEventListener("click", e => {
     main.scrollIntoView({ behavior: "smooth" }); 
 });
 
-function throttle(fn: () => any, ms: number) {
-    let will_call = false;
-    return function() {
-        if(will_call) return;
-        will_call = true;
-        setTimeout(() => { fn(); will_call = false });
-    }
-}
-
 let lastDocHeight: number;
 const timeline_now = document.getElementById("timeline-now") as HTMLDivElement;
 function setTimelineTop() {
@@ -27,5 +18,5 @@ function setTimelineTop() {
     lastDocHeight = currentHeight;
     timeline_now.style.setProperty("--top", window.innerHeight/2 + "px")
 }
-window.addEventListener("resize", throttle(setTimelineTop, 200));
+window.addEventListener("resize", throttle(200, setTimelineTop));
 setTimelineTop();

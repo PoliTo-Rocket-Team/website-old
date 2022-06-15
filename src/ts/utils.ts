@@ -44,6 +44,15 @@ export function setupNavigation(identifier: string) {
     }
 }
 
+export function throttle( ms: number, fn: () => any) {
+    let will_call = false;
+    return function() {
+        if(will_call) return;
+        will_call = true;
+        setTimeout(() => { fn(); will_call = false }, ms);
+    }
+}
+
 export function frameThrottle(fn: () => any) {
     let req: number;
     function onFrame() { fn(); req=null; }
