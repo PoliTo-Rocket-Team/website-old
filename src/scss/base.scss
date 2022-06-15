@@ -60,20 +60,13 @@ $accent-hue: 12;
 $width-th-1: 50rem;
 $width-th-2: 70rem;
 
-@media (min-width: $width-th-1) {
-    :root {
-        --fs-40: 1rem;
-        --fs-50: 1.15rem;
-        --fs-60: 1.5rem;
-        --fs-70: 2.2rem;
-        --fs-80: 4.5rem;
-
-        --pad: max(2rem, 1vw);
-    }
-}
-
 body.ligth { @include light-theme; }
 body.dark { @include dark-theme; }
+
+body {
+    background-color: var(--bg-0);
+    color: var(--fg-0);
+}
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -85,6 +78,15 @@ body.dark { @include dark-theme; }
 ::selection {
     background-color: var(--bg-sel);
     color: var(--fg-sel);
+}
+
+h1 {
+    font-size: var(--fs-80);
+    font-weight: 700;
+}
+h2 {
+    font-size: var(--fs-70);
+    font-weight: 700;
 }
 
 button {
@@ -100,7 +102,56 @@ a {
     color: var(--fg-link);
 }
 
-.text-outline {
-    color: transparent;
-    text-shadow: 0 0 0 .05em var(--fg-0);
+@supports (-webkit-text-stroke: 2px red) {
+    .text-outline {
+        -webkit-text-stroke: 1px currentColor;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.water-mark {
+    --t: 0;
+    position: fixed;
+    top: 10rem;
+    right: 0;
+    z-index: -1;
+    transform-origin: bottom right;
+    transform: translateY(-100%) rotate(-90deg) translateX(calc(100% * var(--t)));
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--fg-1);
+    opacity: .07;
+    width: max-content;
+}
+
+.bottom-line {
+    padding-bottom: .25em;
+    border-bottom: 2px solid #8883;
+    margin-bottom: .45em;
+}
+
+svg.divider {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: $width-th-1) {
+    :root {
+        --fs-40: 1rem;
+        --fs-50: 1.15rem;
+        --fs-60: 1.5rem;
+        --fs-70: 2.2rem;
+        --fs-80: 4.5rem;
+
+        --pad: max(2rem, 1vw);
+    }
+    .center-lg {
+        max-width: $width-th-1;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .water-mark {
+        font-size: max(6rem, 15vw);
+    }
 }

@@ -1,0 +1,64 @@
+@import "./base.scss";
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--bg-1);
+    border-bottom: 2px solid #8883;
+    padding: .6rem 1rem;
+}
+.links {
+    list-style: none;
+    display: flex;
+    justify-content: right;
+
+    li + li {
+        margin-left: 2ch;
+    }
+    a {
+        color: var(--fg-0);
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 500;
+    }
+}
+
+main {
+    padding: var(--pad);
+    min-height: 100vh;
+}
+
+p + p {
+    margin-top: .9rem;
+}
+
+article {
+    margin-top: 6rem;
+    position: relative;
+
+    @media (max-width: $width-th-1) {
+        &::before {
+            content: '';
+            position: absolute;
+            top: calc(-1 * var(--pad));
+            left: calc(-1 * var(--pad));
+            width: calc(var(--pad) + 4ch);
+            height: 4px;
+            background-color: var(--accent-40);
+            border-bottom-right-radius: 2px;
+            border-top-right-radius: 2px;
+        }
+    }
+}
+
+h2 {
+    margin-bottom: .5rem;
+}
+
+footer {
+    padding: var(--pad);
+    background-color: var(--bg-2);
+    color: var(--fg-2);
+    text-align: center;
+}

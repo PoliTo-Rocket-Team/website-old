@@ -18,16 +18,29 @@ const config = three ? {
         production && terser()
     ]
 }
-: {
-    input: "src/ts/index.ts",
-    output: {
-        file: "public/js/index.js",
-        format: "iife",
+: [
+    {
+        input: "src/ts/index.ts",
+        output: {
+            file: "public/js/index.js",
+            format: "iife",
+        },
+        plugins: [
+            typescript(),
+            production && terser()
+        ]
     },
-    plugins: [
-        typescript(),
-        production && terser()
-    ]
-}
+    {
+        input: "src/ts/projects.ts",
+        output: {
+            file: "public/js/projects.js",
+            format: "iife",
+        },
+        plugins: [
+            typescript(),
+            production && terser()
+        ]
+    }
+]
 
 export default config;
