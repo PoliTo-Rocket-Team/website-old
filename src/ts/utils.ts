@@ -84,6 +84,7 @@ export function setupThemePreference() {
     const btns = document.querySelectorAll('input[type="radio"][name="theme"]') as NodeListOf<HTMLInputElement>;
     let initial = localStorage.getItem("theme");
     if(initial) {
+        document.body.setAttribute("data-theme", initial);
         for(var btn of btns) {
             if(btn.value === initial) {
                 btn.checked = true;
