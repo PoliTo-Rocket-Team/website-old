@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node compiler --watch",
-    "build": "node compiler --compile",
-    "three": "node compiler --three",
+    "dev": "node compiler dev",
+    "build": "node compiler build",
+    "three": "node compiler three",
     "build:three": "rollup -c --environment THREE",
     "dev:three": "rollup -c -w --environment THREE",
     "build:ts": "rollup -c",

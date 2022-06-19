@@ -115,20 +115,17 @@ function goThroughNames(fn) {
 
 const mode = process.argv[2];
 switch(mode) {
-    case "-W":
-    case "--watch":
+    case "dev":
     {
         const cbs = [];
         goThroughNames(name => cbs.push(develop(name)));
         process.on("SIGINT", () => Promise.all([].concat(cbs.map(cb => cb()))).finally(() => process.exit(0)));
         break;
     }
-    case "-C":
-    case "--compile":
+    case "build":
         goThroughNames(compile);
         break;
-    case "-T":
-    case "--three":
+    case "three":
         if(process.argv[3] === "rocket") compileTS(process.argv[3]);
         console.warn("Only three.js file is rocket");
     default:
