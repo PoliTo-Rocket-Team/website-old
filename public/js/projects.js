@@ -50,6 +50,8 @@
         function onScroll() {
             let currentY = window.scrollY;
             nav.classList.toggle("down", currentY > deltaY);
+            if (Math.abs(currentY - lastY) < 10)
+                return;
             nav.classList.toggle("hide", currentY > lastY);
             lastY = currentY;
         }
