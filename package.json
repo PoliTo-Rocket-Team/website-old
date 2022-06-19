@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
-    "dev": "rollup -w -c",
-    "build-three": "rollup -c --environment THREE",
-    "dev-three": "rollup -c -w --environment THREE",
+    "dev": "node compiler --watch",
+    "build": "node compiler --compile",
+    "three": "node compiler --three",
+    "build:three": "rollup -c --environment THREE",
+    "dev:three": "rollup -c -w --environment THREE",
+    "build:ts": "rollup -c",
+    "dev:ts": "rollup -w -c",
     "scss:index": "sass --watch src/scss/index.scss public/css/index.css",
     "scss:aboutus": "sass --watch src/scss/aboutus.scss public/css/aboutus.css",
     "scss:projects": "sass --watch src/scss/projects.scss public/css/projects.css"
@@ -27,8 +30,10 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/three": "^0.140.0",
+    "dotenv": "^16.0.1",
     "rollup": "^2.74.1",
     "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.52.3",
     "three": "^0.141.0",
     "tslib": "^2.4.0",
     "typescript": "^4.7.2"
