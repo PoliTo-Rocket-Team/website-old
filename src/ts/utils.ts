@@ -7,6 +7,7 @@ export function setupNavigation(identifier: string, deltaY: number) {
 
     const closers = document.querySelectorAll<HTMLElement>(`[data-nav-closer~="${identifier}"]`);
     const OPEN_STATE = "open-state-" + identifier;
+    if(history.state === OPEN_STATE) history.back();
     window.addEventListener("popstate", closeAction);
     btn.addEventListener("click", toggle);
     let isOpen = false;
