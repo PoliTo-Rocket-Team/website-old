@@ -1,0 +1,15 @@
+@import "./base.scss";
+
+main {
+    background-color: var(--bg-0);
+    color: var(--fg-0);
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    padding-top: 5.5rem;
+    transition: filter $nav-trans ease;
+    min-height: 100vh;
+    
+    &[has-nav-open] {
+        filter: brightness(75%);
+    }
+}

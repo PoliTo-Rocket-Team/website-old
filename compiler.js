@@ -102,7 +102,7 @@ function compile(name) {
     compileSCSS(name);
 }
 
-function isPage(name) { return name === "index" || name === "projects" };
+function isPage(name) { return name === "index" || name === "projects" || name === "sponsors" };
 function goThroughNames(fn) {
     let name;
     const len = process.argv.length;
