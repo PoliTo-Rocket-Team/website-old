@@ -3,13 +3,85 @@
 main {
     background-color: var(--bg-0);
     color: var(--fg-0);
-    padding-left: var(--pad);
-    padding-right: var(--pad);
-    padding-top: 5.5rem;
-    transition: filter $nav-trans ease;
+
+    padding: var(--pad);
+    transition: filter $nav-trans;
     min-height: 100vh;
     
     &[has-nav-open] {
         filter: brightness(75%);
+    }
+}
+
+.intro {
+    max-width: 50ch;
+}
+
+section {
+    margin-top: 4rem;
+}
+h2 {
+    font-size: var(--fs-70);
+    margin-bottom: 3rem;
+}
+.card {
+    --x: 0;
+    --y: 0;
+    margin-top: 3rem;
+}
+
+@media (min-width: $width-th-1) {
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(35ch,1fr));
+        gap: 3rem;
+    }
+    .card {
+        --scale: 1;
+        display: block;
+        transition: transform 250ms ease;
+        transform: /* translate(calc(var(--x) * 2%), calc(var(--y) * 2%))*/ scale(var(--scale));
+        background-color: var(--bg-1);
+        border-radius: 1.5rem;
+        margin-top: 0;
+        
+        &:hover {
+            --scale: 1.08;
+        }
+    }
+    .card.smooth {
+        transition: transform 250ms ease;
+    }
+    .card__body {
+        padding: 1.5rem;
+    }
+}
+
+.card__body {
+    h3 {
+        font-size: var(--fs-60);
+        a {
+            text-decoration: none;
+            color: var(--accent-30);
+
+            &::after {
+                content: "\279C";
+                display: inline-block;
+                position: relative;
+                opacity: .5;
+                padding-left: .75ch;
+                transition:
+                    transform 150ms ease-out,
+                    opacity 150ms ease-out;
+            }
+            &:hover::after {
+                transform: translateX(.4ch);
+                opacity: 1;
+            }
+        }
+    }
+    p {
+        margin-top: 1em;
+        text-align: justify;
     }
 }

@@ -142,10 +142,10 @@ svg.divider {
         --fs-40: 1rem;
         --fs-50: 1.15rem;
         --fs-60: 1.5rem;
-        --fs-70: 2.2rem;
+        --fs-70: 2.5rem;
         --fs-80: 4.5rem;
 
-        --pad: max(2rem, 1vw);
+        --pad: max(2rem, 8vw);
     }
     .center-lg {
         max-width: $width-th-1;

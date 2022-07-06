@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* latin-ext */
 @font-face {
   font-family: "Plus Jakarta Sans";
@@ -236,9 +237,9 @@ svg.divider {
     --fs-40: 1rem;
     --fs-50: 1.15rem;
     --fs-60: 1.5rem;
-    --fs-70: 2.2rem;
+    --fs-70: 2.5rem;
     --fs-80: 4.5rem;
-    --pad: max(2rem, 1vw);
+    --pad: max(2rem, 8vw);
   }
   .center-lg {
     max-width: 50rem;
@@ -425,14 +426,80 @@ nav .logo svg {
 main {
   background-color: var(--bg-0);
   color: var(--fg-0);
-  padding-left: var(--pad);
-  padding-right: var(--pad);
-  padding-top: 5.5rem;
-  transition: filter 350ms ease ease;
+  padding: var(--pad);
+  transition: filter 350ms ease;
   min-height: 100vh;
 }
 main[has-nav-open] {
   filter: brightness(75%);
+}
+
+.intro {
+  max-width: 50ch;
+}
+
+section {
+  margin-top: 4rem;
+}
+
+h2 {
+  font-size: var(--fs-70);
+  margin-bottom: 3rem;
+}
+
+.card {
+  --x: 0;
+  --y: 0;
+  margin-top: 3rem;
+}
+
+@media (min-width: 50rem) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35ch, 1fr));
+    gap: 3rem;
+  }
+  .card {
+    --scale: 1;
+    display: block;
+    transition: transform 250ms ease;
+    transform: scale(var(--scale));
+    background-color: var(--bg-1);
+    border-radius: 1.5rem;
+    margin-top: 0;
+  }
+  .card:hover {
+    --scale: 1.08;
+  }
+  .card.smooth {
+    transition: transform 250ms ease;
+  }
+  .card__body {
+    padding: 1.5rem;
+  }
+}
+.card__body h3 {
+  font-size: var(--fs-60);
+}
+.card__body h3 a {
+  text-decoration: none;
+  color: var(--accent-30);
+}
+.card__body h3 a::after {
+  content: "➜";
+  display: inline-block;
+  position: relative;
+  opacity: 0.5;
+  padding-left: 0.75ch;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+.card__body h3 a:hover::after {
+  transform: translateX(0.4ch);
+  opacity: 1;
+}
+.card__body p {
+  margin-top: 1em;
+  text-align: justify;
 }
 
 /*# sourceMappingURL=sponsors.css.map */
