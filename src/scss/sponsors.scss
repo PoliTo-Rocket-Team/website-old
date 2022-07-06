@@ -3,8 +3,8 @@
 main {
     background-color: var(--bg-0);
     color: var(--fg-0);
-
     padding: var(--pad);
+    padding-top: max(6.5rem, var(--pad));
     transition: filter $nav-trans;
     min-height: 100vh;
     
@@ -18,42 +18,52 @@ main {
 }
 
 section {
-    margin-top: 4rem;
+    margin-top: 5rem;
 }
 h2 {
     font-size: var(--fs-70);
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 .card {
     --x: 0;
     --y: 0;
-    margin-top: 3rem;
+    margin-top: 4rem;
+    
+    img {
+        display: block;
+        height: 7rem;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2rem;
+    }
 }
 
 @media (min-width: $width-th-1) {
     .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(35ch,1fr));
+        grid-template-columns: repeat(auto-fit, 35ch);
         gap: 3rem;
     }
     .card {
         --scale: 1;
+        min-width: 35ch;
+        max-width: 35ch;
+
         display: block;
         transition: transform 250ms ease;
         transform: /* translate(calc(var(--x) * 2%), calc(var(--y) * 2%))*/ scale(var(--scale));
         background-color: var(--bg-1);
         border-radius: 1.5rem;
+        padding: 1.5rem;
         margin-top: 0;
         
         &:hover {
-            --scale: 1.08;
+            --scale: 1.05;
         }
     }
     .card.smooth {
         transition: transform 250ms ease;
-    }
-    .card__body {
-        padding: 1.5rem;
     }
 }
 

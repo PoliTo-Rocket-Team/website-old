@@ -1,8 +1,9 @@
 @import "./base.scss";
 
 main {
-    margin-top: 5.5rem;
+    margin-top: 3.5rem;
     padding: var(--pad);
+    padding-top: max(6.5rem, var(--pad));
     min-height: 100vh;
 }
 
