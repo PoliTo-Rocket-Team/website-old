@@ -13,8 +13,9 @@
     "build:ts": "rollup -c",
     "dev:ts": "rollup -w -c",
     "scss:index": "sass --watch src/scss/index.scss public/css/index.css",
-    "scss:aboutus": "sass --watch src/scss/aboutus.scss public/css/aboutus.css",
-    "scss:projects": "sass --watch src/scss/projects.scss public/css/projects.css"
+    "scss:about": "sass --watch src/scss/about.scss public/css/about.css",
+    "scss:projects": "sass --watch src/scss/projects.scss public/css/projects.css",
+    "scss:sponsors": "sass --watch src/scss/sponsors.scss public/css/sponsors.css"
   },
   "repository": {
     "type": "git",

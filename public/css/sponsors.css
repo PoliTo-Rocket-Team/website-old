@@ -352,6 +352,9 @@ nav .logo svg {
   color: var(--fg-0);
   font-weight: 500;
 }
+.links .current {
+  border-bottom: 2px solid var(--accent-30);
+}
 
 .burger {
   padding: 0;
@@ -423,6 +426,21 @@ nav .logo svg {
     margin-right: 2ch;
   }
 }
+.stop-growth {
+  max-width: 50ch;
+}
+
+hr.subtle {
+  font-size: var(--fs-80);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.2);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  height: 0;
+}
+
 main {
   background-color: var(--bg-0);
   color: var(--fg-0);
@@ -433,10 +451,6 @@ main {
 }
 main[has-nav-open] {
   filter: brightness(75%);
-}
-
-.intro {
-  max-width: 50ch;
 }
 
 section {
