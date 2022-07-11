@@ -189,7 +189,7 @@ class Pool<T> {
 
 const cards = document.querySelectorAll<HTMLElement>(".card");
 const spring_pool = new Pool(() => {
-    console.log("created");
+    console.log("spring created");
     return spring(0.075, 0.0001)
 })
 
