@@ -469,11 +469,12 @@ h2 {
 }
 .card img {
   display: block;
-  height: 7rem;
+  max-height: 7rem;
   width: auto;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 50rem) {
@@ -525,6 +526,17 @@ h2 {
 .card__body p {
   margin-top: 1em;
   text-align: justify;
+}
+
+img.dark-bg {
+  background-color: var(--dark-bg-1);
+  padding: 0.6em;
+  border-radius: 1em;
+}
+
+#logo-poli {
+  border-radius: 5em;
+  padding-right: 0.9em;
 }
 
 /*# sourceMappingURL=sponsors.css.map */
