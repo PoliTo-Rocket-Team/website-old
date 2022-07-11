@@ -92,37 +92,188 @@
             window.dispatchEvent(new CustomEvent("PRT:theme", { detail: { dark } }));
         }
     }
+    function NO_FN() { }
+    function trackmouse(element, options) {
+        const onenter = options.enter || NO_FN;
+        const onleave = options.leave || NO_FN;
+        const onmove = options.move || NO_FN;
+        const extra = options.extra;
+        element.addEventListener("mouseenter", enter);
+        function enter() {
+            element.addEventListener("mousemove", mousemove);
+            element.addEventListener("mouseleave", leave, { once: true });
+            onenter(extra);
+        }
+        let x;
+        let y;
+        let req;
+        function signal() {
+            const rect = element.getBoundingClientRect();
+            onmove(x - rect.left, y - window.screenTop - rect.top, rect.width, rect.height, extra);
+            req = null;
+        }
+        function mousemove(ev) {
+            x = ev.pageX;
+            y = ev.pageY;
+            if (!req)
+                req = requestAnimationFrame(signal);
+        }
+        function leave() {
+            element.removeEventListener("mousemove", signal);
+            cancelAnimationFrame(req);
+            onleave(extra);
+        }
+    }
 
     setupThemePreference();
     setupNavigation("main-nav", 80);
-    // const cards = document.querySelectorAll<HTMLElement>(".card");
-    // for(var card of cards) {
-    //     card.addEventListener("mouseenter", mouseenter);
-    //     card.addEventListener("mouseleave", mouseleave);
-    // }
-    // function smooth(el: HTMLElement) {
-    //     el.classList.add("smooth");
-    //     setTimeout(() => el.classList.remove("smooth"), 250);
-    // }
-    // function mouseenter(this: HTMLElement, ev: MouseEvent) {
-    //     smooth(this);
-    //     setmovement.call(this, ev);
-    //     this.addEventListener("mousemove", setmovement);
-    // }
-    // function mouseleave(this: HTMLElement, ev: MouseEvent) {
-    //     smooth(this);
-    //     this.removeEventListener("mousemove", setmovement);
-    //     this.style.setProperty("--x", "0");
-    //     this.style.setProperty("--y", "0");
-    // }
-    // function setmovement(this: HTMLElement, ev: MouseEvent) {
-    //     const h = this.clientHeight;
-    //     const w = this.clientWidth;
-    //     const x = ev.pageX - this.offsetLeft;
-    //     const y = ev.pageY - this.offsetTop;
-    //     // console.log(ev.offsetX, ev.offsetY, " in ", w, h);
-    //     this.style.setProperty("--x", (2*x/w - 1).toFixed(4));
-    //     this.style.setProperty("--y", (2*y/h - 1).toFixed(4));
-    // }
+    class Position {
+        constructor(x = 0, y = 0) {
+            this.x = x;
+            this.y = y;
+        }
+        set(x, y) {
+            this.x = x;
+            this.y = y;
+            return this;
+        }
+        eq(other) {
+            this.x = other.x;
+            this.y = other.y;
+            return this;
+        }
+        add(other) {
+            this.x += other.x;
+            this.y += other.y;
+            return this;
+        }
+        sub(other) {
+            this.x -= other.x;
+            this.y -= other.y;
+            return this;
+        }
+        mul(k) {
+            this.x *= k;
+            this.y *= k;
+            return this;
+        }
+        toString() {
+            return `(${this.x}, ${this.y})`;
+        }
+        static distance(a, b) {
+            return Math.hypot(a.x - b.x, a.y - b.y);
+        }
+    }
+    function nofn() { }
+    function spring(k, threshold = 0.01) {
+        const current = new Position();
+        const final = new Position();
+        const temp = new Position();
+        let req;
+        const cbs = { move: nofn, end: nofn };
+        return { aim, set, on };
+        function move(time) {
+            temp.eq(final).sub(current).mul(k);
+            current.add(temp);
+            // console.log("%cmove to "+current, "color: #bbbb11;");
+            cbs.move(current.x, current.y);
+            if (Position.distance(final, current) < threshold) {
+                // console.log("%calmost at "+final, "color: green;");
+                req = null;
+                cbs.end(final.x, final.y);
+            }
+            else
+                req = requestAnimationFrame(move);
+        }
+        function aim(x, y) {
+            final.set(x, y);
+            if (req)
+                return;
+            performance.now();
+            req = requestAnimationFrame(move);
+        }
+        function set(x, y) {
+            final.set(x, y);
+            current.set(x, y);
+            if (req) {
+                cancelAnimationFrame(req);
+                req = null;
+            }
+            cbs.end(x, y);
+        }
+        function on(event, fn) {
+            cbs[event] = fn || nofn;
+        }
+    }
+    class Pool {
+        constructor(creator, size = 1) {
+            this.available = 0;
+            this.pool = [];
+            this.creator = creator;
+            this.pool = new Array(size);
+            this.available = (1 << size) - 1;
+            for (var i = 0; i < size; i++)
+                this.pool[i] = creator();
+        }
+        get() {
+            if (this.available === 0) {
+                const res = this.creator();
+                this.pool.push(res);
+                return res;
+            }
+            else {
+                const len = this.pool.length;
+                let mask;
+                for (var i = 0; i < len; i++) {
+                    mask = 1 << i;
+                    if (this.available & mask) {
+                        //console.log("lending "+i+" - "+this.state());
+                        this.available -= mask;
+                        return this.pool[i];
+                    }
+                }
+            }
+        }
+        free(obj) {
+            const i = this.pool.indexOf(obj);
+            if (i === -1)
+                return;
+            const mask = 1 << i;
+            if (this.available & mask)
+                return void console.log("wtf");
+            this.available += (1 << i);
+        }
+        state() { return this.available.toString(2).padStart(this.pool.length); }
+    }
+    const cards = document.querySelectorAll(".card");
+    const spring_pool = new Pool(() => {
+        console.log("created");
+        return spring(0.075, 0.0001);
+    });
+    for (var card of cards)
+        trackmouse(card, {
+            extra: { card, spring: null },
+            enter, move, leave
+        });
+    function enter(cs) {
+        if (!cs.spring)
+            cs.spring = spring_pool.get();
+        cs.spring.on("end", null);
+        cs.spring.on("move", (x, y) => {
+            cs.card.style.setProperty("--x", x.toFixed(4));
+            cs.card.style.setProperty("--y", y.toFixed(4));
+        });
+    }
+    function move(x, y, w, h, cs) {
+        cs.spring.aim(2 * x / w - 1, 2 * y / h - 1);
+    }
+    function leave(cs) {
+        cs.spring.aim(0, 0);
+        cs.spring.on("end", () => {
+            cs.spring.on("end", null);
+            spring_pool.free(cs.spring);
+            cs.spring = null;
+        });
+    }
 
 })();

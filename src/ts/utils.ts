@@ -112,3 +112,53 @@ export function isThemeDark() {
     if(!theme || theme === "system") return thememedia.matches;
     else return theme === "dark";
 }
+
+export function NO_FN() {}
+
+interface MouseTRackingOptions<T> {
+    move?(x: number, y: number, width: number, height: number, extra: T): void;
+    enter?(extra: T): void;
+    leave?(extra: T): void;
+    extra: T
+}
+
+export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOptions<E>) {
+    const onenter = options.enter || NO_FN;
+    const onleave = options.leave || NO_FN;
+    const onmove = options.move || NO_FN;
+    const extra = options.extra;
+
+    element.addEventListener("mouseenter", enter);
+    
+    function enter() {
+        element.addEventListener("mousemove", mousemove);
+        element.addEventListener("mouseleave", leave, { once: true });
+        onenter(extra);
+    }
+    
+    let x: number;
+    let y: number;
+    let req: number;
+
+    function signal() {
+        const rect = element.getBoundingClientRect();
+        onmove(
+            x - rect.left,
+            y - window.screenTop - rect.top,
+            rect.width, 
+            rect.height, 
+            extra
+        );
+        req = null;
+    }
+    function mousemove(ev: MouseEvent) {
+        x = ev.pageX;
+        y = ev.pageY;
+        if(!req) req = requestAnimationFrame(signal);
+    }
+    function leave() {
+        element.removeEventListener("mousemove", signal);
+        cancelAnimationFrame(req);
+        onleave(extra);
+    }
+}

@@ -40,6 +40,8 @@ h2 {
         display: grid;
         grid-template-columns: repeat(auto-fit, 35ch);
         gap: 3rem;
+        perspective: 100rem;
+        // transform-style: preserve-3d;
     }
     .card {
         --scale: 1;
@@ -47,17 +49,24 @@ h2 {
         max-width: 35ch;
 
         display: block;
-        transition: transform 250ms ease;
-        transform: /* translate(calc(var(--x) * 2%), calc(var(--y) * 2%))*/ scale(var(--scale));
+        transform-origin: center;
+        transform-style: preserve-3d;
+        // transition: transform 250ms ease;
+        transform: 
+            scale(var(--scale)) 
+            translate(calc(var(--x) * 3%), calc(var(--y) * 3%)) 
+            rotateY(calc(var(--x) * -5deg))
+            rotateX(calc(var(--y) * 5deg));
         background-color: var(--bg-1);
         border-radius: 1.5rem;
         padding: 1.5rem;
         margin-top: 0;
         
         &:hover {
-            --scale: 1.05;
+            --scale: 1.0;
         }
     }
+    
     .card.smooth {
         transition: transform 250ms ease;
     }
