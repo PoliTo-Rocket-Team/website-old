@@ -27,9 +27,10 @@ function develop(name) {
                 e.result.close();
                 break;
             case "ERROR":
-                console.log("ts: error encountered");
-                console.dir(e.error);
-                e.result.close();
+                console.log("ts: error encountered: ", e.error.code);
+                console.log(e.error.message);
+                console.log(e.error.frame);
+                if(e.result) e.result.close();
                 break;
         }
     });
