@@ -440,8 +440,66 @@ hr.subtle {
   height: 0;
 }
 
-.intro {
-  max-width: 50ch;
+main {
+  padding: var(--pad);
+  padding-top: max(6.5rem, var(--pad));
+}
+
+section {
+  margin-top: 6rem;
+}
+
+h2 {
+  margin-bottom: 2rem;
+}
+
+.cols {
+  column-width: 25ch;
+  column-gap: 4rem;
+  column-rule: dashed 2px var(--fg-1);
+}
+
+.division-name {
+  font-size: var(--fs-60);
+  margin-bottom: 1rem;
+}
+* + .division-name {
+  margin-top: 2.5rem;
+}
+
+.division-members {
+  list-style: none;
+}
+.division-members > * {
+  margin-bottom: 1rem;
+}
+
+.member {
+  break-inside: avoid;
+  background-color: var(--bg-1);
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.45rem;
+}
+.member .name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: block;
+}
+.member .desc {
+  opacity: 0.75;
+  font-style: italic;
+}
+.member .title {
+  color: var(--accent-30);
+}
+.member .title::after {
+  content: " | ";
+  color: var(--fg-1);
+}
+
+.member.co-founder .desc::before {
+  content: "Co-founder | ";
+  color: var(--accent-20);
 }
 
 /*# sourceMappingURL=about.css.map */
