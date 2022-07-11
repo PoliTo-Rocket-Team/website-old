@@ -9,7 +9,7 @@ Files of the PRT website, written in html, typescript, and scss.
 
 ## Contribute
 
-Since typescript and scss must be compiled, a bundler ([rollup](https://www.rollupjs.org/guide/en/)) is used, along with [sass](https://sass-lang.com/) compiler. The [pnpm](https://pnpm.io/) package manager is used instead of npm ([why?](https://pnpm.io/pnpm-vs-npm)). Thus, in order to contribute, follow the steps:
+Since typescript and scss must be compiled, a bundler ([rollup](https://www.rollupjs.org/guide/en/)) is used, along with [sass](https://sass-lang.com/) compiler. The [pnpm](https://pnpm.io/) package manager is used instead of npm ([why?](https://pnpm.io/benchmarks)). Thus, in order to contribute, follow the steps:
  1. set this repo as git remote origin
  2. checkout to the remote branch you want to work on, and pull
  3. run `pnpm install` to install all required packages
