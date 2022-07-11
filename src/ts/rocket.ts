@@ -14,12 +14,12 @@ function setSceneBg(dark: boolean) { scene.background = new Color(dark ? 0x33333
 
 const camera = new PerspectiveCamera(FOV, 1, .1, 100);
 camera.rotation.copy(rot);
-camera.position.set(1, 0, liftoff_heigth + 6);
+camera.position.set(1, 0, liftoff_heigth + 7);
 camera.position.add(new Vector3(0,0,camera_distance).applyEuler(rot));
 // camera.position.z = 20;
 
 const light = new DirectionalLight(0xffffff, 1);
-light.position.set(2, -.2, 1);
+light.position.set(2, -.5, 0);
 scene.add(light);
 
 function randomDisplacement(w: number = 3e-3) { return (Math.random()-0.5)*w; }
@@ -46,7 +46,7 @@ function startAnimation(obj: Object3D) {
     obs.observe(header);
 
     function animate(time: number) {
-        obj.rotateZ(2e-3);
+        obj.rotateY(2e-3);
 
         if(height < liftoff_heigth) {
             height += liftoff_coefficient*Math.pow(liftoff_heigth-height, 1.5);
@@ -90,9 +90,10 @@ async function loadScene() {
         // addAxisArrows(new Vector3(0,0,liftoff_heigth));
 
         const loader = new GLTFLoader();
-        const gltf = await loader.loadAsync("./assets/Part_3D_tolleranze_1mm_10.glb", onProgress);
+        const gltf = await loader.loadAsync("./assets/Rocket.glb", onProgress);
         const rocket = gltf.scene;
-        rocket.scale.multiplyScalar(3.5e-3);
+        rocket.scale.multiplyScalar(4);
+        rocket.rotateX(Math.PI/2);
         scene.add(rocket);
         startAnimation(rocket);
 
@@ -113,6 +114,10 @@ function isWebGLAvailable() {
     }
 }
 
-if(isWebGLAvailable()) loadScene();
+document.onreadystatechange = function() {
+    if(document.readyState !== "complete") return;
+    if(isWebGLAvailable()) loadScene();
+}
+
 
 
