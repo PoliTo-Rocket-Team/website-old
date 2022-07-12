@@ -9,6 +9,7 @@ main {
     padding: var(--pad);
     padding-top: max(6.5rem, var(--pad));
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 p + p {
@@ -27,7 +28,7 @@ article {
             left: calc(-1 * var(--pad));
             width: calc(var(--pad) + 4ch);
             height: 4px;
-            background-color: var(--accent-40);
+            background-color: var(--accent-fig);
             border-bottom-right-radius: 2px;
             border-top-right-radius: 2px;
         }
@@ -63,8 +64,8 @@ article {
     }
 
     li::marker {
-        color: var(--accent-30);
-        font-weight: 600;
+        color: var(--accent-text);
+        font-weight: 700;
     }
     h3 {
         margin-top: 1em;

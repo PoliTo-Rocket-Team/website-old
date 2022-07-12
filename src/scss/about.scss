@@ -48,15 +48,10 @@ h2 {
         font-style: italic;
     }
     .title {
-        color: var(--accent-30);
+        color: var(--accent-text);
         &::after {
             content: " | ";
             color: var(--fg-1);
         }
     }
-}
-
-.member.co-founder .desc::before {
-    content: "Co-founder | ";
-    color: var(--accent-20);
 }

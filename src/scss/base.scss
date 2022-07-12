@@ -1,6 +1,6 @@
 @use "./font.scss";
 
-$accent-hue: 12;
+$accent-hue: 19;
 
 :root {
     --ligth-bg-0: #efefef;
@@ -21,13 +21,13 @@ $accent-hue: 12;
 
     --pad: 1rem;
 
-    --accent-20: hsl(#{$accent-hue}, 66%, 63%);
-    --accent-30: hsl(#{$accent-hue}, 58%, 56%);
-    --accent-40: hsl(#{$accent-hue}, 50%, 50%);
-    --accent-50: hsl(#{$accent-hue}, 45%, 45%);
-    --accent-60: hsl(#{$accent-hue}, 50%, 40%);
-    --accent-70: hsl(#{$accent-hue}, 50%, 35%);
-    --accent-80: hsl(#{$accent-hue}, 50%, 30%);
+    // --accent-20: hsl(#{$accent-hue}, 66%, 63%);
+    // --accent-30: hsl(#{$accent-hue}, 58%, 56%);
+    // --accent-40: hsl(#{$accent-hue}, 50%, 50%);
+    // --accent-50: hsl(#{$accent-hue}, 45%, 45%);
+    // --accent-60: hsl(#{$accent-hue}, 50%, 40%);
+    // --accent-70: hsl(#{$accent-hue}, 50%, 35%);
+    // --accent-80: hsl(#{$accent-hue}, 50%, 30%);
 }
 
 @mixin light-theme {
@@ -37,9 +37,13 @@ $accent-hue: 12;
     --fg-0: var(--ligth-fg-0);
     --fg-1: var(--ligth-fg-1);
     --fg-2: var(--dark-fg-0);
-    --bg-sel: var(--accent-60);
+
     --fg-sel: var(--ligth-bg-1);
     --fg-link: var(--accent-50);
+
+    --accent-text: hsl(19,85%,47.5%);
+    --accent-fig: hsl(19,100%,50%);
+    --bg-sel: hsl(19,100%,60%);
 }
 
 @mixin dark-theme {
@@ -47,9 +51,12 @@ $accent-hue: 12;
     --bg-1: var(--dark-bg-1);
     --fg-0: var(--dark-fg-0);
     --fg-1: var(--dark-fg-1);
-    --bg-sel: var(--accent-30);
     // --fg-sel: var(--dark-fg-0);
     --fg-link: var(--accent-20);
+    
+    --accent-text: hsl(19,95%,65%);
+    --accent-fig: hsl(19,85%,55%);
+    --bg-sel: hsl(19,95%,42%);
 }
 
 :root { @include light-theme; }
@@ -73,6 +80,7 @@ body[data-theme="dark"] { @include dark-theme; }
 ::selection {
     background-color: var(--bg-sel);
     color: var(--fg-sel);
+    text-decoration-color: var(--fg-sel);
 }
 
 body {
@@ -100,7 +108,8 @@ button {
 }
 
 a {
-    color: var(--fg-link);
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
 }
 
 @supports (-webkit-text-stroke: 2px red) {
@@ -240,7 +249,7 @@ nav {
         transition: color 200ms ease;
     }
     input:checked + svg {
-        color: var(--accent-30);
+        color: var(--accent-fig);
     }
     path {
         fill: currentColor;
@@ -260,7 +269,7 @@ nav {
         font-weight: 500;
     }
     .current {
-        border-bottom: 2px solid var(--accent-30);
+        border-bottom: 2px solid var(--accent-fig);
     }
 }
 

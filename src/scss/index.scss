@@ -32,7 +32,7 @@ header {
     display: block;
     width: 100%;
     height: .2rem;
-    background-color: var(--accent-40);
+    background-color: var(--accent-fig);
     clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0);
     transition: clip-path 150ms ease, opacity 350ms ease;
 
@@ -229,7 +229,7 @@ $extreme-radius: .5rem;
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background-color: var(--accent-50);
+    background-color: var(--accent-fig);
     transform: translateX(-50%);
 }
 
@@ -251,7 +251,7 @@ $extreme-radius: .5rem;
         top: $point-radius;
         bottom: $point-radius;
         height: calc(100% - 2*$point-radius);
-        outline: 1px solid var(--accent-50);
+        outline: 1px solid var(--accent-fig);
         transform: translateX(-50%);
     }
 
@@ -264,7 +264,7 @@ $extreme-radius: .5rem;
         width: 2*$point-radius;
         height: 2*$point-radius;
         background-color: var(--bg-0);
-        border: 2px solid var(--accent-50);
+        border: 2px solid var(--accent-fig);
         border-radius: 50%;
     }
 }

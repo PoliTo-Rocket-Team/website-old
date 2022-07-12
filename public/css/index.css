@@ -103,13 +103,6 @@
   --fs-70: 2rem;
   --fs-80: 4rem;
   --pad: 1rem;
-  --accent-20: hsl(12, 66%, 63%);
-  --accent-30: hsl(12, 58%, 56%);
-  --accent-40: hsl(12, 50%, 50%);
-  --accent-50: hsl(12, 45%, 45%);
-  --accent-60: hsl(12, 50%, 40%);
-  --accent-70: hsl(12, 50%, 35%);
-  --accent-80: hsl(12, 50%, 30%);
 }
 
 :root {
@@ -119,9 +112,11 @@
   --fg-0: var(--ligth-fg-0);
   --fg-1: var(--ligth-fg-1);
   --fg-2: var(--dark-fg-0);
-  --bg-sel: var(--accent-60);
   --fg-sel: var(--ligth-bg-1);
   --fg-link: var(--accent-50);
+  --accent-text: hsl(19,85%,47.5%);
+  --accent-fig: hsl(19,100%,50%);
+  --bg-sel: hsl(19,100%,60%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -130,8 +125,10 @@
     --bg-1: var(--dark-bg-1);
     --fg-0: var(--dark-fg-0);
     --fg-1: var(--dark-fg-1);
-    --bg-sel: var(--accent-30);
     --fg-link: var(--accent-20);
+    --accent-text: hsl(19,95%,65%);
+    --accent-fig: hsl(19,85%,55%);
+    --bg-sel: hsl(19,95%,42%);
   }
 }
 body[data-theme=light] {
@@ -141,9 +138,11 @@ body[data-theme=light] {
   --fg-0: var(--ligth-fg-0);
   --fg-1: var(--ligth-fg-1);
   --fg-2: var(--dark-fg-0);
-  --bg-sel: var(--accent-60);
   --fg-sel: var(--ligth-bg-1);
   --fg-link: var(--accent-50);
+  --accent-text: hsl(19,85%,47.5%);
+  --accent-fig: hsl(19,100%,50%);
+  --bg-sel: hsl(19,100%,60%);
 }
 
 body[data-theme=dark] {
@@ -151,8 +150,10 @@ body[data-theme=dark] {
   --bg-1: var(--dark-bg-1);
   --fg-0: var(--dark-fg-0);
   --fg-1: var(--dark-fg-1);
-  --bg-sel: var(--accent-30);
   --fg-link: var(--accent-20);
+  --accent-text: hsl(19,95%,65%);
+  --accent-fig: hsl(19,85%,55%);
+  --bg-sel: hsl(19,95%,42%);
 }
 
 *, *::before, *::after {
@@ -165,6 +166,7 @@ body[data-theme=dark] {
 ::selection {
   background-color: var(--bg-sel);
   color: var(--fg-sel);
+  text-decoration-color: var(--fg-sel);
 }
 
 body {
@@ -195,7 +197,8 @@ button {
 }
 
 a {
-  color: var(--fg-link);
+  color: var(--accent-text);
+  text-decoration-color: currentColor;
 }
 
 @supports (-webkit-text-stroke: 2px red) {
@@ -236,9 +239,9 @@ svg.divider {
     --fs-40: 1rem;
     --fs-50: 1.15rem;
     --fs-60: 1.5rem;
-    --fs-70: 2.2rem;
+    --fs-70: 2.5rem;
     --fs-80: 4.5rem;
-    --pad: max(2rem, 1vw);
+    --pad: max(2rem, 8vw);
   }
   .center-lg {
     max-width: 50rem;
@@ -333,7 +336,7 @@ nav .logo svg {
   transition: color 200ms ease;
 }
 .theme input:checked + svg {
-  color: var(--accent-30);
+  color: var(--accent-fig);
 }
 .theme path {
   fill: currentColor;
@@ -350,6 +353,9 @@ nav .logo svg {
   text-transform: uppercase;
   color: var(--fg-0);
   font-weight: 500;
+}
+.links .current {
+  border-bottom: 2px solid var(--accent-fig);
 }
 
 .burger {
@@ -422,6 +428,21 @@ nav .logo svg {
     margin-right: 2ch;
   }
 }
+.stop-growth {
+  max-width: 50ch;
+}
+
+hr.subtle {
+  font-size: var(--fs-80);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.2);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  height: 0;
+}
+
 html, body {
   height: 100%;
 }
@@ -455,7 +476,7 @@ header {
   display: block;
   width: 100%;
   height: 0.2rem;
-  background-color: var(--accent-40);
+  background-color: var(--accent-fig);
   clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0);
   transition: clip-path 150ms ease, opacity 350ms ease;
 }
@@ -659,7 +680,7 @@ h2 {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  background-color: var(--accent-50);
+  background-color: var(--accent-fig);
   transform: translateX(-50%);
 }
 
@@ -678,7 +699,7 @@ h2 {
   top: 0.75rem;
   bottom: 0.75rem;
   height: calc(100% - 1.5rem);
-  outline: 1px solid var(--accent-50);
+  outline: 1px solid var(--accent-fig);
   transform: translateX(-50%);
 }
 .timeline__track .now {
@@ -689,7 +710,7 @@ h2 {
   width: 1.5rem;
   height: 1.5rem;
   background-color: var(--bg-0);
-  border: 2px solid var(--accent-50);
+  border: 2px solid var(--accent-fig);
   border-radius: 50%;
 }
 
