@@ -109,7 +109,7 @@
         let req;
         function signal() {
             const rect = element.getBoundingClientRect();
-            onmove(x - rect.left, y - window.screenTop - rect.top, rect.width, rect.height, extra);
+            onmove(x - rect.left - window.scrollX, y - rect.top - window.scrollY, rect, extra);
             req = null;
         }
         function mousemove(ev) {
@@ -119,7 +119,7 @@
                 req = requestAnimationFrame(signal);
         }
         function leave() {
-            element.removeEventListener("mousemove", signal);
+            element.removeEventListener("mousemove", mousemove);
             cancelAnimationFrame(req);
             onleave(extra);
         }
@@ -264,8 +264,9 @@
             cs.card.style.setProperty("--y", y.toFixed(4));
         });
     }
-    function move(x, y, w, h, cs) {
-        cs.spring.aim(2 * x / w - 1, 2 * y / h - 1);
+    function move(x, y, r, cs) {
+        cs.spring.aim(2 * x / r.width - 1, 2 * y / r.height - 1);
+        // console.log(x,y);
     }
     function leave(cs) {
         cs.spring.aim(0, 0);

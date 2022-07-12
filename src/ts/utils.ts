@@ -116,7 +116,7 @@ export function isThemeDark() {
 export function NO_FN() {}
 
 interface MouseTRackingOptions<T> {
-    move?(x: number, y: number, width: number, height: number, extra: T): void;
+    move?(x: number, y: number, rect: DOMRect, extra: T): void;
     enter?(extra: T): void;
     leave?(extra: T): void;
     extra: T
@@ -143,11 +143,9 @@ export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOption
     function signal() {
         const rect = element.getBoundingClientRect();
         onmove(
-            x - rect.left,
-            y - window.screenTop - rect.top,
-            rect.width, 
-            rect.height, 
-            extra
+            x - rect.left - window.scrollX,
+            y - rect.top - window.scrollY,
+            rect, extra
         );
         req = null;
     }
@@ -157,7 +155,7 @@ export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOption
         if(!req) req = requestAnimationFrame(signal);
     }
     function leave() {
-        element.removeEventListener("mousemove", signal);
+        element.removeEventListener("mousemove", mousemove);
         cancelAnimationFrame(req);
         onleave(extra);
     }

@@ -212,8 +212,9 @@ function enter(cs: CardSpring) {
     });
 }
 
-function move(x: number, y: number, w: number, h: number, cs: CardSpring) {
-    cs.spring.aim(2*x/w-1, 2*y/h-1);
+function move(x: number, y: number, r: DOMRect, cs: CardSpring) {
+    cs.spring.aim(2*x/r.width-1, 2*y/r.height-1);
+    // console.log(x,y);
 }
 
 function leave(cs: CardSpring) {
