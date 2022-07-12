@@ -44,31 +44,26 @@ $card-padding: 1.5rem;
         display: grid;
         grid-template-columns: repeat(auto-fit, 35ch);
         gap: 3rem;
-        perspective: 100rem;
-        // transform-style: preserve-3d;
+    }
+    .perspective-box {
+        perspective: 30rem;
     }
     .card {
         --scale: 1;
         min-width: 35ch;
         max-width: 35ch;
-
+        
         display: block;
         transform-origin: center;
         transform-style: preserve-3d;
         // transition: transform 250ms ease;
         transform: 
-            scale(var(--scale)) 
-            translate(calc(var(--x) * 3%), calc(var(--y) * 3%)) 
             rotateY(calc(var(--x) * -5deg))
             rotateX(calc(var(--y) * 5deg));
         background-color: var(--bg-1);
         border-radius: $card-padding;
         padding: $card-padding;
         margin-top: 0;
-        
-        &:hover {
-            --scale: 1.0;
-        }
     }
     
     .card.smooth {

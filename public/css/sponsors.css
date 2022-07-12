@@ -485,7 +485,9 @@ h2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, 35ch);
     gap: 3rem;
-    perspective: 100rem;
+  }
+  .perspective-box {
+    perspective: 30rem;
   }
   .card {
     --scale: 1;
@@ -494,14 +496,11 @@ h2 {
     display: block;
     transform-origin: center;
     transform-style: preserve-3d;
-    transform: scale(var(--scale)) translate(calc(var(--x) * 3%), calc(var(--y) * 3%)) rotateY(calc(var(--x) * -5deg)) rotateX(calc(var(--y) * 5deg));
+    transform: rotateY(calc(var(--x) * -5deg)) rotateX(calc(var(--y) * 5deg));
     background-color: var(--bg-1);
     border-radius: 1.5rem;
     padding: 1.5rem;
     margin-top: 0;
-  }
-  .card:hover {
-    --scale: 1.0;
   }
   .card.smooth {
     transition: transform 250ms ease;
