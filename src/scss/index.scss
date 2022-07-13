@@ -215,6 +215,22 @@ h2 {
 $point-radius: .75rem;
 $extreme-radius: .5rem;
 
+a.btn {
+    margin-top: 1.5rem;
+    display: block;
+    padding: .4em .7em;
+    border: 2px solid var(--accent-fig);
+    width: fit-content;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:focus {
+        text-decoration: underline;
+        // outline: 2px solid var(--accent-fig);
+        // outline-offset: 3px;
+    }
+}
+
 .timeline {
     display: grid;
     grid-template-columns: 2*$point-radius 1fr;

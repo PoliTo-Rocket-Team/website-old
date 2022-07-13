@@ -666,6 +666,19 @@ h2 {
   margin-top: 2em;
 }
 
+a.btn {
+  margin-top: 1.5rem;
+  display: block;
+  padding: 0.4em 0.7em;
+  border: 2px solid var(--accent-fig);
+  width: fit-content;
+  text-decoration: none;
+  font-weight: 600;
+}
+a.btn:focus {
+  text-decoration: underline;
+}
+
 .timeline {
   display: grid;
   grid-template-columns: 1.5rem 1fr;
