@@ -643,7 +643,7 @@ h1 span:nth-of-type(3) {
   }
 }
 footer .body, main {
-  padding: var(--pad);
+  padding: 1rem;
 }
 @media (min-width: 50rem) {
   footer .body, main {
@@ -669,7 +669,7 @@ h2 {
 .timeline {
   display: grid;
   grid-template-columns: 1.5rem 1fr;
-  column-gap: var(--pad);
+  column-gap: 1rem;
 }
 
 .timeline__track::after, .timeline__track::before {
@@ -747,12 +747,16 @@ h2 {
 .event__body h3 {
   margin-bottom: 0.3em;
 }
+
 @media (min-width: 50rem) {
+  .timeline {
+    padding-left: 0.5ch;
+    column-gap: max(1rem, 3vw);
+  }
   .event__body {
     max-width: fit-content;
   }
 }
-
 .socials {
   display: flex;
   justify-content: center;
