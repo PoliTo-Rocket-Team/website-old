@@ -130,16 +130,16 @@ export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOption
 
     element.addEventListener("mouseenter", enter);
     
+    let x: number;
+    let y: number;
+    let req: number = null;
+
     function enter() {
+        req = null;
         element.addEventListener("mousemove", mousemove);
         element.addEventListener("mouseleave", leave, { once: true });
         onenter(extra);
     }
-    
-    let x: number;
-    let y: number;
-    let req: number;
-
     function signal() {
         const rect = element.getBoundingClientRect();
         onmove(
@@ -152,11 +152,11 @@ export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOption
     function mousemove(ev: MouseEvent) {
         x = ev.pageX;
         y = ev.pageY;
-        if(!req) req = requestAnimationFrame(signal);
+        if(req == null) req = requestAnimationFrame(signal);
     }
     function leave() {
         element.removeEventListener("mousemove", mousemove);
-        cancelAnimationFrame(req);
+        if(req != null) cancelAnimationFrame(req);
         onleave(extra);
     }
 }

@@ -58,6 +58,8 @@ $card-padding: 1.5rem;
         transform-style: preserve-3d;
         // transition: transform 250ms ease;
         transform: 
+            translateX(calc(var(--x) * 3%))
+            translateY(calc(var(--y) * 3%))
             rotateY(calc(var(--x) * -5deg))
             rotateX(calc(var(--y) * 5deg));
         background-color: var(--bg-1);

@@ -99,14 +99,15 @@
         const onmove = options.move || NO_FN;
         const extra = options.extra;
         element.addEventListener("mouseenter", enter);
+        let x;
+        let y;
+        let req = null;
         function enter() {
+            req = null;
             element.addEventListener("mousemove", mousemove);
             element.addEventListener("mouseleave", leave, { once: true });
             onenter(extra);
         }
-        let x;
-        let y;
-        let req;
         function signal() {
             const rect = element.getBoundingClientRect();
             onmove(x - rect.left - window.scrollX, y - rect.top - window.scrollY, rect, extra);
@@ -115,12 +116,13 @@
         function mousemove(ev) {
             x = ev.pageX;
             y = ev.pageY;
-            if (!req)
+            if (req == null)
                 req = requestAnimationFrame(signal);
         }
         function leave() {
             element.removeEventListener("mousemove", mousemove);
-            cancelAnimationFrame(req);
+            if (req != null)
+                cancelAnimationFrame(req);
             onleave(extra);
         }
     }
@@ -241,7 +243,7 @@
             const mask = 1 << i;
             if (this.available & mask)
                 return void console.log("wtf");
-            this.available += (1 << i);
+            this.available += mask;
         }
         state() { return this.available.toString(2).padStart(this.pool.length); }
     }

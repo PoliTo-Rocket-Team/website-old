@@ -496,7 +496,7 @@ h2 {
     display: block;
     transform-origin: center;
     transform-style: preserve-3d;
-    transform: rotateY(calc(var(--x) * -5deg)) rotateX(calc(var(--y) * 5deg));
+    transform: translateX(calc(var(--x) * 3%)) translateY(calc(var(--y) * 3%)) rotateY(calc(var(--x) * -5deg)) rotateX(calc(var(--y) * 5deg));
     background-color: var(--bg-1);
     border-radius: 1.5rem;
     padding: 1.5rem;

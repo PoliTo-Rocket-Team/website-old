@@ -182,7 +182,7 @@ class Pool<T> {
         if(i === -1) return;
         const mask = 1 << i;
         if(this.available & mask) return void console.log("wtf");
-        this.available += (1<<i);
+        this.available += mask;
     }
     state() { return this.available.toString(2).padStart(this.pool.length) }
 }
