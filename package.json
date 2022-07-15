@@ -5,17 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node compiler dev",
-    "build": "node compiler build",
-    "three": "node compiler three",
-    "build:three": "rollup -c --environment THREE",
-    "dev:three": "rollup -c -w --environment THREE",
-    "build:ts": "rollup -c",
-    "dev:ts": "rollup -w -c",
-    "scss:index": "sass --watch src/scss/index.scss public/css/index.css",
-    "scss:about": "sass --watch src/scss/about.scss public/css/about.css",
-    "scss:projects": "sass --watch src/scss/projects.scss public/css/projects.css",
-    "scss:sponsors": "sass --watch src/scss/sponsors.scss public/css/sponsors.css"
+    "dev": "node builder.mjs -W",
+    "build": "node builder.mjs",
+    "build-all": "node builder.mjs -X index:rocket"
   },
   "repository": {
     "type": "git",

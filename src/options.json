@@ -1,0 +1,47 @@
+{
+    "entries": {
+        "index:scss": {
+            "type": "scss",
+            "file": "index" 
+        },
+        "index:ts": {
+            "type": "ts",
+            "file": "index" 
+        },
+        "index:rocket": {
+            "type": "ts",
+            "file": "rocket",
+            "node": true 
+        },
+        "projects:scss": {
+            "type": "scss",
+            "file": "projects" 
+        },
+        "projects:ts": {
+            "type": "ts",
+            "file": "projects" 
+        },
+        "sponsors:scss": {
+            "type": "scss",
+            "file": "sponsors" 
+        },
+        "sponsors:ts": {
+            "type": "ts",
+            "file": "sponsors" 
+        },
+        "about:scss": {
+            "type": "scss",
+            "file": "about" 
+        },
+        "about:ts": {
+            "type": "ts",
+            "file": "about" 
+        }
+    },
+    "profiles": {
+        "index": [ "index:scss", "index:ts" ],
+        "about": [ "about:scss", "about:ts" ],
+        "projects": [ "projects:scss", "projects:ts" ],
+        "sponsors": [ "sponsors:scss", "sponsors:ts" ]
+    }
+}
