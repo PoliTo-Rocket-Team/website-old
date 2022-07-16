@@ -13,7 +13,7 @@ const pathToSass = process.env.SASS;
 
 /**@typedef {{type: "ts"|"scss", file: string, node: boolean}} Entry */
 /**@type {{entries: Object.<string,Entry>, profiles: Object.<string,string[]}}*/
-const source = JSON.parse(await readFile("./src/options.json"));
+const source = JSON.parse(await readFile("./src/config.json"));
 const args = process.argv.slice(2);
 
 let watch = false;

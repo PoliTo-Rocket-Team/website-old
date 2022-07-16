@@ -19,7 +19,7 @@ If you're using vscode and [live server](https://marketplace.visualstudio.com/it
 
 ## Build and develop
 
-The `builder.mjs` node script compiles and/or watches ts and scss files in the [src](./src/) folder based on the configuration of the file [src/options.json](./src/options.json).
+The `builder.mjs` node script compiles and/or watches ts and scss files in the [src](./src/) folder based on the configuration of the file [src/config.json](./src/config.json).
 
     node builder.mjs <...args>
     pnpm build <...args>
