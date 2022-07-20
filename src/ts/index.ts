@@ -12,13 +12,11 @@ see_more.addEventListener("click", e => {
 });
 
 let lastDocHeight: number;
-const timeline_now = document.getElementById("timeline-now") as HTMLDivElement;
-function setTimelineTop() {
+function setWindowHeight() {
     const currentHeight = document.documentElement.clientHeight;
     if(currentHeight === lastDocHeight) return;
-    header.style.setProperty("--h", window.innerHeight + 'px');
     lastDocHeight = currentHeight;
-    timeline_now.style.setProperty("--top", window.innerHeight/2 + "px");
+    document.body.style.setProperty("--window-height", window.innerHeight + 'px');
 }
-window.addEventListener("resize", throttle(100, setTimelineTop));
-setTimelineTop();
+window.addEventListener("resize", throttle(100, setWindowHeight));
+setWindowHeight();

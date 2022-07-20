@@ -1,11 +1,13 @@
 // @use "sass:math";
 @import "./base.scss";
 
+:root { --window-height: 100vh }
 html, body { height: 100%; }
 
 header {
-    --h: 100vh;
-    height: var(--h);
+    height: var(--window-height);
+    min-height: 80vh;
+    max-height: 100vh;
     position: relative;
     z-index: 0;
     overflow: hidden;
@@ -270,9 +272,8 @@ a.btn {
     }
 
     .now {
-        --top: 50%;   
         position: sticky;
-        top: var(--top);
+        top: 45vh;
         z-index: 20;
         
         width: 2*$point-radius;
