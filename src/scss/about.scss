@@ -6,10 +6,41 @@ main {
     padding-top: max(6.5rem, var(--pad));
 }
 section {
-    margin-top: 6rem;
+    margin-top: 7rem;
 }
 h2 {
     margin-bottom: 2rem;
+}
+
+.text-cols {
+    column-width: 35ch;
+    column-gap: 4rem;
+
+    p, 
+    ul {
+        margin-bottom: 1rem;
+    }
+    // p::first-letter {
+    //     font-size: 3rem;
+    //     font-weight: 600;
+    //     color: var(--accent-fig);
+    //     float: left;
+    //     margin-right: .1ch;
+    // }
+}
+
+.mb {
+    margin-bottom: 3.5em;
+}
+
+.we-are {
+    list-style: decimal-leading-zero;
+    list-style-position: inside;
+
+    ::marker {
+        color: var(--accent-fig);
+        font-weight: 500;
+    }
 }
 
 .cols {
