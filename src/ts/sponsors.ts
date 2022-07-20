@@ -1,7 +1,7 @@
 import { setupThemePreference, setupNavigation, trackmouse } from './utils';
 
 setupThemePreference()
-setupNavigation("main-nav", 80);
+setupNavigation(80);
 
 class Position {
     x: number;

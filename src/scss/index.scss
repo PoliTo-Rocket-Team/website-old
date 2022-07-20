@@ -4,12 +4,11 @@
 html, body { height: 100%; }
 
 header {
-    min-height: 100%;
-    height: 100%;
+    --h: 100vh;
+    height: var(--h);
     position: relative;
     z-index: 0;
     overflow: hidden;
-    background-color: var(--bg-0);
 }
 
 .header__canvas {
@@ -201,7 +200,6 @@ h1 {
 
 main {
     @extend %content-container;
-    background-color: var(--bg-0);
 }
 main p + p {
     margin-top: 1rem;

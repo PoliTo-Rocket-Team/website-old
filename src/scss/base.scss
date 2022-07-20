@@ -168,15 +168,7 @@ svg.divider {
 
 $nav-trans: 350ms ease;
 
-[data-nav-closer] {
-    transition: transform $nav-trans, filter $nav-trans;
-    &.has-nav-open {
-        transform: translateX(calc(-3 * var(--pad)));
-        filter: brightness(.75);
-    }
-}
-
-nav {
+#page-nav {
     position: fixed;
     top: 0;
     left: 0;
@@ -193,7 +185,6 @@ nav {
 
     transition: transform 200ms ease, background-color 350ms ease;
 
-    &.open { background-color: transparent; }
     &.hide {
         transform: translateY(-100%);
         overflow-y: hidden;
@@ -213,7 +204,6 @@ nav {
         background-color: var(--bg-0);
         border-bottom-color: #7777;
     }
-    &.open::before { filter: brightness(.75); }
 
     .logo {
         z-index: 1;
@@ -225,6 +215,16 @@ nav {
             height: 2.2em;
             width: auto;
         }
+    }
+}
+
+#page-content {
+    overflow-x: hidden;
+    background-color: var(--bg-0);
+    transition: transform $nav-trans, filter $nav-trans;
+    &.unfocus {
+        transform: translateX(calc(-3 * var(--pad)));
+        filter: brightness(.75);
     }
 }
 
@@ -321,7 +321,7 @@ nav {
 }
 
 @media (min-width: $width-th-1) {
-    nav { padding: 1rem; }
+    #page-nav { padding: 1rem; }
     .burger { display: none; }
     .links {
         flex-direction: row;

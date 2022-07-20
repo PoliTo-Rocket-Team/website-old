@@ -1,12 +1,12 @@
 export function wait(ms: number) { return new Promise<void>(res => setTimeout(res,ms)) }
 
-export function setupNavigation(identifier: string, deltaY: number) {
-    const nav = document.getElementById(identifier);
-    const btn = document.querySelector(`[data-nav-btn="${identifier}"]`);
-    if(!nav || !btn) return alert("No navbar with identifier " + identifier);
+export function setupNavigation(deltaY: number) {
+    const nav = document.getElementById("page-nav");
+    const btn = nav.querySelector("button");
+    const ctn = document.getElementById("page-content");
+    if(!nav || !btn || !ctn) return alert("No page-nav or page-content");
 
-    const closers = document.querySelectorAll<HTMLElement>(`[data-nav-closer~="${identifier}"]`);
-    const OPEN_STATE = "open-state-" + identifier;
+    const OPEN_STATE = "open-page-nav-state";
     if(history.state === OPEN_STATE) history.back();
     window.addEventListener("popstate", closeAction);
     btn.addEventListener("click", toggle);
@@ -17,22 +17,18 @@ export function setupNavigation(identifier: string, deltaY: number) {
         isOpen = false;
         nav.classList.remove("open",);
         btn.classList.remove("active");
+        ctn.classList.remove("unfocus");
+        ctn.removeEventListener("click",close);
         document.body.classList.remove("has-nav-open");
-        for(var el of closers) {
-            el.classList.remove("has-nav-open");
-            el.removeEventListener("click", close);
-        }
     }
     function openAction() {
         if(isOpen) return;
         isOpen = true;
-        nav.classList.add("open",);
+        nav.classList.add("open");
         btn.classList.add("active");
+        ctn.classList.add("unfocus");
+        ctn.addEventListener("click",close);
         document.body.classList.add("has-nav-open");
-        for(var el of closers) {
-            el.classList.add("has-nav-open");
-            el.addEventListener("click", close);
-        }
     }
 
     function close() { if(history.state === OPEN_STATE) history.back() }
