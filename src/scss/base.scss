@@ -86,6 +86,7 @@ body[data-theme="dark"] { @include dark-theme; }
 body {
     background-color: var(--bg-0);
     color: var(--fg-0);
+    word-spacing: 0.1ch;
     &.has-nav-open { overflow-y: hidden; }
 }
 

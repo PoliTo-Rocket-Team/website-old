@@ -42,6 +42,7 @@
         "index": [ "index:scss", "index:ts" ],
         "about": [ "about:scss", "about:ts" ],
         "projects": [ "projects:scss", "projects:ts" ],
-        "sponsors": [ "sponsors:scss", "sponsors:ts" ]
+        "sponsors": [ "sponsors:scss", "sponsors:ts" ],
+        "scss": [ "index:scss", "about:scss", "projects:scss", "sponsors:scss" ]
     }
 }
