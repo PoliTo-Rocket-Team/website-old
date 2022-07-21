@@ -9,7 +9,6 @@ main {
     padding: var(--pad);
     padding-top: max(6.5rem, var(--pad));
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 p + p {
@@ -31,8 +30,28 @@ footer {
     text-align: center;
 }
 
+$rocket-width: 5rem;
+
 article {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+        "title title"
+        "main img"
+        "aside aside";
+    column-gap: .7rem;
     margin-top: 8rem;
+
+    h2 { grid-area: title; }
+    .main { grid-area: main; }
+    aside { grid-area: aside; }
+    .rocket { grid-area: img; }
+    img {
+        position: sticky;
+        top: 15vh;
+        max-height: 70vh;
+        max-width: 4rem;
+    }
 
     ol {
         padding-left: 2ch;
@@ -50,40 +69,26 @@ article {
     } 
 }
 
-@media (max-width: $width-th-1) {
-    article .rocket {
-        float: right;
-        margin-left: .7rem;
-    }
-    article img { width: 4rem; }
-}
-
-$rocket-width: 5rem;
-
 @media (min-width: $width-th-1) {
     article {
-        display: grid;
-        grid-template-columns: 1fr auto;
         grid-template-areas: 
             "title title"
             "main img"
             "aside img";
         column-gap: 2rem;
         
-        h2 { grid-area: title; }
-        .main { grid-area: main; }
-        aside { grid-area: aside; }
         .rocket {
-            grid-area: img;
-            width: $rocket-width;
             position: relative;
+            width: $rocket-width;
         }
         img {
             position: absolute;
-            top: 50%;
             left: 0;
-            width: 100%;
+            top: 50%;
             transform: translateY(-50%);
+            width: 100%;
+            height: auto;
+            max-width: $rocket-width;
         }
     }
 }
@@ -94,5 +99,6 @@ $rocket-width: 5rem;
         grid-template-areas: 
             "title title title"
             "main img aside";
+        h3 { margin-top: 0; }
     }
 }
