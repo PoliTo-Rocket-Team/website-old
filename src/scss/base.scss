@@ -113,13 +113,6 @@ a {
     text-decoration-color: currentColor;
 }
 
-@supports (-webkit-text-stroke: 2px red) {
-    .text-outline {
-        -webkit-text-stroke: 1px currentColor;
-        -webkit-text-fill-color: transparent;
-    }
-}
-
 .water-mark {
     --t: 0;
     position: fixed;
@@ -220,7 +213,7 @@ $nav-trans: 350ms ease;
 }
 
 #page-content {
-    overflow-x: hidden;
+    // overflow-x: hidden;
     background-color: var(--bg-0);
     transition: transform $nav-trans, filter $nav-trans;
     &.unfocus {
