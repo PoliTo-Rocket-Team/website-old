@@ -1,16 +1,75 @@
 @import "./base.scss";
 
-
+html,
+body {
+    scroll-behavior: smooth;
+}
 main {
     padding: var(--pad);
     padding-top: max(6.5rem, var(--pad));
 }
+h1 {
+    margin-bottom: .5em;
+}
 section {
-    margin-top: 7rem;
+    margin-top: max(7rem, var(--pad));
 }
-h2 {
+.section-title {
     margin-bottom: 2rem;
+    scroll-margin-top: max(3rem, var(--pad));
 }
+
+.table-of-contents {
+    background-color: var(--bg-1);
+    padding: .8rem 1.1rem;
+    width: max-content;
+    max-width: 30ch;
+    border-radius: .9rem;
+    margin-top: 1.5rem;
+
+    h2 {
+        font-size: var(--fs-60);
+    }
+    ol {
+        list-style-position: inside;
+        border-left: 2px solid #9998;
+        padding-left: .75ch;
+    }
+    li {
+        margin-top: .5em;
+    }
+    a {
+        text-decoration-style: dashed;
+        text-decoration-line: underline;
+    }
+}
+@media (min-width: $width-th-1) {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+// .collapsible {
+//     overflow-y: hidden;
+//     transition: height 5s ease;
+//     height: var(--h);
+    
+//     &[data-state="open"] {
+//         height: auto;
+//     }
+//     &[data-state="opening"] {
+//         height: var(--h);
+//     }
+//     &[data-state="closing"],
+//     &[data-state="closed"] {
+//         height: 0;
+//     }
+
+//     .collapsible__content { width: 100%; }
+// }
+
 
 .text-cols {
     column-width: 35ch;
