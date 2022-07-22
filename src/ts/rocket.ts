@@ -1,4 +1,4 @@
-import { ArrowHelper, Color, DirectionalLight, Euler, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { AmbientLight, ArrowHelper, Color, DirectionalLight, Euler, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { wait, isThemeDark } from "./utils";
 
@@ -18,9 +18,12 @@ camera.position.set(1, 0, liftoff_heigth + 7);
 camera.position.add(new Vector3(0,0,camera_distance).applyEuler(rot));
 // camera.position.z = 20;
 
-const light = new DirectionalLight(0xffffff, 1);
-light.position.set(2, -.5, 0);
-scene.add(light);
+const directional_light = new DirectionalLight(0xffffff, 4.5);
+directional_light.position.set(2, .5, 1);
+scene.add(directional_light);
+
+const ambient_light = new AmbientLight(0xffffff, .25);
+scene.add(ambient_light);
 
 function randomDisplacement(w: number = 3e-3) { return (Math.random()-0.5)*w; }
 
@@ -95,6 +98,7 @@ async function loadScene() {
         rocket.scale.multiplyScalar(4);
         rocket.rotateX(Math.PI/2);
         scene.add(rocket);
+        // console.dir(rocket);
         startAnimation(rocket);
 
         await wait(200);
