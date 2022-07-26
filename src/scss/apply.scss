@@ -1,0 +1,54 @@
+@import "./base.scss";
+
+body {
+    overflow-y: scroll;
+}
+main {
+    padding: var(--pad);
+    padding-top: max(6.5rem, var(--pad));
+}
+
+h2 {
+    margin-top: 2.5em;
+}
+abbr {
+    text-decoration: none;
+}
+
+
+$question-radius: 1rem;
+$question-padding: .9rem 1.3rem;
+
+.question-box {
+    border-radius: $question-radius;
+    border: 2px solid #8886;
+    background-color: var(--bg-1);
+    margin-top: 2rem;
+}
+
+.question {
+    button {
+        display: block;
+        width: 100%;
+        padding: $question-padding;
+        text-align: left;
+    }
+    .response {
+        overflow-y: hidden;
+        box-sizing: border-box;
+        padding: $question-padding;
+        background-color: var(--bg-0);
+    }
+    button[aria-expanded="false"] + .response {
+        height: 0;
+        padding: 0;
+    }
+}
+// .question:first-of-type {
+//     border-top-left-radius: $question-radius;
+//     border-top-right-radius: $question-radius;
+// }
+.question:last-of-type .response {
+    border-bottom-left-radius: calc($question-radius - 3px);
+    border-bottom-right-radius: calc($question-radius - 3px);
+}
