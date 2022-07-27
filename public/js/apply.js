@@ -92,7 +92,7 @@
     setupThemePreference();
     setupNavigation(100);
     for (var btn of document.querySelectorAll(".question > h3")) {
-        btn.setAttribute("aria-expanded", "false");
+        // btn.setAttribute("aria-expanded", "false");
         btn.addEventListener("click", toggleFAQ);
         btn.addEventListener("keydown", keyboardToggleFAQ);
     }

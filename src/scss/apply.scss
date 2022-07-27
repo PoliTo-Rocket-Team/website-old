@@ -18,7 +18,7 @@ abbr {
 
 $faq-radius: .8rem;
 $faq-padding: .9rem 1.3rem;
-$faq-space: 1rem;
+$faq-space: 1.25rem;
 
 .question-box {
     column-width: 35ch;
@@ -37,6 +37,7 @@ $faq-space: 1rem;
         width: 100%;
         padding: $faq-padding;
         text-align: left;
+        font-weight: 600;
         cursor: pointer;
     }
     .response {
@@ -54,4 +55,10 @@ $faq-space: 1rem;
     p + p {
         margin-top: .5rem;
     }
+}
+
+em {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent-text);
 }

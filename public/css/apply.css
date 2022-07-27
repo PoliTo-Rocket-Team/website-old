@@ -453,7 +453,7 @@ abbr {
 
 .question-box {
   column-width: 35ch;
-  column-gap: 1rem;
+  column-gap: 1.25rem;
 }
 
 .question {
@@ -461,13 +461,14 @@ abbr {
   border-radius: 0.8rem;
   border: 2px solid rgba(136, 136, 136, 0.4);
   background-color: var(--bg-1);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 .question h3 {
   display: block;
   width: 100%;
   padding: 0.9rem 1.3rem;
   text-align: left;
+  font-weight: 600;
   cursor: pointer;
 }
 .question .response {
@@ -484,6 +485,12 @@ abbr {
 }
 .question p + p {
   margin-top: 0.5rem;
+}
+
+em {
+  font-weight: 600;
+  font-style: normal;
+  color: var(--accent-text);
 }
 
 /*# sourceMappingURL=apply.css.map */
