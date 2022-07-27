@@ -457,11 +457,12 @@ abbr {
   margin-top: 2rem;
 }
 
-.question button {
+.question h3 {
   display: block;
   width: 100%;
   padding: 0.9rem 1.3rem;
   text-align: left;
+  cursor: pointer;
 }
 .question .response {
   overflow-y: hidden;
@@ -469,7 +470,7 @@ abbr {
   padding: 0.9rem 1.3rem;
   background-color: var(--bg-0);
 }
-.question button[aria-expanded=false] + .response {
+.question h3[aria-expanded=false] + .response {
   height: 0;
   padding: 0;
 }

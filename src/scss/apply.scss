@@ -27,11 +27,12 @@ $question-padding: .9rem 1.3rem;
 }
 
 .question {
-    button {
+    h3 {
         display: block;
         width: 100%;
         padding: $question-padding;
         text-align: left;
+        cursor: pointer;
     }
     .response {
         overflow-y: hidden;
@@ -39,7 +40,7 @@ $question-padding: .9rem 1.3rem;
         padding: $question-padding;
         background-color: var(--bg-0);
     }
-    button[aria-expanded="false"] + .response {
+    h3[aria-expanded="false"] + .response {
         height: 0;
         padding: 0;
     }

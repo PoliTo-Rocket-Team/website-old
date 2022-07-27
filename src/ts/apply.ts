@@ -5,12 +5,19 @@ setupNavigation(100);
 
 let lastOpen: HTMLElement;
 
-for(var btn of document.querySelectorAll<HTMLElement>(".question > button")) {
+for(var btn of document.querySelectorAll<HTMLElement>(".question > h3")) {
     btn.setAttribute("aria-expanded", "false");
-    btn.addEventListener("click", toggleQuestion)
+    btn.addEventListener("click", toggleFAQ)
+    btn.addEventListener("keydown", keyboardToggleFAQ);
 }
 
-function toggleQuestion(this: HTMLElement) {
+function keyboardToggleFAQ(this: HTMLElement, ev: KeyboardEvent) {
+    if(ev.key !== "Enter" && ev.key !== " ") return;
+    ev.preventDefault();
+    toggleFAQ.call(this);
+}
+
+function toggleFAQ(this: HTMLElement) {
     if(lastOpen) lastOpen.setAttribute("aria-expanded", "false");
     if(lastOpen === this) {
         lastOpen = null;
