@@ -36,6 +36,14 @@
         "about:ts": {
             "type": "ts",
             "file": "about" 
+        },
+        "apply:scss": {
+            "type": "scss",
+            "file": "apply" 
+        },
+        "apply:ts": {
+            "type": "ts",
+            "file": "apply" 
         }
     },
     "profiles": {
@@ -43,6 +51,7 @@
         "about": [ "about:scss", "about:ts" ],
         "projects": [ "projects:scss", "projects:ts" ],
         "sponsors": [ "sponsors:scss", "sponsors:ts" ],
+        "apply": [ "apply:scss", "apply:ts" ],
         "scss": [ "index:scss", "about:scss", "projects:scss", "sponsors:scss" ]
     }
 }
