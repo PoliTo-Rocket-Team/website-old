@@ -444,6 +444,7 @@ main {
 
 h2 {
   margin-top: 2.5em;
+  margin-bottom: 2rem;
 }
 
 abbr {
@@ -451,12 +452,17 @@ abbr {
 }
 
 .question-box {
-  border-radius: 1rem;
-  border: 2px solid rgba(136, 136, 136, 0.4);
-  background-color: var(--bg-1);
-  margin-top: 2rem;
+  column-width: 35ch;
+  column-gap: 1rem;
 }
 
+.question {
+  break-inside: avoid;
+  border-radius: 0.8rem;
+  border: 2px solid rgba(136, 136, 136, 0.4);
+  background-color: var(--bg-1);
+  margin-bottom: 1rem;
+}
 .question h3 {
   display: block;
   width: 100%;
@@ -469,15 +475,15 @@ abbr {
   box-sizing: border-box;
   padding: 0.9rem 1.3rem;
   background-color: var(--bg-0);
+  border-bottom-left-radius: calc(0.8rem - 3px);
+  border-bottom-right-radius: calc(0.8rem - 3px);
 }
 .question h3[aria-expanded=false] + .response {
   height: 0;
   padding: 0;
 }
-
-.question:last-of-type .response {
-  border-bottom-left-radius: calc(1rem - 3px);
-  border-bottom-right-radius: calc(1rem - 3px);
+.question p + p {
+  margin-top: 0.5rem;
 }
 
 /*# sourceMappingURL=apply.css.map */

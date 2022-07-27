@@ -91,7 +91,6 @@
 
     setupThemePreference();
     setupNavigation(100);
-    let lastOpen;
     for (var btn of document.querySelectorAll(".question > h3")) {
         btn.setAttribute("aria-expanded", "false");
         btn.addEventListener("click", toggleFAQ);
@@ -103,18 +102,17 @@
         ev.preventDefault();
         toggleFAQ.call(this);
     }
+    // let lastOpen: HTMLElement;
     function toggleFAQ() {
-        if (lastOpen)
-            lastOpen.setAttribute("aria-expanded", "false");
-        if (lastOpen === this) {
-            lastOpen = null;
-        }
-        else {
-            this.setAttribute("aria-expanded", "true");
-            lastOpen = this;
-        }
-        // const expanded = this.getAttribute("aria-expanded") === "true";
-        // this.setAttribute("aria-expanded", (!expanded).toString());
+        // if(lastOpen) lastOpen.setAttribute("aria-expanded", "false");
+        // if(lastOpen === this) {
+        //     lastOpen = null;
+        // } else {
+        //     this.setAttribute("aria-expanded", "true");
+        //     lastOpen = this;
+        // }
+        const expanded = this.getAttribute("aria-expanded") === "true";
+        this.setAttribute("aria-expanded", (!expanded).toString());
     }
 
 })();

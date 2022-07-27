@@ -10,46 +10,48 @@ main {
 
 h2 {
     margin-top: 2.5em;
+    margin-bottom: 2rem;
 }
 abbr {
     text-decoration: none;
 }
 
-
-$question-radius: 1rem;
-$question-padding: .9rem 1.3rem;
+$faq-radius: .8rem;
+$faq-padding: .9rem 1.3rem;
+$faq-space: 1rem;
 
 .question-box {
-    border-radius: $question-radius;
-    border: 2px solid #8886;
-    background-color: var(--bg-1);
-    margin-top: 2rem;
+    column-width: 35ch;
+    column-gap: $faq-space;
 }
 
 .question {
+    break-inside: avoid;
+    border-radius: $faq-radius;
+    border: 2px solid #8886;
+    background-color: var(--bg-1);
+    margin-bottom: $faq-space;
+
     h3 {
         display: block;
         width: 100%;
-        padding: $question-padding;
+        padding: $faq-padding;
         text-align: left;
         cursor: pointer;
     }
     .response {
         overflow-y: hidden;
         box-sizing: border-box;
-        padding: $question-padding;
+        padding: $faq-padding;
         background-color: var(--bg-0);
+        border-bottom-left-radius: calc($faq-radius - 3px);
+        border-bottom-right-radius: calc($faq-radius - 3px);
     }
     h3[aria-expanded="false"] + .response {
         height: 0;
         padding: 0;
     }
-}
-// .question:first-of-type {
-//     border-top-left-radius: $question-radius;
-//     border-top-right-radius: $question-radius;
-// }
-.question:last-of-type .response {
-    border-bottom-left-radius: calc($question-radius - 3px);
-    border-bottom-right-radius: calc($question-radius - 3px);
+    p + p {
+        margin-top: .5rem;
+    }
 }
