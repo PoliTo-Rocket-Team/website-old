@@ -443,8 +443,8 @@ main {
 }
 
 h2 {
-  margin-top: 2.5em;
-  margin-bottom: 2rem;
+  margin-top: 10rem;
+  margin-bottom: 1rem;
 }
 
 abbr {
@@ -452,38 +452,93 @@ abbr {
 }
 
 .question-box {
-  column-width: 35ch;
-  column-gap: 1.25rem;
+  max-width: 75ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.question-box hr {
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  height: 0;
+  border: none;
+  border-top: 2px solid rgba(136, 136, 136, 0.4);
 }
 
 .question {
-  break-inside: avoid;
-  border-radius: 0.8rem;
-  border: 2px solid rgba(136, 136, 136, 0.4);
-  background-color: var(--bg-1);
-  margin-bottom: 1.25rem;
-}
-.question h3 {
-  display: block;
-  width: 100%;
-  padding: 0.9rem 1.3rem;
-  text-align: left;
-  font-weight: 600;
+  opacity: 0.4;
+  transition: opacity 0.1s ease;
+  margin: clamp(4rem, 12vh, 12rem) 0;
   cursor: pointer;
 }
-.question .response {
-  overflow-y: hidden;
-  box-sizing: border-box;
-  padding: 0.9rem 1.3rem;
-  background-color: var(--bg-0);
-  border-bottom-left-radius: calc(0.8rem - 3px);
-  border-bottom-right-radius: calc(0.8rem - 3px);
+.question.focus {
+  opacity: 1;
+  cursor: auto;
 }
-.question h3[aria-expanded=false] + .response {
-  height: 0;
-  padding: 0;
+.question h3 {
+  margin-bottom: 1rem;
 }
-.question p + p {
+
+@media (min-width: 50rem) {
+  h2 {
+    text-align: center;
+  }
+  .question {
+    display: flex;
+    align-items: center;
+  }
+  .question h3 {
+    width: 35%;
+    text-align: right;
+    margin-bottom: 0;
+  }
+  .question .response {
+    margin-left: 10%;
+    width: 55%;
+  }
+}
+/*
+.question-box {
+    // column-width: 35ch;
+    // column-gap: $faq-space;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35ch, 1fr));
+    gap: $faq-space;
+}
+
+.question {
+    break-inside: avoid;
+    border-radius: $faq-radius;
+    border: 2px solid #8886;
+    // margin-bottom: $faq-space;
+
+    h3 {
+        display: block;
+        width: 100%;
+        padding: $faq-padding;
+        text-align: left;
+        font-weight: 600;
+        cursor: pointer;
+        background-color: var(--bg-1);
+        border-top-left-radius: calc($faq-radius - 3px);
+        border-top-right-radius: calc($faq-radius - 3px);
+
+    }
+    .response {
+        overflow-y: hidden;
+        box-sizing: border-box;
+        padding: $faq-padding;
+        background-color: var(--bg-0);
+        border-bottom-left-radius: calc($faq-radius - 3px);
+        border-bottom-right-radius: calc($faq-radius - 3px);
+    }
+    h3[aria-expanded="false"] + .response {
+        height: 0;
+        padding: 0;
+    }
+}
+*/
+p + p {
   margin-top: 0.5rem;
 }
 
@@ -491,6 +546,14 @@ em {
   font-weight: 600;
   font-style: normal;
   color: var(--accent-text);
+}
+
+footer {
+  background-color: var(--bg-2);
+  color: var(--fg-2);
+  padding: var(--pad);
+  padding-top: 0;
+  text-align: center;
 }
 
 /*# sourceMappingURL=apply.css.map */
