@@ -122,7 +122,7 @@ interface MouseTRackingOptions<T> {
     extra: T
 }
 
-export function trackmouse<E>(element: HTMLElement, options: MouseTRackingOptions<E>) {
+export function trackmouse<E>(element: Element, options: MouseTRackingOptions<E>) {
     const onenter = options.enter || NO_FN;
     const onleave = options.leave || NO_FN;
     const onmove = options.move || NO_FN;

@@ -145,3 +145,48 @@ section {
         }
     }
 }
+
+$pie-radius: 6rem;
+
+.pie {
+    width: 2*$pie-radius;
+    height: 2*$pie-radius;
+    border-radius: 50%;
+    
+    line.pie-sep {
+        stroke-width: .2;
+        stroke: var(--bg-0);
+        stroke-linecap: round;
+    }
+
+    text {
+        --df: min(var(--p), 0.5);
+        font-size: 1.5px;
+        fill: white;
+        transform: translate(
+            calc(var(--dx) * 8px * (1 - var(--df))),
+            calc(var(--dy) * 8px * (1 - var(--df)))
+        );
+    }
+
+    &:hover g {
+        filter: saturate(.8);
+        opacity: 0.4;
+    }
+
+    g {
+        transform-origin: center;
+        transition: transform .15s ease;
+
+        &:hover,
+        &.active {
+            transform: scale(1.1);
+            filter: saturate(1);
+            opacity: 1;
+
+            text {
+                opacity: 0;
+            }
+        }
+    }
+}
