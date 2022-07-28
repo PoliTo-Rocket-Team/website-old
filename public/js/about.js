@@ -144,11 +144,10 @@
             el.append(...children);
         return el;
     }
-    function randomHEX() { return "#" + Math.floor(Math.random() * 16777215).toString(16); }
 
     const pies = [
         {
-            title: "Courses of members",
+            title: "Members distribution among courses",
             slices: [
                 { portion: .6, label: "Aerospace", color: 0x3bdb84 },
                 { portion: .3, label: "Mechanical", color: 0xdd4991 },
@@ -157,15 +156,44 @@
         }
     ];
 
+    function el(name, attrs, children) {
+        const res = document.createElement(name);
+        if (attrs)
+            for (var key in attrs)
+                res.setAttribute(key, attrs[key]);
+        if (children)
+            res.append(...children);
+        return res;
+    }
+    function text(name, text, attrs) {
+        const res = document.createElement(name);
+        res.textContent = text;
+        if (attrs)
+            for (var key in attrs)
+                res.setAttribute(key, attrs[key]);
+        return res;
+    }
+
     setupNavigation(100);
     setupThemePreference();
     const PIE_RADIUS = 10;
     const PIE_SCALE = 1.1;
     const piesContainer = document.getElementById("pies");
     const floatingLabel = document.getElementById("floating-label");
-    piesContainer.appendChild(createPie(pies[0].slices));
-    function createPie(slices) {
-        const svg = createSVG(2.2 * PIE_RADIUS, 2.2 * PIE_RADIUS, 1, "pie");
+    piesContainer.append(...pies.map(createPie));
+    function createPie(pie) {
+        return el("div", { class: "pie-chart" }, [
+            createPieGraph(pie.slices),
+            el("div", { class: "aside" }, [
+                text("h3", pie.title),
+                el("ul", null, pie.slices.map(slice => text("li", slice.label, {
+                    style: `--clr: ${colorNum2Str(slice.color)};`
+                })))
+            ])
+        ]);
+    }
+    function createPieGraph(slices) {
+        const svg = createSVG(2.2 * PIE_RADIUS, 2.2 * PIE_RADIUS, 1, "pie-graph");
         let i;
         const len = slices.length;
         const angles = new Array(len + 1);
@@ -199,7 +227,7 @@
                 style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
             }, [
                 SVG_el("path", {
-                    fill: slices[i].color ? "#" + slices[i].color.toString(16) : randomHEX(),
+                    fill: colorNum2Str(slices[i].color),
                     d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
                 }),
                 SVG_el("title", null, [slices[i].label]),
@@ -235,5 +263,6 @@
         floatingLabel.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
         floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
     }
+    function colorNum2Str(clr) { return '#' + clr.toString(16); }
 
 })();

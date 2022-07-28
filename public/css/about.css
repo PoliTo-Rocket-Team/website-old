@@ -553,21 +553,44 @@ section {
   color: var(--fg-1);
 }
 
-.pie {
+.pie-chart {
+  display: flex;
+  align-items: center;
+}
+.pie-chart .aside {
+  margin-left: 2rem;
+  max-width: 30ch;
+}
+.pie-chart h3 {
+  margin-bottom: 0.5rem;
+}
+.pie-chart ul {
+  list-style: none;
+}
+.pie-chart li::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.6em;
+  background-color: var(--clr);
+  margin-right: 0.5ch;
+}
+
+.pie-graph {
   width: 16rem;
   height: 16rem;
   border-radius: 50%;
 }
-.pie line.pie-sep {
+.pie-graph line.pie-sep {
   stroke-width: 0.2;
   stroke: var(--bg-0);
   stroke-linecap: round;
 }
-.pie:hover .pie-slice {
+.pie-graph:hover .pie-slice {
   filter: saturate(0.8);
   opacity: 0.4;
 }
-.pie .pie-slice.active {
+.pie-graph .pie-slice.active {
   transform: scale(1.1);
   filter: saturate(1);
   opacity: 1;

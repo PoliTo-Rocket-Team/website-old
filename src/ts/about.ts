@@ -1,6 +1,7 @@
 import { setupNavigation, setupThemePreference, trackmouse } from "./utils";
 import { createSVG, SVG_el, randomHEX } from "./assets/SVG-utils";
-import { pies, PieSlice } from "./assets/about-stats";
+import { Pie, pies, PieSlice } from "./assets/about-stats";
+import { el, text } from './assets/HTML-utils';
 
 setupNavigation(100);
 setupThemePreference();
@@ -9,10 +10,22 @@ const PIE_SCALE = 1.1;
 const piesContainer = document.getElementById("pies");
 const floatingLabel = document.getElementById("floating-label");
 
-piesContainer.appendChild(createPie(pies[0].slices));
+piesContainer.append(...pies.map(createPie));
 
-function createPie(slices: PieSlice[]) {
-    const svg = createSVG(2.2*PIE_RADIUS,2.2*PIE_RADIUS,1,"pie");
+function createPie(pie: Pie) {
+    return el("div", { class: "pie-chart" }, [
+        createPieGraph(pie.slices),
+        el("div", { class: "aside" }, [
+            text("h3", pie.title),
+            el("ul", null, pie.slices.map(slice => text("li", slice.label, {
+                style: `--clr: ${colorNum2Str(slice.color)};`
+            })))
+        ])
+    ])
+}
+
+function createPieGraph(slices: PieSlice[]) {
+    const svg = createSVG(2.2*PIE_RADIUS,2.2*PIE_RADIUS,1,"pie-graph");
     
     let i: number;
     const len = slices.length;
@@ -36,7 +49,6 @@ function createPie(slices: PieSlice[]) {
         "dominant-baseline": "central",
         class: "percentage",
     }
-    const labelTextAttrs = { x: c, y: c, class: "label" }
     let x = PIE_RADIUS*(PIE_SCALE+coss[0]);
     let y = PIE_RADIUS*(PIE_SCALE+sins[0]);
     for(i=0; i<len; i++) {
@@ -49,7 +61,7 @@ function createPie(slices: PieSlice[]) {
                     style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
                 }, [
                     SVG_el("path", {
-                        fill: slices[i].color ? "#"+slices[i].color.toString(16) : randomHEX(),
+                        fill: colorNum2Str(slices[i].color),
                         d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p*360},${+(p>0.5)},1,${
                             x = PIE_RADIUS*(PIE_SCALE+coss[i+1])
                         },${
@@ -94,3 +106,5 @@ function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
     floatingLabel.style.setProperty("--mx", (x+rect.left-cbcr.left)+"px");
     floatingLabel.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
 }
+
+function colorNum2Str(clr: number) { return '#' + clr.toString(16) }

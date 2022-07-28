@@ -1,7 +1,7 @@
 export interface PieSlice {
     portion: number;
     label: string;
-    color?: number;
+    color: number;
 }
 
 export interface Pie {
@@ -11,7 +11,7 @@ export interface Pie {
 
 export const pies: Pie[] = [
     {
-        title: "Courses of members",
+        title: "Members distribution among courses",
         slices: [
             { portion: .6, label: "Aerospace", color: 0x3bdb84 },
             { portion: .3, label: "Mechanical", color: 0xdd4991 },
