@@ -5,4 +5,5 @@ public/js/worker*
 src/worker*
 discarded/
 *.css.map
+*.unrel.ts
 .env

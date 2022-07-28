@@ -1,5 +1,9 @@
 export function wait(ms: number) { return new Promise<void>(res => setTimeout(res,ms)) }
 
+export function onDocumentReady(fn: () => any) {
+    document.addEventListener("readystatechange", () => document.readyState === "complete" && fn());
+}
+
 export function setupNavigation(deltaY: number) {
     const nav = document.getElementById("page-nav");
     const btn = nav.querySelector("button");
