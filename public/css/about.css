@@ -557,10 +557,6 @@ section {
   display: flex;
   align-items: center;
 }
-.pie-chart .aside {
-  margin-left: 2rem;
-  max-width: 30ch;
-}
 .pie-chart h3 {
   margin-bottom: 0.5rem;
 }
@@ -626,8 +622,28 @@ section {
   padding: 0.3em 0.6em;
   border-radius: 0.3em;
 }
-#floating-label.show {
-  transform: translate(calc(var(--mx) + 1.5ch), calc(var(--my) - 50%));
+
+@media (max-width: 50rem) {
+  .pie-chart {
+    flex-direction: column;
+    margin: 3rem 0;
+  }
+  .aside {
+    margin-top: 1rem;
+    max-width: 16rem;
+  }
+  #floating-label.show {
+    transform: translate(calc(var(--mx) - 50%), calc(var(--my) - 50%));
+  }
+}
+@media (min-width: 50rem) {
+  .aside {
+    margin-left: 2rem;
+    max-width: 30ch;
+  }
+  #floating-label.show {
+    transform: translate(calc(var(--mx) + 1.5ch), calc(var(--my) - 50%));
+  }
 }
 
 /*# sourceMappingURL=about.css.map */
