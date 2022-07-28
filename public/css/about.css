@@ -554,8 +554,8 @@ section {
 }
 
 .pie {
-  width: 12rem;
-  height: 12rem;
+  width: 16rem;
+  height: 16rem;
   border-radius: 50%;
 }
 .pie line.pie-sep {
@@ -563,27 +563,48 @@ section {
   stroke: var(--bg-0);
   stroke-linecap: round;
 }
-.pie text {
+.pie:hover .pie-slice {
+  filter: saturate(0.8);
+  opacity: 0.4;
+}
+.pie .pie-slice.active {
+  transform: scale(1.1);
+  filter: saturate(1);
+  opacity: 1;
+}
+
+.pie-slice {
+  position: relative;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+.pie-slice .percentage {
   --df: min(var(--p), 0.5);
   font-size: 1.5px;
   fill: white;
   transform: translate(calc(var(--dx) * 8px * (1 - var(--df))), calc(var(--dy) * 8px * (1 - var(--df))));
 }
-.pie:hover g {
-  filter: saturate(0.8);
-  opacity: 0.4;
+.pie-slice.active .percentage {
+  transform: scale(0);
 }
-.pie g {
-  transform-origin: center;
-  transition: transform 0.15s ease;
+
+#pies {
+  position: relative;
 }
-.pie g:hover, .pie g.active {
-  transform: scale(1.1);
-  filter: saturate(1);
-  opacity: 1;
+
+#floating-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  background-color: var(--bg-1);
+  color: var(--fg-0);
+  font-weight: 500;
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
 }
-.pie g:hover text, .pie g.active text {
-  opacity: 0;
+#floating-label.show {
+  transform: translate(calc(var(--mx) + 1.5ch), calc(var(--my) - 50%));
 }
 
 /*# sourceMappingURL=about.css.map */

@@ -1,12 +1,13 @@
 import { setupNavigation, setupThemePreference, trackmouse } from "./utils";
 import { createSVG, SVG_el, randomHEX } from "./assets/SVG-utils";
-import { pies, Pie, PieSlice } from "./assets/about-stats";
+import { pies, PieSlice } from "./assets/about-stats";
 
 setupNavigation(100);
 setupThemePreference();
 const PIE_RADIUS = 10;
 const PIE_SCALE = 1.1;
 const piesContainer = document.getElementById("pies");
+const floatingLabel = document.getElementById("floating-label");
 
 piesContainer.appendChild(createPie(pies[0].slices));
 
@@ -29,11 +30,13 @@ function createPie(slices: PieSlice[]) {
     }
     // colored slices
     let p: number;
-    const textAttrs = {
+    const percentageTextAttrs = {
         x: c, y: c,
         "text-anchor": "middle",
         "dominant-baseline": "central",
+        class: "percentage",
     }
+    const labelTextAttrs = { x: c, y: c, class: "label" }
     let x = PIE_RADIUS*(PIE_SCALE+coss[0]);
     let y = PIE_RADIUS*(PIE_SCALE+sins[0]);
     for(i=0; i<len; i++) {
@@ -41,7 +44,8 @@ function createPie(slices: PieSlice[]) {
         setupSlice(
             svg.appendChild(
                 SVG_el("g", {
-                    "data-label": slices[i].label,
+                    class: "pie-slice",
+                    "data-label":  slices[i].label + " - " + (slices[i].portion*100).toFixed(1) + "%",
                     style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
                 }, [
                     SVG_el("path", {
@@ -52,8 +56,9 @@ function createPie(slices: PieSlice[]) {
                             y = PIE_RADIUS*(PIE_SCALE+sins[i+1])
                         } Z`
                     }),
-                    SVG_el("text", textAttrs, [ slices[i].portion*100 + '%' ]),
                     SVG_el("title", null, [ slices[i].label ]),
+                    SVG_el("text", percentageTextAttrs, [ slices[i].portion*100 + '%' ]),
+                    // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
                 ])
             )
         );
@@ -72,12 +77,20 @@ function createPie(slices: PieSlice[]) {
 }
 
 function setupSlice(slice: SVGElement) {
-    trackmouse(slice, { extra: slice, enter, leave })
+    trackmouse(slice, { extra: slice, enter, leave, move });
 }
 
 function enter(slice: SVGElement) {
     slice.classList.add("active");
+    floatingLabel.textContent = slice.getAttribute("data-label")
+    floatingLabel.classList.add("show");
 }
 function leave(slice: SVGElement) {
     slice.classList.remove("active");
+    floatingLabel.classList.remove("show");
+}
+function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
+    const cbcr = piesContainer.getBoundingClientRect();
+    floatingLabel.style.setProperty("--mx", (x+rect.left-cbcr.left)+"px");
+    floatingLabel.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
 }

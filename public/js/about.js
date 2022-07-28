@@ -88,6 +88,40 @@
             window.dispatchEvent(new CustomEvent("PRT:theme", { detail: { dark } }));
         }
     }
+    function NO_FN() { }
+    function trackmouse(element, options) {
+        const onenter = options.enter || NO_FN;
+        const onleave = options.leave || NO_FN;
+        const onmove = options.move || NO_FN;
+        const extra = options.extra;
+        element.addEventListener("mouseenter", enter);
+        let x;
+        let y;
+        let req = null;
+        function enter() {
+            req = null;
+            element.addEventListener("mousemove", mousemove);
+            element.addEventListener("mouseleave", leave, { once: true });
+            onenter(extra);
+        }
+        function signal() {
+            const rect = element.getBoundingClientRect();
+            onmove(x - rect.left - window.scrollX, y - rect.top - window.scrollY, rect, extra);
+            req = null;
+        }
+        function mousemove(ev) {
+            x = ev.pageX;
+            y = ev.pageY;
+            if (req == null)
+                req = requestAnimationFrame(signal);
+        }
+        function leave() {
+            element.removeEventListener("mousemove", mousemove);
+            if (req != null)
+                cancelAnimationFrame(req);
+            onleave(extra);
+        }
+    }
 
     const namespaceUriSVG = "http://www.w3.org/2000/svg";
     function createSVG(width, height, ratio, className, children) {
@@ -128,6 +162,7 @@
     const PIE_RADIUS = 10;
     const PIE_SCALE = 1.1;
     const piesContainer = document.getElementById("pies");
+    const floatingLabel = document.getElementById("floating-label");
     piesContainer.appendChild(createPie(pies[0].slices));
     function createPie(slices) {
         const svg = createSVG(2.2 * PIE_RADIUS, 2.2 * PIE_RADIUS, 1, "pie");
@@ -148,26 +183,29 @@
         }
         // colored slices
         let p;
-        const textAttrs = {
+        const percentageTextAttrs = {
             x: c, y: c,
             "text-anchor": "middle",
             "dominant-baseline": "central",
+            class: "percentage",
         };
         let x = PIE_RADIUS * (PIE_SCALE + coss[0]);
         let y = PIE_RADIUS * (PIE_SCALE + sins[0]);
         for (i = 0; i < len; i++) {
             p = slices[i].portion;
-            svg.appendChild(SVG_el("g", {
-                "data-label": slices[i].label,
+            setupSlice(svg.appendChild(SVG_el("g", {
+                class: "pie-slice",
+                "data-label": slices[i].label + " - " + (slices[i].portion * 100).toFixed(1) + "%",
                 style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
             }, [
                 SVG_el("path", {
                     fill: slices[i].color ? "#" + slices[i].color.toString(16) : randomHEX(),
                     d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
                 }),
-                SVG_el("text", textAttrs, [slices[i].portion * 100 + '%']),
                 SVG_el("title", null, [slices[i].label]),
-            ]));
+                SVG_el("text", percentageTextAttrs, [slices[i].portion * 100 + '%']),
+                // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
+            ])));
         }
         // sep lines
         for (i = 0; i < len; i++) {
@@ -179,6 +217,23 @@
             }));
         }
         return svg;
+    }
+    function setupSlice(slice) {
+        trackmouse(slice, { extra: slice, enter, leave, move });
+    }
+    function enter(slice) {
+        slice.classList.add("active");
+        floatingLabel.textContent = slice.getAttribute("data-label");
+        floatingLabel.classList.add("show");
+    }
+    function leave(slice) {
+        slice.classList.remove("active");
+        floatingLabel.classList.remove("show");
+    }
+    function move(x, y, rect, slice) {
+        const cbcr = piesContainer.getBoundingClientRect();
+        floatingLabel.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
+        floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
     }
 
 })();

@@ -146,7 +146,7 @@ section {
     }
 }
 
-$pie-radius: 6rem;
+$pie-radius: 8rem;
 
 .pie {
     width: 2*$pie-radius;
@@ -159,7 +159,23 @@ $pie-radius: 6rem;
         stroke-linecap: round;
     }
 
-    text {
+    &:hover .pie-slice {
+        filter: saturate(.8);
+        opacity: 0.4;
+    }
+    .pie-slice.active {
+        transform: scale(1.1);
+        filter: saturate(1);
+        opacity: 1;
+    }
+}
+
+.pie-slice {
+    position: relative;
+    transform-origin: center;
+    transition: transform .15s ease;
+
+    .percentage {
         --df: min(var(--p), 0.5);
         font-size: 1.5px;
         fill: white;
@@ -169,24 +185,25 @@ $pie-radius: 6rem;
         );
     }
 
-    &:hover g {
-        filter: saturate(.8);
-        opacity: 0.4;
-    }
+    &.active .percentage { transform: scale(0); }
+}
 
-    g {
-        transform-origin: center;
-        transition: transform .15s ease;
+#pies { position: relative; }
+#floating-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    background-color: var(--bg-1);
+    color: var(--fg-0);
+    font-weight: 500;
+    padding: .3em .6em;
+    border-radius: .3em;
 
-        &:hover,
-        &.active {
-            transform: scale(1.1);
-            filter: saturate(1);
-            opacity: 1;
-
-            text {
-                opacity: 0;
-            }
-        }
+    &.show {
+        transform: translate(
+            calc(var(--mx) + 1.5ch), 
+            calc(var(--my) - 50%)
+        );
     }
 }
