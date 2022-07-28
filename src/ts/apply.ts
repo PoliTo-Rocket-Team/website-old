@@ -1,43 +1,65 @@
-import { setupNavigation, setupThemePreference } from './utils';
+import { setupNavigation, setupThemePreference, throttle, frameThrottle } from './utils';
 
 setupThemePreference();
 setupNavigation(100);
 
+const FAQs = Array.from(document.querySelectorAll<HTMLElement>(".question"));
+let baseTop = pageTopOf(FAQs[0].offsetParent);
+window.addEventListener("resize", throttle(100, () => baseTop = pageTopOf(FAQs[0].offsetParent)));
+function pageTopOf(el: Element) { return el.getBoundingClientRect().top + window.scrollY; }
 
-// for(var btn of document.querySelectorAll<HTMLElement>(".question > h3")) {
-//     btn.setAttribute("aria-expanded", "true");
-//     btn.addEventListener("click", toggleFAQ)
-//     btn.addEventListener("keydown", keyboardToggleFAQ);
-// }
-
-// function keyboardToggleFAQ(this: HTMLElement, ev: KeyboardEvent) {
-//     if(ev.key !== "Enter" && ev.key !== " ") return;
-//     ev.preventDefault();
-//     toggleFAQ.call(this);
-// }
-
-// // let lastOpen: HTMLElement;
-// function toggleFAQ(this: HTMLElement) {
-//     // if(lastOpen) lastOpen.setAttribute("aria-expanded", "false");
-//     // if(lastOpen === this) {
-//     //     lastOpen = null;
-//     // } else {
-//     //     this.setAttribute("aria-expanded", "true");
-//     //     lastOpen = this;
-//     // }
-//     const expanded = this.getAttribute("aria-expanded") === "true";
-//     this.setAttribute("aria-expanded", (!expanded).toString());
-// }
-
-const obs = new IntersectionObserver(entries => entries.forEach(entry => {
-    entry.target.classList.toggle("focus", entry.isIntersecting);
-}), {
-    rootMargin: "-45% 0% -45% 0%"
+let lastScroll = window.scrollY;
+let focusedFAQ = nearestAfter(FAQs, 0);
+FAQs[focusedFAQ].classList.add("focus");
+const focusNearestFAQ = frameThrottle(() => {
+    const delta = window.scrollY - lastScroll;
+    lastScroll = window.scrollY;
+    const newFocused = delta > 0 ? nearestAfter(FAQs, focusedFAQ) : nearestBefore(FAQs, focusedFAQ);
+    if(focusedFAQ != newFocused) {
+        FAQs[focusedFAQ].classList.remove("focus");
+        focusedFAQ = newFocused;
+        FAQs[focusedFAQ].classList.add("focus");
+    }
 });
 
-for(var q of document.querySelectorAll(".question")) {
-    obs.observe(q);
-    q.addEventListener("click", bringIntoView)
+const obs = new IntersectionObserver(entries => entries.forEach(entry => {
+    if(entry.isIntersecting) window.addEventListener("scroll", focusNearestFAQ);
+    else window.removeEventListener("scroll", focusNearestFAQ);
+}), { rootMargin: "-10% 0% -20% 0%" });
+obs.observe(document.getElementById("faqs-section"));
+
+function nearestAfter(elements: HTMLElement[], start: number = 0) {
+    let i: number;
+    let lastDistance = distanceFromCenterScreen(elements[start]);
+    let currentDistance: number;
+    const len = elements.length;
+    for(i = start+1; i<len; i++) {
+        currentDistance = distanceFromCenterScreen(elements[i]);
+        if(currentDistance > lastDistance) break;
+        lastDistance = currentDistance;
+    }
+    return i-1;
+}
+
+function nearestBefore(elements: HTMLElement[], end: number = elements.length-1) {
+    let i: number;
+    let lastDistance = distanceFromCenterScreen(elements[end]);
+    let currentDistance: number;
+    for(i = end-1; i >= 0; i--) {
+        currentDistance = distanceFromCenterScreen(elements[i]);
+        if(currentDistance > lastDistance) break;
+        lastDistance = currentDistance;
+    }
+    return i+1;
+}
+
+function distanceFromCenterScreen(el: HTMLElement) {
+    return Math.abs(baseTop + el.offsetTop + el.offsetHeight/2 - window.scrollY - window.innerHeight*4/9); 
+}
+
+for(var q of FAQs) {
+    // obs.observe(q);
+    q.addEventListener("click", bringIntoView);
 }
 
 function bringIntoView(this: HTMLElement) {

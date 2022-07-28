@@ -19,7 +19,7 @@ abbr {
 $faq-radius: .8rem;
 $faq-padding: .9rem 1.3rem;
 
-.question-box {
+#faqs-section {
     max-width: 75ch;
     margin-left: auto;
     margin-right: auto;
@@ -37,7 +37,7 @@ $faq-padding: .9rem 1.3rem;
 .question {
     opacity: 0.4;
     transition: opacity .1s ease;
-    margin: clamp(4rem, 12vh, 12rem) 0;
+    margin: clamp(3.5rem, 12vh, 12rem) 0;
     cursor: pointer;
 
     &.focus {
@@ -70,54 +70,14 @@ $faq-padding: .9rem 1.3rem;
     }
 }
 
-/*
-.question-box {
-    // column-width: 35ch;
-    // column-gap: $faq-space;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(35ch, 1fr));
-    gap: $faq-space;
-}
-
-.question {
-    break-inside: avoid;
-    border-radius: $faq-radius;
-    border: 2px solid #8886;
-    // margin-bottom: $faq-space;
-
-    h3 {
-        display: block;
-        width: 100%;
-        padding: $faq-padding;
-        text-align: left;
-        font-weight: 600;
-        cursor: pointer;
-        background-color: var(--bg-1);
-        border-top-left-radius: calc($faq-radius - 3px);
-        border-top-right-radius: calc($faq-radius - 3px);
-
-    }
-    .response {
-        overflow-y: hidden;
-        box-sizing: border-box;
-        padding: $faq-padding;
-        background-color: var(--bg-0);
-        border-bottom-left-radius: calc($faq-radius - 3px);
-        border-bottom-right-radius: calc($faq-radius - 3px);
-    }
-    h3[aria-expanded="false"] + .response {
-        height: 0;
-        padding: 0;
-    }
-}
-*/
-
 p + p {
     margin-top: .5rem;
 }
+p em {
+    font-weight: 500;
+}
 
 em {
-    font-weight: 600;
     font-style: normal;
     color: var(--accent-text);
 }
