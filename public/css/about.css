@@ -598,10 +598,10 @@ section {
   transition: transform 0.15s ease;
 }
 .pie-slice .percentage {
-  --df: min(var(--p), 0.5);
-  font-size: 1.5px;
+  --df: min(var(--p) * var(--p) * 12, 0.5);
+  font-size: clamp(1px, var(--p) * var(--p) * 100px, 1.5px);
   fill: white;
-  transform: translate(calc(var(--dx) * 8px * (1 - var(--df))), calc(var(--dy) * 8px * (1 - var(--df))));
+  transform: translate(calc(var(--dx) * 8.5px * (1 - var(--df))), calc(var(--dy) * 8.5px * (1 - var(--df))));
 }
 .pie-slice.active .percentage {
   transform: scale(0);

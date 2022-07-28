@@ -13,9 +13,11 @@ export const pies: Pie[] = [
     {
         title: "Members distribution among courses",
         slices: [
-            { portion: .6, label: "Aerospace", color: 0x3bdb84 },
-            { portion: .3, label: "Mechanical", color: 0xdd4991 },
-            { portion: .1, label: "Others", color: 0xdd0011 },
+            { portion: .727272, label: "Aerospace", color: 0x3bdb84 },
+            { portion: .045454, label: "ECE", color: 0xdd4991 },
+            { portion: .045454, label: "Mechanical", color: 0xdd0011 },
+            { portion: .045454, label: "Physics", color: 0x2479cf },
+            { portion: .136366, label: "Other", color: 0xb28c23 },
         ]
     }
 ]

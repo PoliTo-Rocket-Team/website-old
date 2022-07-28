@@ -149,9 +149,11 @@
         {
             title: "Members distribution among courses",
             slices: [
-                { portion: .6, label: "Aerospace", color: 0x3bdb84 },
-                { portion: .3, label: "Mechanical", color: 0xdd4991 },
-                { portion: .1, label: "Others", color: 0xdd0011 },
+                { portion: .727272, label: "Aerospace", color: 0x3bdb84 },
+                { portion: .045454, label: "ECE", color: 0xdd4991 },
+                { portion: .045454, label: "Mechanical", color: 0xdd0011 },
+                { portion: .045454, label: "Physics", color: 0x2479cf },
+                { portion: .136366, label: "Other", color: 0xb28c23 },
             ]
         }
     ];
@@ -223,7 +225,7 @@
             p = slices[i].portion;
             setupSlice(svg.appendChild(SVG_el("g", {
                 class: "pie-slice",
-                "data-label": slices[i].label + " - " + (slices[i].portion * 100).toFixed(1) + "%",
+                "data-label": slices[i].label + " - " + (slices[i].portion * 100).toPrecision(3) + "%",
                 style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
             }, [
                 SVG_el("path", {
@@ -231,7 +233,7 @@
                     d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
                 }),
                 SVG_el("title", null, [slices[i].label]),
-                SVG_el("text", percentageTextAttrs, [slices[i].portion * 100 + '%']),
+                SVG_el("text", percentageTextAttrs, [(slices[i].portion * 100).toPrecision(3) + '%']),
                 // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
             ])));
         }

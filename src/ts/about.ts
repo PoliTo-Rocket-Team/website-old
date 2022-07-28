@@ -57,7 +57,7 @@ function createPieGraph(slices: PieSlice[]) {
             svg.appendChild(
                 SVG_el("g", {
                     class: "pie-slice",
-                    "data-label":  slices[i].label + " - " + (slices[i].portion*100).toFixed(1) + "%",
+                    "data-label":  slices[i].label + " - " + (slices[i].portion*100).toPrecision(3) + "%",
                     style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
                 }, [
                     SVG_el("path", {
@@ -69,7 +69,7 @@ function createPieGraph(slices: PieSlice[]) {
                         } Z`
                     }),
                     SVG_el("title", null, [ slices[i].label ]),
-                    SVG_el("text", percentageTextAttrs, [ slices[i].portion*100 + '%' ]),
+                    SVG_el("text", percentageTextAttrs, [ (slices[i].portion*100).toPrecision(3) + '%' ]),
                     // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
                 ])
             )
