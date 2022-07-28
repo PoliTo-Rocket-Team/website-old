@@ -347,8 +347,7 @@ a.btn {
 footer {
     color: var(--fg-2);
     background-color: var(--bg-2);
-    .body {
-        @extend %content-container;
-        text-align: center;
-    }
+    padding: var(--pad);
+    padding-top: 0;
+    text-align: center;
 }
