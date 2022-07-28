@@ -147,7 +147,7 @@
 
     const pies = [
         {
-            title: "Members distribution among courses",
+            title: "Members distribution among majors",
             slices: [
                 { value: 16, label: "Aerospace", color: 0x3bdb84 },
                 { value: 1, label: "ECE", color: 0xdd4991 },
@@ -157,6 +157,16 @@
             ],
             rotate: 255,
             threshold: 5,
+        },
+        {
+            title: "Members' degrees",
+            slices: [
+                { value: 11, label: "Bachelor", color: 0x4e7bc1 },
+                { value: 9, label: "Master", color: 0xe1a463 },
+                { value: 1, label: "Phd", color: 0x3bdb84 },
+            ],
+            rotate: 1,
+            threshold: 0,
         }
     ];
 
