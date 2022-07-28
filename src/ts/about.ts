@@ -14,17 +14,20 @@ piesContainer.append(...pies.map(createPie));
 
 function createPie(pie: Pie) {
     return el("div", { class: "pie-chart" }, [
-        createPieGraph(pie.slices),
+        createPieGraph(pie.slices, pie.rotate),
         el("div", { class: "aside" }, [
             text("h3", pie.title),
-            el("ul", null, pie.slices.map(slice => text("li", slice.label, {
+            el("ul", null, pie.slices.map(slice => el("li", {
                 style: `--clr: ${colorNum2Str(slice.color)};`
-            })))
+            }, [
+                text("span", slice.label),
+                text("span", " "+percetageOf(slice), { class: "hidden" })
+            ])))
         ])
     ])
 }
 
-function createPieGraph(slices: PieSlice[]) {
+function createPieGraph(slices: PieSlice[], rotate: number) {
     const svg = createSVG(2.2*PIE_RADIUS,2.2*PIE_RADIUS,1,"pie-graph");
     
     let i: number;
@@ -32,7 +35,7 @@ function createPieGraph(slices: PieSlice[]) {
     const angles = new Array(len+1);
     const c = (PIE_RADIUS*PIE_SCALE).toString();
 
-    angles[0] = Math.random()*Math.PI*2;
+    angles[0] = rotate == null ? Math.random()*Math.PI : rotate;
     for(i=0; i<len; i++) { angles[i+1] = angles[i] + slices[i].portion*Math.PI*2; }
     const coss = angles.map(Math.cos);
     const sins = angles.map(Math.sin);
@@ -57,7 +60,7 @@ function createPieGraph(slices: PieSlice[]) {
             svg.appendChild(
                 SVG_el("g", {
                     class: "pie-slice",
-                    "data-label":  slices[i].label + " - " + (slices[i].portion*100).toPrecision(3) + "%",
+                    "data-label":  slices[i].label + " - " + percetageOf(slices[i]),
                     style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
                 }, [
                     SVG_el("path", {
@@ -68,8 +71,7 @@ function createPieGraph(slices: PieSlice[]) {
                             y = PIE_RADIUS*(PIE_SCALE+sins[i+1])
                         } Z`
                     }),
-                    SVG_el("title", null, [ slices[i].label ]),
-                    SVG_el("text", percentageTextAttrs, [ (slices[i].portion*100).toPrecision(3) + '%' ]),
+                    SVG_el("text", percentageTextAttrs, [ percetageOf(slices[i]) ]),
                     // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
                 ])
             )
@@ -108,3 +110,4 @@ function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
 }
 
 function colorNum2Str(clr: number) { return '#' + clr.toString(16) }
+function percetageOf(slice: PieSlice) { return (slice.portion*100).toPrecision(3) + '%' }

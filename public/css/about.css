@@ -571,6 +571,9 @@ section {
   background-color: var(--clr);
   margin-right: 0.5ch;
 }
+.pie-chart .hidden {
+  display: none;
+}
 
 .pie-graph {
   width: 16rem;

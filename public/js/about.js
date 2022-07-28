@@ -153,8 +153,9 @@
                 { portion: .045454, label: "ECE", color: 0xdd4991 },
                 { portion: .045454, label: "Mechanical", color: 0xdd0011 },
                 { portion: .045454, label: "Physics", color: 0x2479cf },
-                { portion: .136366, label: "Other", color: 0xb28c23 },
-            ]
+                { portion: .136363, label: "Other", color: 0xb28c23 },
+            ],
+            rotate: 1.41 * Math.PI,
         }
     ];
 
@@ -185,22 +186,25 @@
     piesContainer.append(...pies.map(createPie));
     function createPie(pie) {
         return el("div", { class: "pie-chart" }, [
-            createPieGraph(pie.slices),
+            createPieGraph(pie.slices, pie.rotate),
             el("div", { class: "aside" }, [
                 text("h3", pie.title),
-                el("ul", null, pie.slices.map(slice => text("li", slice.label, {
+                el("ul", null, pie.slices.map(slice => el("li", {
                     style: `--clr: ${colorNum2Str(slice.color)};`
-                })))
+                }, [
+                    text("span", slice.label),
+                    text("span", " " + percetageOf(slice), { class: "hidden" })
+                ])))
             ])
         ]);
     }
-    function createPieGraph(slices) {
+    function createPieGraph(slices, rotate) {
         const svg = createSVG(2.2 * PIE_RADIUS, 2.2 * PIE_RADIUS, 1, "pie-graph");
         let i;
         const len = slices.length;
         const angles = new Array(len + 1);
         const c = (PIE_RADIUS * PIE_SCALE).toString();
-        angles[0] = Math.random() * Math.PI * 2;
+        angles[0] = rotate == null ? Math.random() * Math.PI : rotate;
         for (i = 0; i < len; i++) {
             angles[i + 1] = angles[i] + slices[i].portion * Math.PI * 2;
         }
@@ -225,15 +229,14 @@
             p = slices[i].portion;
             setupSlice(svg.appendChild(SVG_el("g", {
                 class: "pie-slice",
-                "data-label": slices[i].label + " - " + (slices[i].portion * 100).toPrecision(3) + "%",
+                "data-label": slices[i].label + " - " + percetageOf(slices[i]),
                 style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
             }, [
                 SVG_el("path", {
                     fill: colorNum2Str(slices[i].color),
                     d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
                 }),
-                SVG_el("title", null, [slices[i].label]),
-                SVG_el("text", percentageTextAttrs, [(slices[i].portion * 100).toPrecision(3) + '%']),
+                SVG_el("text", percentageTextAttrs, [percetageOf(slices[i])]),
                 // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
             ])));
         }
@@ -266,5 +269,6 @@
         floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
     }
     function colorNum2Str(clr) { return '#' + clr.toString(16); }
+    function percetageOf(slice) { return (slice.portion * 100).toPrecision(3) + '%'; }
 
 })();

@@ -167,6 +167,9 @@ $pie-radius: 8rem;
         background-color: var(--clr);
         margin-right: .5ch;
     }
+    .hidden {
+        display: none;
+    }
 }
 
 .pie-graph {
