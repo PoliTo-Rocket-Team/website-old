@@ -1,7 +1,7 @@
 import { setupNavigation, setupThemePreference, trackmouse } from "./utils";
-import { createSVG, SVG_el, randomHEX } from "./assets/SVG-utils";
-import { Pie, pies, PieSlice } from "./assets/about-stats";
-import { el, text } from './assets/HTML-utils';
+import { createSVG, SVG_el } from "./utils/SVG-utils";
+import { Pie, pies, PieSlice } from "./utils/about-stats";
+import { el, text } from './utils/HTML-utils';
 
 setupNavigation(100);
 setupThemePreference();
