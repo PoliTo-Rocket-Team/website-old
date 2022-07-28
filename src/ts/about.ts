@@ -5,6 +5,7 @@ import { el, text } from './utils/HTML-utils';
 
 setupNavigation(100);
 setupThemePreference();
+
 const PIE_RADIUS = 10;
 const PIE_SCALE = 1.1;
 const piesContainer = document.getElementById("pies");
@@ -13,30 +14,32 @@ const floatingLabel = document.getElementById("floating-label");
 piesContainer.append(...pies.map(createPie));
 
 function createPie(pie: Pie) {
+    const total = pie.slices.reduce((p,c) => p + c.value, 0);
+
     return el("div", { class: "pie-chart" }, [
-        createPieGraph(pie.slices, pie.rotate),
+        createPieGraph(pie.slices, pie.rotate/180*Math.PI, total, pie.threshold/100),
         el("div", { class: "aside" }, [
             text("h3", pie.title),
             el("ul", null, pie.slices.map(slice => el("li", {
                 style: `--clr: ${colorNum2Str(slice.color)};`
             }, [
                 text("span", slice.label),
-                text("span", " "+percetageOf(slice), { class: "hidden" })
+                text("span", " "+percetageStringOf(slice.value/total), { class: "hidden" })
             ])))
         ])
     ])
 }
 
-function createPieGraph(slices: PieSlice[], rotate: number) {
+function createPieGraph(slices: PieSlice[], rotate: number, total: number, threshold: number) {
     const svg = createSVG(2.2*PIE_RADIUS,2.2*PIE_RADIUS,1,"pie-graph");
+    
+    const c = (PIE_RADIUS*PIE_SCALE).toString();
     
     let i: number;
     const len = slices.length;
     const angles = new Array(len+1);
-    const c = (PIE_RADIUS*PIE_SCALE).toString();
-
     angles[0] = rotate == null ? Math.random()*Math.PI : rotate;
-    for(i=0; i<len; i++) { angles[i+1] = angles[i] + slices[i].portion*Math.PI*2; }
+    for(i=0; i<len; i++) { angles[i+1] = angles[i] + slices[i].value/total*Math.PI*2; }
     const coss = angles.map(Math.cos);
     const sins = angles.map(Math.sin);
     // medians 
@@ -55,24 +58,27 @@ function createPieGraph(slices: PieSlice[], rotate: number) {
     let x = PIE_RADIUS*(PIE_SCALE+coss[0]);
     let y = PIE_RADIUS*(PIE_SCALE+sins[0]);
     for(i=0; i<len; i++) {
-        p = slices[i].portion;
+        p = slices[i].value/total;
+        const sliceAttr = {
+            class: "pie-slice",
+            "data-label":  slices[i].label + " - " + percetageStringOf(p),
+            style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
+        };
+        const pathAttr = {
+            fill: colorNum2Str(slices[i].color),
+            d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p*360},${+(p>0.5)},1,${
+                x = PIE_RADIUS*(PIE_SCALE+coss[i+1])
+            },${
+                y = PIE_RADIUS*(PIE_SCALE+sins[i+1])
+            } Z`
+        };
         setupSlice(
             svg.appendChild(
-                SVG_el("g", {
-                    class: "pie-slice",
-                    "data-label":  slices[i].label + " - " + percetageOf(slices[i]),
-                    style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
-                }, [
-                    SVG_el("path", {
-                        fill: colorNum2Str(slices[i].color),
-                        d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p*360},${+(p>0.5)},1,${
-                            x = PIE_RADIUS*(PIE_SCALE+coss[i+1])
-                        },${
-                            y = PIE_RADIUS*(PIE_SCALE+sins[i+1])
-                        } Z`
-                    }),
-                    SVG_el("text", percentageTextAttrs, [ percetageOf(slices[i]) ]),
-                    // SVG_el("text", labelTextAttrs, [ slices[i].label + " - " + slices[i].portion*100 + '%' ]),
+                p < threshold 
+                ? SVG_el("path", Object.assign(pathAttr, sliceAttr))
+                : SVG_el("g", sliceAttr, [
+                    SVG_el("path", pathAttr),
+                    SVG_el("text", percentageTextAttrs, [ percetageStringOf(p) ]),
                 ])
             )
         );
@@ -110,4 +116,4 @@ function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
 }
 
 function colorNum2Str(clr: number) { return '#' + clr.toString(16) }
-function percetageOf(slice: PieSlice) { return (slice.portion*100).toPrecision(3) + '%' }
+function percetageStringOf(portion: number) { return (portion*100).toPrecision(3) + '%' }
