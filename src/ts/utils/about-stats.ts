@@ -31,7 +31,7 @@ export const pies: Pie[] = [
             { value: 9, label: "Master", color: 0xe1a463 },
             { value: 1, label: "Phd", color: 0x3bdb84 },
         ],
-        rotate: 1,
+        rotate: 0,
         threshold: 0,
     }
 ]

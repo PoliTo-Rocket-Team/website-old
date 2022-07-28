@@ -146,7 +146,7 @@ section {
     }
 }
 
-$pie-radius: 8rem;
+$pie-graph-size: 16rem;
 
 .pie-chart {
     display: flex;
@@ -173,9 +173,10 @@ $pie-radius: 8rem;
 }
 
 .pie-graph {
-    width: 2*$pie-radius;
-    height: 2*$pie-radius;
+    width: $pie-graph-size;
+    height: $pie-graph-size;
     border-radius: 50%;
+    flex-shrink: 0;
     
     line.pie-sep {
         stroke-width: .2;
@@ -233,7 +234,7 @@ $pie-radius: 8rem;
     }
     .aside {
         margin-top: 1rem;
-        max-width: 2*$pie-radius;
+        max-width: $pie-graph-size;
     }
     #floating-label.show {
         transform: translate(
@@ -245,12 +246,16 @@ $pie-radius: 8rem;
 @media (min-width: $width-th-1) {
     .aside {
         margin-left: 2rem;
-        max-width: 30ch;
     }
     #floating-label.show {
         transform: translate(
             calc(var(--mx) + 1.5ch), 
             calc(var(--my) - 50%)
         );
+    }
+    #pies {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, $pie-graph-size + 20rem);
+        gap: 3rem;
     }
 }
