@@ -174,8 +174,8 @@
                 { value: 2, label: "International", color: 0xdd0011 },
                 { value: 19, label: "Domestic", color: 0xb28c23 },
             ],
-            rotate: 40,
-            threshold: 0,
+            rotate: 0,
+            threshold: 15,
         }
     ];
 
