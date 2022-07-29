@@ -216,15 +216,29 @@ $pie-graph-size: 16rem;
 
 #pies { position: relative; }
 #floating-label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scale(0);
-    background-color: var(--bg-1);
-    color: var(--fg-0);
-    font-weight: 500;
-    padding: .3em .6em;
-    border-radius: .3em;
+    position: static;
+
+    .text {
+        top: 0;
+        left: 0;
+        transform: scale(0);
+        display: inline-block;
+        background-color: var(--bg-1);
+        color: var(--fg-0);
+        font-weight: 500;
+        padding: .3em .6em;
+        border-radius: .3em;
+    }
+    .pointer {
+        position: absolute;
+        top: -1rem;
+        left: -.5rem;
+        width: 1rem;
+        height: .5rem;
+        clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+        background-color: var(--bg-1);
+        transform: scale(0);
+    }
 }
 
 @media (max-width: $width-th-1) {
@@ -237,24 +251,23 @@ $pie-graph-size: 16rem;
         max-width: $pie-graph-size;
     }
     #floating-label.show {
-        transform: translate(
-            calc(var(--mx) - min(50%, var(--dl) - .5rem) - max(0px, var(--dl) + .5rem - 100vw + 50%)),
-            calc(var(--my) - 50%)
-        );
+        .text {
+            transform: translate(
+                calc(var(--mx) - min(50%, var(--dl) - .5rem) - max(.1px, 50% + .5rem + var(--dl) - 100vw)),
+                calc(var(--my) - 100% - 1rem)
+            );
+        }
+        .pointer {
+            transform: translate(var(--mx), var(--my));
+        }
     }
 }
-// max(-50%, 100vw - var(--dl))
-// clamp(calc(100vw - var(--dl)), 50%, var(--dl))
-
-// if(dr-50% < 50%) 50% - dr; else 0  
-
-// if(dl+50%-100vw > 0) translateX(-50% - (dl+50%-100vw)) else translateX(-50%)
 
 @media (min-width: $width-th-1) {
     .aside {
         margin-left: 2rem;
     }
-    #floating-label.show {
+    #floating-label.show .text {
         transform: translate(
             calc(var(--mx) + 1.5ch), 
             calc(var(--my) - 50%)

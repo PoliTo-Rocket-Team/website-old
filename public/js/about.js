@@ -287,7 +287,7 @@
     }
     function enter(slice) {
         slice.classList.add("active");
-        floatingLabel.textContent = slice.getAttribute("data-label");
+        floatingLabel.children.item(0).textContent = slice.getAttribute("data-label");
         floatingLabel.classList.add("show");
     }
     function leave(slice) {

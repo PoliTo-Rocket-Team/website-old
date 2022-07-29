@@ -616,15 +616,28 @@ section {
 }
 
 #floating-label {
-  position: absolute;
+  position: static;
+}
+#floating-label .text {
   top: 0;
   left: 0;
   transform: scale(0);
+  display: inline-block;
   background-color: var(--bg-1);
   color: var(--fg-0);
   font-weight: 500;
   padding: 0.3em 0.6em;
   border-radius: 0.3em;
+}
+#floating-label .pointer {
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  width: 1rem;
+  height: 0.5rem;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background-color: var(--bg-1);
+  transform: scale(0);
 }
 
 @media (max-width: 50rem) {
@@ -636,15 +649,18 @@ section {
     margin-top: 1rem;
     max-width: 16rem;
   }
-  #floating-label.show {
-    transform: translate(calc(var(--mx) - min(50%, var(--dl) - 0.5rem) - max(0px, var(--dl) + 0.5rem - 100vw + 50%)), calc(var(--my) - 50%));
+  #floating-label.show .text {
+    transform: translate(calc(var(--mx) - min(50%, var(--dl) - 0.5rem) - max(0.1px, 50% + 0.5rem + var(--dl) - 100vw)), calc(var(--my) - 100% - 1rem));
+  }
+  #floating-label.show .pointer {
+    transform: translate(var(--mx), var(--my));
   }
 }
 @media (min-width: 50rem) {
   .aside {
     margin-left: 2rem;
   }
-  #floating-label.show {
+  #floating-label.show .text {
     transform: translate(calc(var(--mx) + 1.5ch), calc(var(--my) - 50%));
   }
   #pies {
