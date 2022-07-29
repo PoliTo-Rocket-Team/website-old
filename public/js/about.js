@@ -149,11 +149,11 @@
         {
             title: "Members by program",
             slices: [
-                { value: 16, label: "Aerospace Eng.", color: 0x3bdb84 },
-                { value: 1, label: "Electronic Eng.", color: 0xdd4991 },
-                { value: 3, label: "MechanicalEng.", color: 0xdd0011 },
-                { value: 1, label: "Physics Eng.", color: 0x2479cf },
-                { value: 1, label: "Other non-Eng.", color: 0xb28c23 },
+                { value: 16, label: "Aerospace Engineering", color: 0x3bdb84 },
+                { value: 1, label: "Electronic Engineering", color: 0xdd4991 },
+                { value: 3, label: "Mechanical Engineering", color: 0xdd0011 },
+                { value: 1, label: "Physics Engineering.", color: 0x2479cf },
+                { value: 1, label: "Other non-Engineering", color: 0xb28c23 },
             ],
             rotate: 255,
             threshold: 5,
