@@ -150,7 +150,7 @@
             title: "Members by program",
             slices: [
                 { value: 16, label: "Aerospace Engineering", color: "#3bdb84" },
-                { value: 1, label: "Electronic & Communication Engineering", color: "#dd4991" },
+                { value: 1, label: "Electronic Engineering", color: "#dd4991" },
                 { value: 3, label: "Mechanical Engineering", color: "#dd0011" },
                 { value: 1, label: "Physics Engineering", color: "#2479cf" },
                 { value: 1, label: "Other non-Engineering", color: "#e1a463" },
@@ -294,10 +294,11 @@
         slice.classList.remove("active");
         floatingLabel.classList.remove("show");
     }
-    function move(x, y, rect, slice) {
+    function move(x, y, rect) {
         const cbcr = piesContainer.getBoundingClientRect();
         floatingLabel.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
         floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
+        floatingLabel.style.setProperty("--dl", (x + rect.left) + "px");
     }
     function percetageStringOf(portion) { return (portion * 100).toPrecision(3) + '%'; }
 

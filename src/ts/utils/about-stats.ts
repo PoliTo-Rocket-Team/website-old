@@ -16,7 +16,7 @@ export const pies: Pie[] = [
         title: "Members by program",
         slices: [
             { value: 16, label: "Aerospace Engineering", color: "#3bdb84" },
-            { value: 1, label: "Electronic & Communication Engineering", color: "#dd4991" },
+            { value: 1, label: "Electronic Engineering", color: "#dd4991" },
             { value: 3, label: "Mechanical Engineering", color: "#dd0011" },
             { value: 1, label: "Physics Engineering", color: "#2479cf" },
             { value: 1, label: "Other non-Engineering", color: "#e1a463" },

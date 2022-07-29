@@ -238,11 +238,18 @@ $pie-graph-size: 16rem;
     }
     #floating-label.show {
         transform: translate(
-            calc(var(--mx) - 50%), 
+            calc(var(--mx) - min(50%, var(--dl) - .5rem) - max(0px, var(--dl) + .5rem - 100vw + 50%)),
             calc(var(--my) - 50%)
         );
     }
 }
+// max(-50%, 100vw - var(--dl))
+// clamp(calc(100vw - var(--dl)), 50%, var(--dl))
+
+// if(dr-50% < 50%) 50% - dr; else 0  
+
+// if(dl+50%-100vw > 0) translateX(-50% - (dl+50%-100vw)) else translateX(-50%)
+
 @media (min-width: $width-th-1) {
     .aside {
         margin-left: 2rem;

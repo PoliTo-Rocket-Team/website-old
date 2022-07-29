@@ -637,7 +637,7 @@ section {
     max-width: 16rem;
   }
   #floating-label.show {
-    transform: translate(calc(var(--mx) - 50%), calc(var(--my) - 50%));
+    transform: translate(calc(var(--mx) - min(50%, var(--dl) - 0.5rem) - max(0px, var(--dl) + 0.5rem - 100vw + 50%)), calc(var(--my) - 50%));
   }
 }
 @media (min-width: 50rem) {

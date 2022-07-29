@@ -109,10 +109,11 @@ function leave(slice: SVGElement) {
     slice.classList.remove("active");
     floatingLabel.classList.remove("show");
 }
-function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
+function move(x: number, y: number, rect: DOMRect) {
     const cbcr = piesContainer.getBoundingClientRect();
     floatingLabel.style.setProperty("--mx", (x+rect.left-cbcr.left)+"px");
     floatingLabel.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
+    floatingLabel.style.setProperty("--dl", (x+rect.left)+"px");
 }
 
 function percetageStringOf(portion: number) { return (portion*100).toPrecision(3) + '%' }
