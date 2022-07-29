@@ -616,7 +616,9 @@ section {
 }
 
 #floating-label {
-  position: static;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #floating-label .text {
   top: 0;
@@ -631,7 +633,7 @@ section {
 }
 #floating-label .pointer {
   position: absolute;
-  top: -1rem;
+  top: -1.07rem;
   left: -0.5rem;
   width: 1rem;
   height: 0.5rem;
