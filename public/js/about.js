@@ -171,11 +171,11 @@
         {
             title: "International students rate",
             slices: [
-                { value: 2, label: "International", color: 0xdd0011 },
+                { value: 2, label: "International", color: 0x00ff00 },
                 { value: 19, label: "Domestic", color: 0xb28c23 },
             ],
             rotate: 0,
-            threshold: 15,
+            threshold: 0,
         }
     ];
 
