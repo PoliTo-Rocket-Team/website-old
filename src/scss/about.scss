@@ -256,6 +256,6 @@ $pie-graph-size: 16rem;
     #pies {
         display: grid;
         grid-template-columns: repeat(auto-fit, $pie-graph-size + 20rem);
-        gap: 3rem;
+        gap: 3.5rem;
     }
 }

@@ -21,7 +21,7 @@ function createPie(pie: Pie) {
         el("div", { class: "aside" }, [
             text("h3", pie.title),
             el("ul", null, pie.slices.map(slice => el("li", {
-                style: `--clr: ${colorNum2Str(slice.color)};`
+                style: `--clr: ${slice.color};`
             }, [
                 text("span", slice.label),
                 text("span", " "+percetageStringOf(slice.value/total), { class: "hidden" })
@@ -65,7 +65,7 @@ function createPieGraph(slices: PieSlice[], rotate: number, total: number, thres
             style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
         };
         const pathAttr = {
-            fill: colorNum2Str(slices[i].color),
+            fill: slices[i].color,
             d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p*360},${+(p>0.5)},1,${
                 x = PIE_RADIUS*(PIE_SCALE+coss[i+1])
             },${
@@ -115,5 +115,4 @@ function move(x: number, y: number, rect: DOMRect, slice: SVGElement) {
     floatingLabel.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
 }
 
-function colorNum2Str(clr: number) { return '#' + clr.toString(16) }
 function percetageStringOf(portion: number) { return (portion*100).toPrecision(3) + '%' }

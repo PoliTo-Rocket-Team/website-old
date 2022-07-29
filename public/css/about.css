@@ -650,7 +650,7 @@ section {
   #pies {
     display: grid;
     grid-template-columns: repeat(auto-fit, 36rem);
-    gap: 3rem;
+    gap: 3.5rem;
   }
 }
 

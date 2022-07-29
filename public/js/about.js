@@ -149,11 +149,11 @@
         {
             title: "Members by program",
             slices: [
-                { value: 16, label: "Aerospace Engineering", color: 0x3bdb84 },
-                { value: 1, label: "Electronic Engineering", color: 0xdd4991 },
-                { value: 3, label: "Mechanical Engineering", color: 0xdd0011 },
-                { value: 1, label: "Physics Engineering", color: 0x2479cf },
-                { value: 1, label: "Other non-Engineering", color: 0xb28c23 },
+                { value: 16, label: "Aerospace Engineering", color: "#3bdb84" },
+                { value: 1, label: "Electronic & Communication Engineering", color: "#dd4991" },
+                { value: 3, label: "Mechanical Engineering", color: "#dd0011" },
+                { value: 1, label: "Physics Engineering", color: "#2479cf" },
+                { value: 1, label: "Other non-Engineering", color: "#e1a463" },
             ],
             rotate: 255,
             threshold: 5,
@@ -161,9 +161,9 @@
         {
             title: "Members by level",
             slices: [
-                { value: 11, label: "Bachelor's", color: 0x4e7bc1 },
-                { value: 9, label: "Master's", color: 0xe1a463 },
-                { value: 1, label: "Ph.D.", color: 0x3bdb84 },
+                { value: 11, label: "Bachelor's", color: "#4e7bc1" },
+                { value: 9, label: "Master's", color: "#e1a463" },
+                { value: 1, label: "Ph.D.", color: "#3bdb84" },
             ],
             rotate: 0,
             threshold: 0,
@@ -171,13 +171,20 @@
         {
             title: "International students rate",
             slices: [
-                { value: 2, label: "International", color: 0xb28c23 },
-                { value: 19, label: "Domestic", color: 0xdd4991 },
+                { value: 19, label: "Domestic", color: "#dd4991" },
+                { value: 2, label: "International", color: "#e1a463" },
             ],
             rotate: 0,
             threshold: 0,
         }
     ];
+    /**
+     * pastel colors
+     * blue: #4e7bc1
+     * green: #3bdb84
+     * gold: #e1a463
+     * pink: #dd4991
+     */
 
     function el(name, attrs, children) {
         const res = document.createElement(name);
@@ -211,7 +218,7 @@
             el("div", { class: "aside" }, [
                 text("h3", pie.title),
                 el("ul", null, pie.slices.map(slice => el("li", {
-                    style: `--clr: ${colorNum2Str(slice.color)};`
+                    style: `--clr: ${slice.color};`
                 }, [
                     text("span", slice.label),
                     text("span", " " + percetageStringOf(slice.value / total), { class: "hidden" })
@@ -254,7 +261,7 @@
                 style: `--dx: ${Math.cos(medians[i])}; --dy: ${Math.sin(medians[i])}; --p: ${p};`
             };
             const pathAttr = {
-                fill: colorNum2Str(slices[i].color),
+                fill: slices[i].color,
                 d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
             };
             setupSlice(svg.appendChild(p < threshold
@@ -292,7 +299,6 @@
         floatingLabel.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
         floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
     }
-    function colorNum2Str(clr) { return '#' + clr.toString(16); }
     function percetageStringOf(portion) { return (portion * 100).toPrecision(3) + '%'; }
 
 })();
