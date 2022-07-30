@@ -28,6 +28,8 @@ When merging the two branches, please use fast forwarding when possible. Instead
  - `git merge dev --ff-only`
  - `git push`
 
+If some commits were made on the master branch, before working on the dev one, run `git merge master` in the cmd after checkout to dev.
+
 ## Build and develop
 
 The `builder.mjs` node script compiles and/or watches ts and scss files in the [src](./src/) folder based on the configuration of the file [src/config.json](./src/config.json).
