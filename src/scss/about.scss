@@ -132,9 +132,10 @@ section {
         font-size: 1.1rem;
         font-weight: 500;
         display: block;
+        margin-right: -.3rem;
     }
     .desc {
-        opacity: .75;
+        color: var(--fg-1);
         font-style: italic;
     }
     .title {
@@ -143,6 +144,29 @@ section {
             content: " | ";
             color: var(--fg-1);
         }
+    }
+
+}
+.member > .socials {
+    float: right;
+    position: relative;
+    right: -.3rem;
+    display: flex;
+
+    a {
+        --fg: var(--fg-1);
+        --bg: var(--bg-1);
+    }
+    a:hover {
+        --fg: var(--fg-0);
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    svg {
+        display: block;
+        width: 1.8rem;
+        height: 1.8rem;
     }
 }
 

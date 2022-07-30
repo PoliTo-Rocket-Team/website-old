@@ -96,7 +96,7 @@
   --dark-bg-0: #333333;
   --dark-bg-1: #4a4a4a;
   --dark-fg-0: #ededed;
-  --dark-fg-1: #aaa;
+  --dark-fg-1: #b6b6b6;
   --fs-40: 1rem;
   --fs-50: 1.1rem;
   --fs-60: 1.4rem;
@@ -540,9 +540,10 @@ section {
   font-size: 1.1rem;
   font-weight: 500;
   display: block;
+  margin-right: -0.3rem;
 }
 .member .desc {
-  opacity: 0.75;
+  color: var(--fg-1);
   font-style: italic;
 }
 .member .title {
@@ -551,6 +552,27 @@ section {
 .member .title::after {
   content: " | ";
   color: var(--fg-1);
+}
+
+.member > .socials {
+  float: right;
+  position: relative;
+  right: -0.3rem;
+  display: flex;
+}
+.member > .socials a {
+  --fg: var(--fg-1);
+  --bg: var(--bg-1);
+}
+.member > .socials a:hover {
+  --fg: var(--fg-0);
+  transform: scale(1.1);
+  opacity: 1;
+}
+.member > .socials svg {
+  display: block;
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .pie-chart {
