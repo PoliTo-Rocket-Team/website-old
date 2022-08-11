@@ -162,6 +162,9 @@ section {
         transform: scale(1.1);
         opacity: 1;
     }
+    a + a {
+        margin-left: .15rem;
+    }
 
     svg {
         display: block;
