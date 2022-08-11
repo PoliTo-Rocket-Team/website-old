@@ -1,3 +1,6 @@
+@use "./font.scss" as *;
+@include font(400, true);
+
 @import "./base.scss";
 
 html,

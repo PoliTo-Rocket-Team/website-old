@@ -1,4 +1,7 @@
 // @use "sass:math";
+@use "./font.scss" as *;
+@include font(600);
+
 @import "./base.scss";
 
 :root { --window-height: 100vh }

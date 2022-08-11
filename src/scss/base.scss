@@ -1,4 +1,8 @@
-@use "./font.scss";
+@use "./font.scss" as *;
+
+@include font(400);
+@include font(500);
+@include font(700);
 
 $accent-hue: 19;
 
