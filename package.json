@@ -1,6 +1,6 @@
 {
   "name": "prt-website",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Website files of the PoliTo Rocket Team",
   "main": "index.js",
   "scripts": {
@@ -13,12 +13,21 @@
     "type": "git",
     "url": "git+https://github.com/PoliTo-Rocket-Team/website.git"
   },
-  "author": "Federico Guglielmi",
+  "author": {
+    "name": "Federico Guglielmi",
+    "url": "https://federicoguglielmi.it/"
+  },
+  "contributors": [
+    {
+      "name": "Fabio Meloni",
+      "url": "https://it.linkedin.com/in/fabioski01"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PoliTo-Rocket-Team/website/issues"
   },
-  "homepage": "https://github.com/PoliTo-Rocket-Team/website#readme",
+  "homepage": "https://www.politorocketteam.it/",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.2",
