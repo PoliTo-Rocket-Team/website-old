@@ -16,14 +16,45 @@ abbr {
     text-decoration: none;
 }
 
+section.center {
+    max-width: 75ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.position {
+    summary {
+        // display: grid;
+        // grid-template-columns: 3fr repeat(3, 2fr);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .what {
+        opacity: .8;
+    }
+    h4 {
+        margin-top: 1rem;
+        margin-bottom: .5rem;
+    }
+    ul {
+        padding-left: 2ch;
+    }
+}
+.position + .position {
+    margin-top: 1rem;
+}
+
+details {
+    border: 2px solid #b3b3b3ba;
+    border-radius: .5rem;
+    padding: .5rem .8rem;
+}
+
 $faq-radius: .8rem;
 $faq-padding: .9rem 1.3rem;
 
 #faqs-section {
-    max-width: 75ch;
-    margin-left: auto;
-    margin-right: auto;
-
     hr {
         margin-left: 15%;
         margin-right: 15%;
@@ -70,6 +101,11 @@ $faq-padding: .9rem 1.3rem;
     }
 }
 
+p + ul {
+    margin-top: .25rem;
+}
+
+ul + p,
 p + p {
     margin-top: .5rem;
 }
