@@ -157,11 +157,11 @@ section {
     display: flex;
 
     a {
-        --fg: var(--fg-1);
+        --fg: #b3b3b3ba;
         --bg: var(--bg-1);
     }
     a:hover {
-        --fg: var(--fg-0);
+        --fg: var(--fg-1);
         transform: scale(1.1);
         opacity: 1;
     }
