@@ -22,19 +22,31 @@ section.center {
     margin-right: auto;
 }
 
+$details-radius: .5rem;
+$details-pad-x: .8rem;
+$details-pad-y: .5rem;
+$details-border: 2px solid #b3b3b3ba;
+
+.position-labels,
+.position summary {
+    padding: $details-pad-y $details-pad-x;
+}
+
 .position {
-    summary {
-        // display: grid;
-        // grid-template-columns: 3fr repeat(3, 2fr);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    background-color: var(--bg-1);
+    border-radius: $details-radius;
+
+    hr {
+        border: none;
+        border-bottom: 2px solid hsla(0, 0%, 80%, 0.5);
     }
-    .what {
-        opacity: .8;
+    .content {
+        padding: .6rem .8rem;
+    }
+    h4:not(:first-child) {
+        margin-top: 1.2rem;
     }
     h4 {
-        margin-top: 1rem;
         margin-bottom: .5rem;
     }
     ul {
@@ -43,12 +55,6 @@ section.center {
 }
 .position + .position {
     margin-top: 1rem;
-}
-
-details {
-    border: 2px solid #b3b3b3ba;
-    border-radius: .5rem;
-    padding: .5rem .8rem;
 }
 
 $faq-radius: .8rem;
@@ -124,4 +130,24 @@ footer {
     padding: var(--pad);
     padding-top: 0;
     text-align: center;
+}
+
+@media (max-width: $width-th-1) {
+    .na, .on-lg { display: none; }
+    .position summary {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: $width-th-1) {
+    .on-sm { display: none; }
+    .position-labels,
+    .position summary {
+        display: grid;
+        grid-template-columns: 2fr repeat(3, 1fr);
+        align-items: center;
+        column-gap: 1ch;
+    }
+    .na {opacity: .5;}
 }

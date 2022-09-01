@@ -391,16 +391,26 @@ section.center {
   margin-right: auto;
 }
 
+.position-labels,
 .position summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0.5rem 0.8rem;
 }
-.position .what {
-  opacity: 0.8;
+
+.position {
+  background-color: var(--bg-1);
+  border-radius: 0.5rem;
+}
+.position hr {
+  border: none;
+  border-bottom: 2px solid hsla(0deg, 0%, 80%, 0.5);
+}
+.position .content {
+  padding: 0.6rem 0.8rem;
+}
+.position h4:not(:first-child) {
+  margin-top: 1.2rem;
 }
 .position h4 {
-  margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 .position ul {
@@ -409,12 +419,6 @@ section.center {
 
 .position + .position {
   margin-top: 1rem;
-}
-
-details {
-  border: 2px solid rgba(179, 179, 179, 0.7294117647);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.8rem;
 }
 
 #faqs-section hr {
@@ -482,6 +486,31 @@ footer {
   padding: var(--pad);
   padding-top: 0;
   text-align: center;
+}
+
+@media (max-width: 50rem) {
+  .na, .on-lg {
+    display: none;
+  }
+  .position summary {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (min-width: 50rem) {
+  .on-sm {
+    display: none;
+  }
+  .position-labels,
+.position summary {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1ch;
+  }
+  .na {
+    opacity: 0.5;
+  }
 }
 
 /*# sourceMappingURL=apply.css.map */
