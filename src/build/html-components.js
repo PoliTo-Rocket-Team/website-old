@@ -12,8 +12,7 @@ async function compile(path) {
         const file = await (0, promises_1.readFile)(path, "utf-8");
         cache.set(path, file);
         const tree = await html_component(file, (0, path_1.dirname)(path));
-        clean(tree);
-        console.dir(tree);
+        normalize(tree);
         return (0, posthtml_render_1.render)(tree);
     }
     catch (err) {
@@ -157,47 +156,76 @@ function content2array(content) {
 const line_regexp = /[\t ]*\n\s*/g;
 const final_space = /\s+$/;
 const initial_space = /^\s+/;
-function normalize(tree, base = 0) {
+function normalize(tree) { norm_tree(tree); }
+exports.normalize = normalize;
+function norm_tree(tree, base = 0, text = "", remainder = false) {
     const newline = '\n' + ' '.repeat(base * 4);
     let node;
+    let placed = true; // whether the given text was placed
     const len = tree.length;
     for (var i = 0; i < len; i++) {
         node = tree[i];
         if (node == null)
             continue;
         if (Array.isArray(node))
-            normalize(node, base);
+            same_level(node);
         else if (typeof node === "object") {
             const c = node.content;
             if (!Array.isArray(c))
-                continue;
-            if (typeof node.tag === "string") {
-                normalize(c, base + 1);
-                // fixing last space inside a tag
-                const last = c.length;
-                if (typeof c[last] === "string")
-                    c[last] = c[last].replace(final_space, newline);
-                else
-                    c.push(newline);
-            }
-            else {
-                normalize(c, base);
-            }
+                write_text();
+            else if (typeof node.tag === "boolean")
+                same_level(c);
+            else
+                down_level(c);
         }
         else {
-            let text = "";
-            while (typeof tree[i] === "string" && i < len) {
-                text += tree[i];
-                tree[i] = null;
-                i++;
-            }
-            console.log(text);
-            text = text.replace(line_regexp, newline);
-            tree[--i] = text;
+            text += node;
+            tree[i] = null;
         }
     }
+    if (remainder)
+        return { placed, trailing: text };
+    if (text)
+        set_last(text, tree);
+    function same_level(tree) {
+        const res = norm_tree(tree, base, text, true);
+        if (!res.placed)
+            write_text();
+        text = res.trailing;
+    }
+    function down_level(tree) {
+        if (text)
+            write_text();
+        text = "";
+        norm_tree(tree, base + 1);
+        close_tag(tree, newline);
+    }
+    function write_text() {
+        text = text.replace(line_regexp, newline);
+        if (i === 0)
+            placed = false;
+        else
+            set_last(text, tree, i - 1);
+    }
 }
-exports.normalize = normalize;
+function close_tag(tree, newline) {
+    const last = tree[tree.length - 1];
+    if (typeof last === "string")
+        tree[tree.length - 1] = last.replace(final_space, newline);
+    else
+        tree.push(newline);
+}
+function set_last(text, tree, index = tree.length - 1) {
+    if (index < 0)
+        index = 0;
+    const el = tree[index];
+    if (Array.isArray(el))
+        set_last(text, el);
+    else if (el != null && typeof el === "object" && el.tag === false)
+        set_last(text, el.content = content2array(el.content));
+    else
+        tree[index] = text;
+}
 function is_str(o) { return typeof o === "string"; }
 function clean(tree) {
     let node;
@@ -235,6 +263,7 @@ exports.clean = clean;
 // export function clean_copy(tree: (Node|Node[])[]): Node[] {
 //     let new_tree: Node[] = [];
 //     let node: Node|Node[];
+//     let text = "";
 //     let i = 0;
 //     while (i < tree.length) {
 //         node = tree[i];
@@ -250,9 +279,6 @@ exports.clean = clean;
 //     new_tree = [];
 //     let new_i = 0;
 //     const len = tree.length;
-//     while(i < len) {
-//         if(typeof tre === "string")
-//     }
 //     normalize_clean(new_tree);
 //     return new_tree
 // }
