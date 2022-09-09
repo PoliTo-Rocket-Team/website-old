@@ -71,7 +71,7 @@ export async function html_component(file: string, root: string, props?: object,
             return;
         }
         const url = join_path(root, what);
-        const name = typeof node.attrs?.as === "string" ? node.attrs.as : basename(root, "html");
+        const name = typeof node.attrs?.as === "string" ? node.attrs.as : basename(url, ".html");
         aliases.set(name, { url, text: retrieve_html(url) });
     }
 
@@ -161,7 +161,7 @@ function content2array(content: Content) {
 }
 
 const line_regexp = /[\t ]*\n\s*/g;
-const final_space = /\s+$/;
+const final_space = /\n\s+$/;
 const initial_space = /^\s+/;
 
 interface TreeNormRes {
@@ -217,7 +217,7 @@ function norm_tree(tree: Tree, base = 0, text: string = "", remainder = false): 
 function close_tag(tree: Tree, newline: string) {
     const last = tree[tree.length-1];
     if(typeof last === "string") tree[tree.length-1] = last.replace(final_space, newline);
-    else tree.push(newline);
+    // else tree.push(newline);
 }
 
 function set_last(text: string, tree: Tree, index = tree.length-1) {

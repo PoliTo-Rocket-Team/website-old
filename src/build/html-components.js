@@ -69,7 +69,7 @@ async function html_component(file, root, props, slots = {}) {
             return;
         }
         const url = (0, path_1.join)(root, what);
-        const name = typeof ((_b = node.attrs) === null || _b === void 0 ? void 0 : _b.as) === "string" ? node.attrs.as : (0, path_1.basename)(root, "html");
+        const name = typeof ((_b = node.attrs) === null || _b === void 0 ? void 0 : _b.as) === "string" ? node.attrs.as : (0, path_1.basename)(url, ".html");
         aliases.set(name, { url, text: retrieve_html(url) });
     }
     function implement_import(node, component) {
@@ -154,7 +154,7 @@ function content2array(content) {
     return content;
 }
 const line_regexp = /[\t ]*\n\s*/g;
-const final_space = /\s+$/;
+const final_space = /\n\s+$/;
 const initial_space = /^\s+/;
 function normalize(tree) { norm_tree(tree); }
 exports.normalize = normalize;
@@ -212,8 +212,7 @@ function close_tag(tree, newline) {
     const last = tree[tree.length - 1];
     if (typeof last === "string")
         tree[tree.length - 1] = last.replace(final_space, newline);
-    else
-        tree.push(newline);
+    // else tree.push(newline);
 }
 function set_last(text, tree, index = tree.length - 1) {
     if (index < 0)
