@@ -9,7 +9,7 @@
     "build": "node builder.mjs",
     "build-all": "node builder.mjs -X index:rocket",
     "rollup": "rollup -c",
-    "ts-html": "tsc src/build/html-components.ts --target es2018 --moduleResolution node --module commonjs"
+    "ts-html": "tsc -P src/build/"
   },
   "repository": {
     "type": "git",
