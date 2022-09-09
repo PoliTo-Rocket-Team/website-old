@@ -1,21 +1,28 @@
-<extends src="./components/Layout.html" locals='{"name": "apply", "title": "PoliTo Rocket Team - Apply"}'>
-    <fill name="links">
+<link rel="import" href="./components/Layout.html">
+<link rel="import" href="./components/Position.html" as="Position">
+<link rel="import" href="./components/FAQ.html">
+
+<Layout name="apply" title="PoliTo Rocket Team - Apply">
+    <fragment slot="links">
         <li><a href="./">Home</a></li>
         <li class="active"><a href="./projects.html">Projects</a></li>
         <li><a href="./apply.html">Apply</a></li>
-    </fill>
-    <fill name="content">
+    </fragment>
+    <fragment slot="content">
         <h1>Apply</h1>
         <h2>Positions</h2>
-        <module href="./components/Position.html" role="Web Developer" subteam="Operations" division="IT & Media" group="IT">
-            <h4>Description</h4>
-        </module>
-        <!-- <extends src="./components/FAQ.html">
-            <fill name="question">How can I join the Team?</fill>
-            <fill name="response">
+        <Position role="Web Developer" subteam="Operations" division="IT & Media" group="IT">
+            <fragment slot="body">
+                <h4>Description</h4>
+            </fragment>
+        </Position>
+        <h2>FAQs</h2>
+        <FAQ>
+            <fragment slot="question">How can I join the Team?</fragment>
+            <fragment slot="response">
                 <p>The recruitment process has <em>not</em> started yet.</p>
                 <p>At the beginning of the Fall semester, we will publish on our socials and on our website all the info regarding the application process. An <em>Info Session</em> is planned for the beginning of the semester to present the Team's projects and answer students' questions. You can expect that, in the application process, we will need your CV or resume, an optional motivational letter, and some info about you.</p>        
-            </fill>
-        </extends> -->
-    </fill>
-</extends>
+            </fragment>
+        </FAQ>
+    </fragment>
+</Layout>
