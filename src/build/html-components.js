@@ -59,6 +59,7 @@ async function html_component(file, root, props = {}, slots = {}) {
                 implement_import(node, component);
             }
             else if (Array.isArray(node.content)) {
+                sniff_attrs(node.attrs, props);
                 walk(node.content);
             }
         }
@@ -127,6 +128,32 @@ async function html_component(file, root, props = {}, slots = {}) {
     }
 }
 exports.html_component = html_component;
+function sniff_attrs(attrs, props) {
+    if (!attrs)
+        return;
+    let value;
+    for (var key in attrs) {
+        value = attrs[key];
+        if (key.startsWith("class:")) {
+            const name = key.slice(6);
+            const ok = !!props[(typeof value === "string" && value.length > 0 ? value : name)];
+            attrs[key] = false;
+            if (ok)
+                attrs.class = (attrs.class || "") + " " + name;
+        }
+        else if (typeof value === "string") {
+            attrs[key] = value.replace(prop_regexp, (_, name) => props[name]);
+        }
+    }
+}
+function get_prop(key, props) {
+    const keys = key.split(".");
+    const len = keys.length;
+    let value = props[keys[0]];
+    for (var i = 1; i < len && value[keys[i]]; i++)
+        value = value[keys[i]];
+    return value;
+}
 function read_props_script(content) {
     try {
         const res = JSON.parse(content[0]);

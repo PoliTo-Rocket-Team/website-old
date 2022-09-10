@@ -1,10 +1,11 @@
-import { parser, Node, NodeTag, Content } from "posthtml-parser";
+import { parser, Node, NodeTag, Content, Attributes } from "posthtml-parser";
 import { render } from "posthtml-render";
 import { readFile } from "fs/promises";
 import { basename, dirname, join as join_path } from "path";
 
 type Tree = (Node|Node[])[];
 type Slots = Record<string, (Node|Node[])[]>;
+type Props = Record<string, any>;
 
 const cache = new Map<string, string>();
 const loading = new Map<string, Promise<string>>();
@@ -26,7 +27,7 @@ export async function compile(path: string) {
 
 const prop_regexp = /{{\s*([\w-]+)\s*}}/g
 
-export async function html_component(file: string, root: string, props: object = {}, slots: Slots = {}) {
+export async function html_component(file: string, root: string, props: Props = {}, slots: Slots = {}) {
     const aliases = new Map<string, Alias>();
     const tasks: Promise<void>[] = []; 
     const nodes = parser(file);
@@ -62,6 +63,7 @@ export async function html_component(file: string, root: string, props: object =
                 implement_import(node, component);
             }
             else if(Array.isArray(node.content)) {
+                sniff_attrs(node.attrs, props);
                 walk(node.content);
             }
         }
@@ -125,6 +127,31 @@ export async function html_component(file: string, root: string, props: object =
         if(!slots[name]) return; // automatically rolls back to default
         node.content = slots[name];
     }
+}
+
+function sniff_attrs(attrs: Attributes, props: Props) {
+    if(!attrs) return;
+    let value: string | number | boolean;
+    for(var key in attrs) {
+        value = attrs[key];
+        if(key.startsWith("class:")) {
+            const name = key.slice(6);
+            const ok = !!props[(typeof value === "string" && value.length > 0 ? value : name)];
+            attrs[key] = false;
+            if(ok) attrs.class = (attrs.class||"") + " " + name;
+        }
+        else if(typeof value === "string") {
+            attrs[key] = value.replace(prop_regexp, (_, name) => props[name]);
+        }
+    }
+}
+
+function get_prop(key: string, props: Props) {
+    const keys = key.split(".");
+    const len = keys.length;
+    let value = props[keys[0]];
+    for(var i=1; i<len && value[keys[i]]; i++) value = value[keys[i]];
+    return value;
 }
 
 function read_props_script(content: Content) {
