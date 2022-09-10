@@ -24,7 +24,9 @@ export async function compile(path: string) {
     }
 }
 
-export async function html_component(file: string, root: string, props?: object, slots: Slots = {}) {
+const prop_regexp = /{{\s*([\w-]+)\s*}}/g
+
+export async function html_component(file: string, root: string, props: object = {}, slots: Slots = {}) {
     const aliases = new Map<string, Alias>();
     const tasks: Promise<void>[] = []; 
     const nodes = parser(file);
@@ -43,6 +45,7 @@ export async function html_component(file: string, root: string, props?: object,
                 continue;
             }
             if(typeof node === "string") {
+                nodes[i] = node.replace(prop_regexp, (_, key) => props[key])
                 continue;
             }
             if(typeof node !== "object") continue;
@@ -155,14 +158,13 @@ interface Alias {
 }
 
 function content2array(content: Content) {
-    if(!content) return [];
-    if(!Array.isArray(content)) return [content];
-    return content;
+    if(Array.isArray(content)) return content;
+    return content ? [content] : [];
 }
 
 const line_regexp = /[\t ]*\n\s*/g;
-const final_space = /\n\s+$/;
-const initial_space = /^\s+/;
+const final_space = /\n\s*$/;
+const initial_space = /^\s*/;
 
 interface TreeNormRes {
     placed: boolean;
@@ -184,7 +186,7 @@ function norm_tree(tree: Tree, base = 0, text: string = "", remainder = false): 
             const c = node.content;
             if(!Array.isArray(c)) write_text();
             else if(typeof node.tag === "boolean") same_level(c);
-            else down_level(c);
+            else down_level(c, node.tag === "html");
         }
         else {
             text += node;
@@ -200,10 +202,10 @@ function norm_tree(tree: Tree, base = 0, text: string = "", remainder = false): 
         text = res.trailing;
     }
 
-    function down_level(tree: Tree) {
+    function down_level(tree: Tree, is_doc: boolean) {
         if(text) write_text();
         text = "";
-        norm_tree(tree, base + 1);
+        norm_tree(tree, base + +!is_doc);
         close_tag(tree, newline);
     }
 
@@ -215,9 +217,14 @@ function norm_tree(tree: Tree, base = 0, text: string = "", remainder = false): 
 }
 
 function close_tag(tree: Tree, newline: string) {
-    const last = tree[tree.length-1];
-    if(typeof last === "string") tree[tree.length-1] = last.replace(final_space, newline);
-    // else tree.push(newline);
+    const i = tree.length-1;
+    if(i<0) return;
+    const last = tree[i];
+    if(last == null) tree[i] = newline;
+    else if(typeof last === "string") tree[i] = last.replace(final_space, newline);
+    else if(typeof last === "number") tree[i] += newline;
+    else if(Array.isArray(last)) close_tag(last, newline);
+    else if(last.tag === false) close_tag(last.content as Tree, newline);
 }
 
 function set_last(text: string, tree: Tree, index = tree.length-1) {

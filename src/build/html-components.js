@@ -22,7 +22,8 @@ async function compile(path) {
     }
 }
 exports.compile = compile;
-async function html_component(file, root, props, slots = {}) {
+const prop_regexp = /{{\s*([\w-]+)\s*}}/g;
+async function html_component(file, root, props = {}, slots = {}) {
     const aliases = new Map();
     const tasks = [];
     const nodes = (0, posthtml_parser_1.parser)(file);
@@ -41,6 +42,7 @@ async function html_component(file, root, props, slots = {}) {
                 continue;
             }
             if (typeof node === "string") {
+                nodes[i] = node.replace(prop_regexp, (_, key) => props[key]);
                 continue;
             }
             if (typeof node !== "object")
@@ -147,15 +149,13 @@ function retrieve_html(url) {
     return promise;
 }
 function content2array(content) {
-    if (!content)
-        return [];
-    if (!Array.isArray(content))
-        return [content];
-    return content;
+    if (Array.isArray(content))
+        return content;
+    return content ? [content] : [];
 }
 const line_regexp = /[\t ]*\n\s*/g;
-const final_space = /\n\s+$/;
-const initial_space = /^\s+/;
+const final_space = /\n\s*$/;
+const initial_space = /^\s*/;
 function normalize(tree) { norm_tree(tree); }
 exports.normalize = normalize;
 function norm_tree(tree, base = 0, text = "", remainder = false) {
@@ -176,7 +176,7 @@ function norm_tree(tree, base = 0, text = "", remainder = false) {
             else if (typeof node.tag === "boolean")
                 same_level(c);
             else
-                down_level(c);
+                down_level(c, node.tag === "html");
         }
         else {
             text += node;
@@ -193,11 +193,11 @@ function norm_tree(tree, base = 0, text = "", remainder = false) {
             write_text();
         text = res.trailing;
     }
-    function down_level(tree) {
+    function down_level(tree, is_doc) {
         if (text)
             write_text();
         text = "";
-        norm_tree(tree, base + 1);
+        norm_tree(tree, base + +!is_doc);
         close_tag(tree, newline);
     }
     function write_text() {
@@ -209,10 +209,20 @@ function norm_tree(tree, base = 0, text = "", remainder = false) {
     }
 }
 function close_tag(tree, newline) {
-    const last = tree[tree.length - 1];
-    if (typeof last === "string")
-        tree[tree.length - 1] = last.replace(final_space, newline);
-    // else tree.push(newline);
+    const i = tree.length - 1;
+    if (i < 0)
+        return;
+    const last = tree[i];
+    if (last == null)
+        tree[i] = newline;
+    else if (typeof last === "string")
+        tree[i] = last.replace(final_space, newline);
+    else if (typeof last === "number")
+        tree[i] += newline;
+    else if (Array.isArray(last))
+        close_tag(last, newline);
+    else if (last.tag === false)
+        close_tag(last.content, newline);
 }
 function set_last(text, tree, index = tree.length - 1) {
     if (index < 0)
