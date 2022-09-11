@@ -1,21 +1,55 @@
-<link rel="import" href="./components/Nasello.html" as="Nasello">
+<link rel="import" href="./components/Layout.html">
 
-<div>
-    ciao
-    <Nasello>
-
-        <fragment slot="desc">
-            <p>Pippo gay</p>
-            <Nasello>
-                <span slot="desc">Pippo Baudo</span>
-            </Nasello>
-        </fragment>
-    </Nasello>
-    <div>
-            <span>Test</span>
-
-                <div>
-            ciao
+<Layout name="projects" title="PoliTo Rocket Team - Projects" description="Take a look of the Team's current projects">
+    <fragment slot="links">
+        <li><a href="./">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li class="current"><a href="./projects.html">Projects</a></li>
+        <li><a href="./sponsors.html">Sponsors</a></li>
+        <li><a href="./apply.html">Apply</a></li>
+    </fragment>
+    <fragment slot="content">
+        <main>
+            <h1>Projects</h1>
+            <div class="stop-growth">
+                <hr class="subtle">
+                <p>It's in the Team's goals to design and manufacture each year a new sounding rocket. In the future years, beside the rocket projects, new projects will be started to upgrade and modernize the Team's capabilities: hybrid propulsion, liquid propulsion, thrust vector control and active-fin control are just some of the Team's (very) long-term objectives.</p>
             </div>
-    </div>
-</div>
+                
+            <article class="with-rocket">
+                <h2>Cavour</h2>
+                <div class="rocket"><img src="./img/Render_Cavour_Flags.png" alt="Render of the Cavour Rocket" width="429" height="3628" loading="lazy"></div>
+                <div class="main">
+                    <p>Camillo Benso, Count of Cavour, was one of the leading figures of the Italian Unification and the main promoter of Italy’s industrial and scientific development. He was born in Turin in 1810, and died in Turin in 1861, being the first prime minister of Italy. PoliTo Rocket Team's first project is named after him.</p>
+                    <p>In accord with the Team's <a href="https://www.politorocketteam.it/about">Mission & Vision</a>, Cavour's design is simple and pragmatic, thought to draw the way for future projects. It is also the first rocket of the <em>Founding Fathers</em> series.</p>
+                    <p>Cavour is a single-stage, 2.25m long, solid propelled rocket, with a variable target altitude. It is composed of three compartments, the motor bay, which holds the COTS motor, the avionics bay, which includes the electronics and telemetry system, and the recovery bay, which contains the parachutes and other recovery components. The airframe has an internal diameter of 100mm and makes large use of 3D printed and composite materials.</p>
+                    <p>Cavour has completed its preliminary design phase. Its mission objectives are the validation of flight simulations and the testing of the rocket's systems. In the future, the Cavour Project will evolve towards a reusable rocket with payload capacity, capable of conducting scientific experiments inexpensively and reliably at a precise predetermined apogee.</p>
+                </div>
+                <aside>
+                    <h3>Characteristics</h3>
+                    <!-- <p>Made from both COTS and in-house parts, Cavour is designed to be:</p> -->
+                    <ol>
+                        <li>Cost-effective and durable: It is the first rocket of the Team, and it must be proven that with the least possible budget the group is capable of designing and manufacturing a durable rocket which can sustain a high-powered flight while fulfilling the mission objectives;</li>
+                        <li>Reconfigurable: The Cavour Rocket structure design is modular, able to mount different motors, of different classes, different lengths (ranging from around 300mm to 700mm) and different diameters. It will be possible to launch the rocket with COTS motors of 38mm, 54mm and 75mm diameters. It could be possible to perform a 98mm permanent motor integration. Multiple versions of the rocket can be launched with different mission objectives, such as different apogee targets, payload launch and deployment, or system testing;</li>
+                        <li>Reusable: The rocket is designed to safely descend with the drogue chute, after reaching the apogee, with a planned velocity of around 27 m/s, and to deploy the main parachute at the designated altitude. It is planned to land with a velocity of approximately 5.5 m/s without inflicting any damage to its airframe or to the environment, so that the rocket is capable of being flown again without any major repair after just some refueling. By being a fully reusable rocket, it is capable of performing multiple launches without developing major structural damage, managing to be cheaper to operate and maintain, while maintaining the capability of a high-powered flight.</li>
+                    </ol>
+                </aside>
+            </article>
+            <!-- <article>
+                <h2>Hybrid engine</h2>
+            </article> -->
+        </main>
+        <svg class="divider" viewBox="0 0 1000 200" width="1000" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <rect x="0" y="0" width="1000" height="200" fill="transparent"></rect>
+            <path d="M0 125L13.8 126.2C27.7 127.3 55.3 129.7 83.2 128.7C111 127.7 139 123.3 166.8 110.8C194.7 98.3 222.3 77.7 250 73.8C277.7 70 305.3 83 333.2 90.8C361 98.7 389 101.3 416.8 94.2C444.7 87 472.3 70 500 65.3C527.7 60.7 555.3 68.3 583.2 78C611 87.7 639 99.3 666.8 100.3C694.7 101.3 722.3 91.7 750 97C777.7 102.3 805.3 122.7 833.2 129.3C861 136 889 129 916.8 129C944.7 129 972.3 136 986.2 139.5L1000 143L1000 201L986.2 201C972.3 201 944.7 201 916.8 201C889 201 861 201 833.2 201C805.3 201 777.7 201 750 201C722.3 201 694.7 201 666.8 201C639 201 611 201 583.2 201C555.3 201 527.7 201 500 201C472.3 201 444.7 201 416.8 201C389 201 361 201 333.2 201C305.3 201 277.7 201 250 201C222.3 201 194.7 201 166.8 201C139 201 111 201 83.2 201C55.3 201 27.7 201 13.8 201L0 201Z" fill="var(--bg-2)" stroke-linecap="round" stroke-linejoin="miter"></path>
+        </svg>
+        <footer>
+            <div class="center-lg">
+                PoliTo Rocket Team &trade; 2022
+            </div>
+        </footer>
+    </fragment>
+    <fragment slot="extra">
+        <div class="water-mark">PoliTo Rocket Team</div>
+    </fragment>
+</Layout>
