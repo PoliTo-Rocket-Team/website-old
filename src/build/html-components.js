@@ -58,9 +58,10 @@ async function html_component(file, root, props = {}, slots = {}) {
             else if (component = aliases.get(node.tag)) {
                 implement_import(node, component);
             }
-            else if (Array.isArray(node.content)) {
+            else {
                 sniff_attrs(node.attrs, props);
-                walk(node.content);
+                if (Array.isArray(node.content))
+                    walk(node.content);
             }
         }
     }
@@ -134,14 +135,22 @@ function sniff_attrs(attrs, props) {
     let value;
     for (var key in attrs) {
         value = attrs[key];
-        if (key.startsWith("class:")) {
-            const name = key.slice(6);
-            const ok = !!props[(typeof value === "string" && value.length > 0 ? value : name)];
-            attrs[key] = false;
-            if (ok)
-                attrs.class = (attrs.class || "") + " " + name;
-        }
-        else if (typeof value === "string") {
+        // if(key.startsWith("class:")) {
+        //     const name = key.slice(6);
+        //     let negated = false;
+        //     let prop = name;
+        //     if(typeof value === "string" && value.length > 0) {
+        //         if(value.startsWith("!")) {
+        //             negated = true;
+        //             if(value.length > 1) prop = value.slice(1);
+        //         } else prop = value
+        //     }
+        //     let ok = !props[prop];
+        //     if(!negated) ok = !ok;
+        //     if(ok) attrs.class = (attrs.class||"") + " " + name;
+        // }
+        // else
+        if (typeof value === "string") {
             attrs[key] = value.replace(prop_regexp, (_, name) => props[name]);
         }
     }
@@ -248,7 +257,7 @@ function close_tag(tree, newline) {
         tree[i] += newline;
     else if (Array.isArray(last))
         close_tag(last, newline);
-    else if (last.tag === false)
+    else if (last.tag === false && last.content)
         close_tag(last.content, newline);
 }
 function set_last(text, tree, index = tree.length - 1) {

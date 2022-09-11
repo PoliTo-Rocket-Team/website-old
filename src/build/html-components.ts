@@ -62,9 +62,9 @@ export async function html_component(file: string, root: string, props: Props = 
             else if(component = aliases.get(node.tag as string)) {
                 implement_import(node, component);
             }
-            else if(Array.isArray(node.content)) {
+            else {
                 sniff_attrs(node.attrs, props);
-                walk(node.content);
+                if(Array.isArray(node.content)) walk(node.content);
             }
         }
     }
@@ -134,13 +134,22 @@ function sniff_attrs(attrs: Attributes, props: Props) {
     let value: string | number | boolean;
     for(var key in attrs) {
         value = attrs[key];
-        if(key.startsWith("class:")) {
-            const name = key.slice(6);
-            const ok = !!props[(typeof value === "string" && value.length > 0 ? value : name)];
-            attrs[key] = false;
-            if(ok) attrs.class = (attrs.class||"") + " " + name;
-        }
-        else if(typeof value === "string") {
+        // if(key.startsWith("class:")) {
+        //     const name = key.slice(6);
+        //     let negated = false;
+        //     let prop = name;
+        //     if(typeof value === "string" && value.length > 0) {
+        //         if(value.startsWith("!")) {
+        //             negated = true;
+        //             if(value.length > 1) prop = value.slice(1);
+        //         } else prop = value
+        //     }
+        //     let ok = !props[prop];
+        //     if(!negated) ok = !ok;
+        //     if(ok) attrs.class = (attrs.class||"") + " " + name;
+        // }
+        // else
+        if(typeof value === "string") {
             attrs[key] = value.replace(prop_regexp, (_, name) => props[name]);
         }
     }
@@ -251,7 +260,7 @@ function close_tag(tree: Tree, newline: string) {
     else if(typeof last === "string") tree[i] = last.replace(final_space, newline);
     else if(typeof last === "number") tree[i] += newline;
     else if(Array.isArray(last)) close_tag(last, newline);
-    else if(last.tag === false) close_tag(last.content as Tree, newline);
+    else if(last.tag === false && last.content) close_tag(last.content as Tree, newline);
 }
 
 function set_last(text: string, tree: Tree, index = tree.length-1) {
