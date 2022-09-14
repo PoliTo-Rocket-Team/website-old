@@ -1,0 +1,12 @@
+<article class="position" data-role="{{ role }}" data-subteam="{{subteam}}" data-division="{{division}}">
+    <details>
+        <summary>
+            <h3>{{ role }}</h3>
+            <div><span class="on-sm">Subteam: </span>{{subteam}}</div>
+            <div><span class="on-sm">Division: </span>{{division}}</div>
+            <div><span class="on-sm">Group: </span>{{group}}</div>
+        </summary>
+        <hr>
+        <div class="content"><slot name="body"></slot></div>
+    </details>
+</article>

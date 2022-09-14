@@ -385,11 +385,42 @@ abbr {
   text-decoration: none;
 }
 
-#faqs-section {
+section.center {
   max-width: 75ch;
   margin-left: auto;
   margin-right: auto;
 }
+
+.position-labels,
+.position summary {
+  padding: 0.5rem 0.8rem;
+}
+
+.position {
+  background-color: var(--bg-1);
+  border-radius: 0.5rem;
+}
+.position hr {
+  border: none;
+  border-bottom: 2px solid hsla(0deg, 0%, 80%, 0.5);
+}
+.position .content {
+  padding: 0.6rem 0.8rem;
+}
+.position h4:not(:first-child) {
+  margin-top: 1.2rem;
+}
+.position h4 {
+  margin-bottom: 0.5rem;
+}
+.position ul {
+  padding-left: 2ch;
+}
+
+.position + .position {
+  margin-top: 1rem;
+}
+
 #faqs-section hr {
   margin-left: 15%;
   margin-right: 15%;
@@ -431,6 +462,11 @@ abbr {
     width: 55%;
   }
 }
+p + ul {
+  margin-top: 0.25rem;
+}
+
+ul + p,
 p + p {
   margin-top: 0.5rem;
 }
@@ -450,6 +486,31 @@ footer {
   padding: var(--pad);
   padding-top: 0;
   text-align: center;
+}
+
+@media (max-width: 50rem) {
+  .na, .on-lg {
+    display: none;
+  }
+  .position summary {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (min-width: 50rem) {
+  .on-sm {
+    display: none;
+  }
+  .position-labels,
+.position summary {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1ch;
+  }
+  .na {
+    opacity: 0.5;
+  }
 }
 
 /*# sourceMappingURL=apply.css.map */

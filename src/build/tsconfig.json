@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "downlevelIteration": true,
+        "moduleResolution": "Node",
+        "target": "ES2018",
+        "module": "CommonJS",
+        "watch": true
+    },
+    "buildOptions": {
+        "dry": true
+    },
+    "compileOnSave": true,
+    "files": [
+        "html-components.ts"
+    ]
+}

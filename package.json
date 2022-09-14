@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node builder.mjs -W",
     "build": "node builder.mjs",
-    "build-all": "node builder.mjs -X index:rocket"
+    "build-all": "node builder.mjs -X index:rocket",
+    "rollup": "rollup -c",
+    "ts-html": "tsc -P src/build/"
   },
   "repository": {
     "type": "git",
@@ -33,11 +35,19 @@
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/three": "^0.140.0",
     "dotenv": "^16.0.1",
+    "posthtml": "^0.16.6",
+    "posthtml-expressions": "^1.9.0",
+    "posthtml-extend": "^0.6.3",
+    "posthtml-modules": "^0.9.0",
     "rollup": "^2.74.1",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.52.3",
     "three": "^0.141.0",
     "tslib": "^2.4.0",
     "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "posthtml-parser": "^0.11.0",
+    "posthtml-render": "^3.0.0"
   }
 }
