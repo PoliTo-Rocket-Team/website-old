@@ -149,7 +149,7 @@
         {
             title: "Members by program",
             slices: [
-                { value: 16, label: "Aerospace Engineering", color: "#3bdb84" },
+                { value: 17, label: "Aerospace Engineering", color: "#3bdb84" },
                 { value: 1, label: "Electronic Engineering", color: "#dd4991" },
                 { value: 3, label: "Mechanical Engineering", color: "#dd0011" },
                 { value: 1, label: "Physics Engineering", color: "#2479cf" },
@@ -163,7 +163,7 @@
             slices: [
                 { value: 11, label: "Bachelor's", color: "#4e7bc1" },
                 { value: 9, label: "Master's", color: "#e1a463" },
-                { value: 1, label: "Ph.D.", color: "#3bdb84" },
+                { value: 2, label: "Ph.D.", color: "#3bdb84" },
             ],
             rotate: 0,
             threshold: 0,
@@ -171,7 +171,7 @@
         {
             title: "International students rate",
             slices: [
-                { value: 19, label: "Domestic", color: "#dd4991" },
+                { value: 20, label: "Domestic", color: "#dd4991" },
                 { value: 2, label: "International", color: "#e1a463" },
             ],
             rotate: 0,
