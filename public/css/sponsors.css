@@ -468,6 +468,12 @@ img.dark-bg {
   border-radius: 1em;
 }
 
+img.light-bg {
+  background-color: var(--ligth-bg-1);
+  padding: 0.6em;
+  border-radius: 1em;
+}
+
 #logo-poli {
   border-radius: 5em;
   padding-right: 0.9em;
