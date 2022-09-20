@@ -24,10 +24,10 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 :root {
-  --ligth-bg-0: #efefef;
-  --ligth-bg-1: #fafafa;
-  --ligth-fg-0: #212121;
-  --ligth-fg-1: #555;
+  --light-bg-0: #efefef;
+  --light-bg-1: #fafafa;
+  --light-fg-0: #212121;
+  --light-fg-1: #555;
   --dark-bg-0: #333333;
   --dark-bg-1: #4a4a4a;
   --dark-fg-0: #ededed;
@@ -41,13 +41,13 @@
 }
 
 :root {
-  --bg-0: var(--ligth-bg-0);
-  --bg-1: var(--ligth-bg-1);
+  --bg-0: var(--light-bg-0);
+  --bg-1: var(--light-bg-1);
   --bg-2: var(--dark-bg-1);
-  --fg-0: var(--ligth-fg-0);
-  --fg-1: var(--ligth-fg-1);
+  --fg-0: var(--light-fg-0);
+  --fg-1: var(--light-fg-1);
   --fg-2: var(--dark-fg-0);
-  --fg-sel: var(--ligth-bg-1);
+  --fg-sel: var(--light-bg-1);
   --fg-link: var(--accent-50);
   --accent-text: hsl(19,85%,47.5%);
   --accent-fig: hsl(19,100%,50%);
@@ -67,13 +67,13 @@
   }
 }
 body[data-theme=light] {
-  --bg-0: var(--ligth-bg-0);
-  --bg-1: var(--ligth-bg-1);
+  --bg-0: var(--light-bg-0);
+  --bg-1: var(--light-bg-1);
   --bg-2: var(--dark-bg-1);
-  --fg-0: var(--ligth-fg-0);
-  --fg-1: var(--ligth-fg-1);
+  --fg-0: var(--light-fg-0);
+  --fg-1: var(--light-fg-1);
   --fg-2: var(--dark-fg-0);
-  --fg-sel: var(--ligth-bg-1);
+  --fg-sel: var(--light-bg-1);
   --fg-link: var(--accent-50);
   --accent-text: hsl(19,85%,47.5%);
   --accent-fig: hsl(19,100%,50%);
@@ -464,14 +464,16 @@ h2 {
 
 img.dark-bg {
   background-color: var(--dark-bg-1);
-  padding: 0.6em;
-  border-radius: 1em;
+  border-radius: 0.7em;
 }
 
 img.light-bg {
-  background-color: var(--ligth-bg-1);
+  background-color: var(--light-bg-1);
+  border-radius: 0.7rem;
+}
+
+img.padded {
   padding: 0.6em;
-  border-radius: 1em;
 }
 
 #logo-poli {

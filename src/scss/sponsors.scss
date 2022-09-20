@@ -113,13 +113,14 @@ $card-padding: 1.5rem;
 
 img.dark-bg {
     background-color: var(--dark-bg-1);
-    padding: .6em;
-    border-radius: 1em;
+    border-radius: .7em;
 }
 img.light-bg {
-    background-color: var(--ligth-bg-1);
+    background-color: var(--light-bg-1);
+    border-radius: .7rem;
+}
+img.padded {
     padding: .6em;
-    border-radius: 1em;
 }
 #logo-poli {
     border-radius: 5em;
