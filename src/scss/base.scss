@@ -7,10 +7,10 @@
 $accent-hue: 19;
 
 :root {
-    --ligth-bg-0: #efefef;
-    --ligth-bg-1: #fafafa;
-    --ligth-fg-0: #212121;
-    --ligth-fg-1: #555;
+    --light-bg-0: #efefef;
+    --light-bg-1: #fafafa;
+    --light-fg-0: #212121;
+    --light-fg-1: #555;
 
     --dark-bg-0: #333333;
     --dark-bg-1: #4a4a4a;
@@ -35,14 +35,14 @@ $accent-hue: 19;
 }
 
 @mixin light-theme {
-    --bg-0: var(--ligth-bg-0);
-    --bg-1: var(--ligth-bg-1);
+    --bg-0: var(--light-bg-0);
+    --bg-1: var(--light-bg-1);
     --bg-2: var(--dark-bg-1);
-    --fg-0: var(--ligth-fg-0);
-    --fg-1: var(--ligth-fg-1);
+    --fg-0: var(--light-fg-0);
+    --fg-1: var(--light-fg-1);
     --fg-2: var(--dark-fg-0);
 
-    --fg-sel: var(--ligth-bg-1);
+    --fg-sel: var(--light-bg-1);
     --fg-link: var(--accent-50);
 
     --accent-text: hsl(19,85%,47.5%);
