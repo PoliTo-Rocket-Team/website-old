@@ -41,18 +41,27 @@ $card-padding: 1.5rem;
 
 @media (min-width: $width-th-1) {
     .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 35ch);
-        gap: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        margin-left: -$card-padding;
+        margin-top: -$card-padding;
+        width: calc(100% + 2*$card-padding);
+    }
+    .cards > * {
+        margin: $card-padding;
+        flex-basis: 32ch;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 26ch;
+        max-width: 36ch;
     }
     .perspective-box {
         perspective: 30rem;
     }
     .card {
         --scale: 1;
-        min-width: 35ch;
-        max-width: 35ch;
-        
+
         display: block;
         transform-origin: center;
         transform-style: preserve-3d;
