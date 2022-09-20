@@ -515,6 +515,23 @@ footer {
     padding-top: 0.1rem;
     padding-left: 0.4ch;
   }
+  .position h3::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    margin-bottom: 0.2rem;
+    margin-right: 0.6ch;
+    border-left: 0.3rem solid currentColor;
+    border-top: 0.3rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+    transform: translateX(1px);
+    transition: transform 150ms;
+  }
+  .position details[open] h3::before {
+    transform: translateX(1px) rotate(90deg);
+  }
 }
 @media (min-width: 50rem) {
   .on-sm {
@@ -527,12 +544,25 @@ footer {
   .position-labels,
 .position summary {
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-columns: 2fr repeat(3, 1fr) 0.3rem;
     align-items: center;
     column-gap: 1rem;
   }
+  .position summary::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-right: 0.3rem solid currentColor;
+    border-top: 0.3rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+    transform: translateX(-1px);
+    transition: transform 150ms;
+  }
+  .position details[open] summary::after {
+    transform: translateX(-1px) rotate(-90deg);
+  }
   .position.multiple table {
-    grid-column: 2/-1;
+    grid-column: 2/5;
     width: 100%;
   }
   .position.multiple td:nth-child(1) {

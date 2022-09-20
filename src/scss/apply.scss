@@ -141,6 +141,8 @@ footer {
     text-align: center;
 }
 
+$marker-dim: .3rem;
+
 @media (max-width: $width-th-1) {
     .on-lg { display: none; }
     .position summary {
@@ -157,6 +159,23 @@ footer {
             padding-left: .4ch;
         }
     }
+    .position h3::before {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        vertical-align: middle;
+        margin-bottom: .2rem;
+        margin-right: .6ch;
+        border-left: $marker-dim solid currentColor;
+        border-top: $marker-dim solid transparent;
+        border-bottom: $marker-dim solid transparent;
+        transform: translateX(1px);
+        transition: transform 150ms;
+    }
+    .position details[open] h3::before {
+        transform: translateX(1px) rotate(90deg);
+    }
 }
 
 $position-gap: 1rem;
@@ -172,12 +191,25 @@ $position-gap: 1rem;
     .position-labels,
     .position summary {
         display: grid;
-        grid-template-columns: 2fr repeat(3, 1fr);
+        grid-template-columns: 2fr repeat(3, 1fr) $marker-dim;
         align-items: center;
         column-gap: $position-gap;
     }
+    .position summary::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-right: $marker-dim solid currentColor;
+        border-top: $marker-dim solid transparent;
+        border-bottom: $marker-dim solid transparent;
+        transform: translateX(-1px);
+        transition: transform 150ms;
+    }
+    .position details[open] summary::after {
+        transform: translateX(-1px) rotate(-90deg);
+    }
     .position.multiple table {
-        grid-column: 2/-1;
+        grid-column: 2/5;
         width: 100%;
     }
     .position.multiple td {
