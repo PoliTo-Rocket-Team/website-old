@@ -40,6 +40,7 @@ $details-border: 2px solid #b3b3b3ba;
     min-width: 11ch;
 }
 
+.lp-pos,
 .position {
     background-color: var(--bg-1);
     border-radius: $details-radius;
@@ -213,7 +214,7 @@ $position-gap-third: math.div($position-gap, 3);
         column-gap: $position-gap;
     }
     .position summary .code {
-        grid-column: 5;
+        grid-column: -3/-2;
     }
     .position summary::after {
         content: '';
@@ -243,5 +244,10 @@ $position-gap-third: math.div($position-gap, 3);
         &:nth-child(3) {
             padding-left: 2*$position-gap-third;
         }
+    }
+
+    .liquid-propulsion .position-labels,
+    .liquid-propulsion .position summary {
+        grid-template-columns: 2fr 1fr auto $marker-dim;
     }
 }
