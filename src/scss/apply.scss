@@ -1,4 +1,6 @@
+@use "sass:math";
 @import "./base.scss";
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 
 body {
     overflow-y: scroll;
@@ -179,6 +181,7 @@ $marker-dim: .3rem;
 }
 
 $position-gap: 1rem;
+$position-gap-third: math.div($position-gap, 3);
 
 @media (min-width: $width-th-1) {
     .on-sm {
@@ -214,14 +217,14 @@ $position-gap: 1rem;
     }
     .position.multiple td {
         &:nth-child(1) {
-            padding-right: 2*$position-gap/3;
+            padding-right: 2*$position-gap-third;
         }
         &:nth-child(2) {
-            padding-left: $position-gap/3;
-            padding-right: $position-gap/3;
+            padding-left: $position-gap-third;
+            padding-right: $position-gap-third;
         }
         &:nth-child(3) {
-            padding-left: 2*$position-gap/3;
+            padding-left: 2*$position-gap-third;
         }
     }
 }
