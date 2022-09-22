@@ -1,4 +1,5 @@
 @use "./font.scss" as *;
+@use "utils.scss";
 @include font(400, true);
 
 @import "./base.scss";
@@ -23,28 +24,7 @@ section {
 }
 
 .table-of-contents {
-    background-color: var(--bg-1);
-    padding: .8rem 1.1rem;
-    width: max-content;
-    max-width: 30ch;
-    border-radius: .9rem;
-    margin-top: 1.5rem;
-
-    h2 {
-        font-size: var(--fs-60);
-    }
-    ol {
-        list-style-position: inside;
-        border-left: 2px solid #9998;
-        padding-left: .75ch;
-    }
-    li {
-        margin-top: .5em;
-    }
-    a {
-        text-decoration-style: dashed;
-        text-decoration-line: underline;
-    }
+    @include utils.table-of-contents;
 }
 @media (min-width: $width-th-1) {
     .header {
