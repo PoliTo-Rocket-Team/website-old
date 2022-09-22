@@ -368,8 +368,8 @@ hr.subtle {
   height: 0;
 }
 
-body {
-  overflow-y: scroll;
+html {
+  scroll-behavior: smooth;
 }
 
 main {
@@ -377,13 +377,66 @@ main {
   padding-top: max(6.5rem, var(--pad));
 }
 
-h2 {
-  margin-top: 10rem;
-  margin-bottom: 1rem;
-}
-
 abbr {
   text-decoration: none;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.toc {
+  background-color: var(--bg-1);
+  padding: 0.8rem 1.1rem;
+  width: max-content;
+  max-width: 30ch;
+  border-radius: 0.9rem;
+  margin-top: 1.5rem;
+  margin-top: 3rem;
+}
+.toc h2 {
+  font-size: var(--fs-60);
+}
+.toc ol {
+  list-style-position: inside;
+  border-left: 2px solid rgba(153, 153, 153, 0.5333333333);
+  padding-left: 0.75ch;
+}
+.toc li {
+  margin-top: 0.5em;
+  position: relative;
+}
+.toc li::marker {
+  color: var(--accent-text);
+  font-weight: 500;
+}
+.toc a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+.toc a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-top: 2px solid var(--accent-fig);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 350ms ease;
+}
+.toc a:hover::after {
+  clip-path: inset(0);
+}
+
+section h2 {
+  margin-top: 10rem;
+  margin-bottom: 1rem;
+  scroll-margin-block-start: 8rem;
 }
 
 section.center {
@@ -475,7 +528,7 @@ section.center {
 }
 
 @media (min-width: 50rem) {
-  h2 {
+  section.center h2 {
     text-align: center;
   }
   .question {

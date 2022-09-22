@@ -1,21 +1,36 @@
 @use "sass:math";
+@use "utils.scss";
 @import "./base.scss";
 @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap');
 
-body {
-    overflow-y: scroll;
+html {
+    scroll-behavior: smooth;
 }
 main {
     padding: var(--pad);
     padding-top: max(6.5rem, var(--pad));
 }
 
-h2 {
-    margin-top: 10rem;
-    margin-bottom: 1rem;
-}
 abbr {
     text-decoration: none;
+}
+
+.head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.toc {
+    @include utils.table-of-contents;
+    margin-top: 3rem;
+}
+
+section h2 {
+    margin-top: 10rem;
+    margin-bottom: 1rem;
+    scroll-margin-block-start: 8rem;
 }
 
 section.center {
@@ -110,7 +125,7 @@ $faq-padding: .9rem 1.3rem;
 }
 
 @media (min-width: $width-th-1) {
-    h2 {
+    section.center h2 {
         text-align: center;
     }
     .question {
