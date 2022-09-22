@@ -27,10 +27,14 @@ abbr {
     margin-top: 3rem;
 }
 
-section h2 {
+.section-title {
     margin-top: 10rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     scroll-margin-block-start: 8rem;
+
+    h2 {
+        display: inline-block;
+    }
 }
 
 section.center {
@@ -125,7 +129,7 @@ $faq-padding: .9rem 1.3rem;
 }
 
 @media (min-width: $width-th-1) {
-    section.center h2 {
+    .section-title {
         text-align: center;
     }
     .question {
@@ -281,4 +285,21 @@ $position-gap-third: math.div($position-gap, 3);
     p {
         display: inline;
     }
+}
+
+.btn {
+    display: inline-block;
+    font-size: var(--fs-70);
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: .3ch;
+    transition: transform 200ms ease;
+}
+.btn svg {
+    height: .8em;
+    width: .8em;
+    vertical-align: middle;
+}
+.btn:hover {
+    transform: translateX(2rem);
 }

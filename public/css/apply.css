@@ -432,10 +432,13 @@ abbr {
   clip-path: inset(0);
 }
 
-section h2 {
+.section-title {
   margin-top: 10rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   scroll-margin-block-start: 8rem;
+}
+.section-title h2 {
+  display: inline-block;
 }
 
 section.center {
@@ -527,7 +530,7 @@ section.center {
 }
 
 @media (min-width: 50rem) {
-  section.center h2 {
+  .section-title {
     text-align: center;
   }
   .question {
@@ -671,6 +674,25 @@ footer {
 }
 .one-line p {
   display: inline;
+}
+
+.btn {
+  display: inline-block;
+  font-size: var(--fs-70);
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 0.3ch;
+  transition: transform 200ms ease;
+}
+
+.btn svg {
+  height: 0.8em;
+  width: 0.8em;
+  vertical-align: middle;
+}
+
+.btn:hover {
+  transform: translateX(2rem);
 }
 
 /*# sourceMappingURL=apply.css.map */
