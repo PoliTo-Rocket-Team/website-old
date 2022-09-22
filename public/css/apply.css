@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap");
 @font-face {
   font-family: "Plus Jakarta Sans";
   font-weight: 400;
@@ -575,6 +575,49 @@ footer {
   }
   .position.multiple td:nth-child(3) {
     padding-left: 0.6666666667rem;
+  }
+}
+div.sep {
+  margin-top: 3rem;
+}
+
+span.code {
+  font-family: "Anonymous Pro", monospace;
+}
+
+span.color {
+  color: var(--accent-text);
+}
+
+.prova1,
+.prova2,
+.prova3 {
+  background-color: var(--bg-1);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 50rem) {
+  .prova1,
+.prova2,
+.prova3 {
+    display: grid;
+    align-items: center;
+    column-gap: 1rem;
+  }
+  .prova1 {
+    grid-template-columns: 5fr repeat(3, 2fr) auto;
+  }
+  .prova2 {
+    grid-template-columns: 2fr repeat(3, 1fr);
+  }
+  .prova3 {
+    grid-template-columns: 5fr auto repeat(3, 2fr);
+  }
+  .prova3.centered :nth-child(n+2) {
+    justify-self: center;
+    text-align: center;
   }
 }
 

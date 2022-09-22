@@ -1,6 +1,6 @@
 @use "sass:math";
 @import "./base.scss";
-@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap');
 
 body {
     overflow-y: scroll;
@@ -226,5 +226,52 @@ $position-gap-third: math.div($position-gap, 3);
         &:nth-child(3) {
             padding-left: 2*$position-gap-third;
         }
+    }
+}
+
+div.sep {
+    margin-top: 3rem;
+}
+
+span.code {
+    font-family: 'Anonymous Pro', monospace;
+}
+span.color {
+    color: var(--accent-text);
+}
+
+.prova1,
+.prova2,
+.prova3 {
+    background-color: var(--bg-1);
+    border-radius: $details-radius;
+    padding: $details-pad-y $details-pad-x;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: $width-th-1) {
+    .prova1,
+    .prova2,
+    .prova3 {
+        display: grid;
+        align-items: center;
+        column-gap: $position-gap;
+    }
+    .prova1 {
+        grid-template-columns: 5fr repeat(3, 2fr) auto;
+    }
+    .prova2 {
+        grid-template-columns: 2fr repeat(3, 1fr);
+    }
+    .prova3 {
+        grid-template-columns: 5fr auto repeat(3, 2fr);
+    }
+    // .prova3 :nth-child(n+2) {
+    //     justify-self: center;
+    //     text-align: center;
+    // }
+    .prova3.centered :nth-child(n+2) {
+        justify-self: center;
+        text-align: center;
     }
 }
