@@ -394,7 +394,6 @@ abbr {
   width: max-content;
   max-width: 30ch;
   border-radius: 0.9rem;
-  margin-top: 1.5rem;
   margin-top: 3rem;
 }
 .toc h2 {
@@ -609,6 +608,9 @@ footer {
   }
 }
 @media (min-width: 50rem) {
+  .head > :first-child {
+    margin-right: 2.5rem;
+  }
   .on-sm {
     position: absolute;
     width: 0;

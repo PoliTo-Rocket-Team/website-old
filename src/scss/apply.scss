@@ -213,6 +213,9 @@ $position-gap: 1rem;
 $position-gap-third: math.div($position-gap, 3);
 
 @media (min-width: $width-th-1) {
+    .head > :first-child {
+        margin-right: 2.5rem;
+    }
     .on-sm {
         position: absolute;
         width: 0;
