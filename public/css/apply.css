@@ -397,6 +397,13 @@ section.center {
   padding: 0.5rem 0.8rem;
 }
 
+.code-label {
+  font-family: "Anonymous Pro", monospace;
+  width: 11ch;
+  max-width: 11ch;
+  min-width: 11ch;
+}
+
 .position {
   background-color: var(--bg-1);
   border-radius: 0.5rem;
@@ -416,6 +423,10 @@ section.center {
 }
 .position ul {
   padding-left: 2ch;
+}
+.position .code {
+  text-transform: uppercase;
+  font-family: "Anonymous Pro", monospace;
 }
 
 .position + .position {
@@ -545,9 +556,13 @@ footer {
   .position-labels,
 .position summary {
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr) 0.3rem;
+    grid-template-columns: 2fr repeat(3, 1fr) auto 0.3rem;
+    grid-auto-flow: dense;
     align-items: center;
     column-gap: 1rem;
+  }
+  .position summary .code {
+    grid-column: 5;
   }
   .position summary::after {
     content: "";
@@ -577,48 +592,8 @@ footer {
     padding-left: 0.6666666667rem;
   }
 }
-div.sep {
-  margin-top: 3rem;
-}
-
-span.code {
-  font-family: "Anonymous Pro", monospace;
-}
-
 span.color {
   color: var(--accent-text);
-}
-
-.prova1,
-.prova2,
-.prova3 {
-  background-color: var(--bg-1);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.8rem;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 50rem) {
-  .prova1,
-.prova2,
-.prova3 {
-    display: grid;
-    align-items: center;
-    column-gap: 1rem;
-  }
-  .prova1 {
-    grid-template-columns: 5fr repeat(3, 2fr) auto;
-  }
-  .prova2 {
-    grid-template-columns: 2fr repeat(3, 1fr);
-  }
-  .prova3 {
-    grid-template-columns: 5fr auto repeat(3, 2fr);
-  }
-  .prova3.centered :nth-child(n+2) {
-    justify-self: center;
-    text-align: center;
-  }
 }
 
 /*# sourceMappingURL=apply.css.map */
