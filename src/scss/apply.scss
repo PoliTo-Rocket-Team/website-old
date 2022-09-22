@@ -61,8 +61,8 @@ $details-border: 2px solid #b3b3b3ba;
         padding-left: 2ch;
     }
     .code {
-        text-transform: uppercase;
         font-family: 'Anonymous Pro', monospace;
+        color: var(--accent-text);
     }
 }
 .position + .position {
@@ -171,6 +171,9 @@ $marker-dim: .3rem;
             padding-left: .4ch;
         }
     }
+    .position h3 {
+        margin-bottom: .2rem;
+    }
     .position h3::before {
         content: '';
         display: inline-block;
@@ -241,8 +244,4 @@ $position-gap-third: math.div($position-gap, 3);
             padding-left: 2*$position-gap-third;
         }
     }
-}
-
-span.color {
-    color: var(--accent-text);
 }
