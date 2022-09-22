@@ -251,3 +251,16 @@ $position-gap-third: math.div($position-gap, 3);
         grid-template-columns: 2fr 1fr auto $marker-dim;
     }
 }
+
+.one-line {
+    margin-top: 1.2rem;
+    margin-bottom: .5rem;
+
+    h4 {
+        display: inline;
+        vertical-align: baseline;
+    }
+    p {
+        display: inline;
+    }
+}

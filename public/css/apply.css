@@ -606,5 +606,16 @@ footer {
     grid-template-columns: 2fr 1fr auto 0.3rem;
   }
 }
+.one-line {
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.one-line h4 {
+  display: inline;
+  vertical-align: baseline;
+}
+.one-line p {
+  display: inline;
+}
 
 /*# sourceMappingURL=apply.css.map */
