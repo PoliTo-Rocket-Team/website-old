@@ -1,9 +1,14 @@
-<div class="perspective-box">
+<link rel="prop" title="imgClass">
+<link rel="prop" title="img">
+<link rel="prop" title="name">
+<link rel="prop" title="link">
+
+<div template class="perspective-box">
     <article class="card">
-        <img src="{{ img }}" alt="{{ name }}">
+        <img class="${imgClass || ''}" src="${ img }" alt="logo ${ name }">
         <div class="card__body">
-            <h3><a href="{{ link }}" target="_blank">{{ name }}</a></h3>
-            <slot name="description"></slot>
+            <h3><a href="${ link }" target="_blank">${ name }</a></h3>
+            <slot></slot>
         </div>
     </article>
 </div>
