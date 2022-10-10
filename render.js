@@ -1,7 +1,15 @@
-const { compile } = require("./src/build/html-components");
 const { writeFile } = require("fs/promises");
+const { componentify } = require("functional-html");
+const { render } = require("posthtml-render");
 
-process.argv.slice(2).forEach(name => compile(`./src/html/${name}.html`).then(res => {
-    if(res) writeFile(`./public/${name}.html`, res, "utf-8").then(() => console.log(` > ${name} rendered`))
-    else console.log(` > ${name} could not be rendered`);
-}))
+process.argv.slice(2).forEach(handle)
+    
+async function handle(name) {
+    try {
+        const c = await componentify(`./src/html/${name}.html`);
+        await writeFile(`discarded/${name}.html`, render(c({})), "utf-8");
+        console.log(` > ${name} rendered`);
+    } catch(err) {
+        console.error(err);
+    }
+}
