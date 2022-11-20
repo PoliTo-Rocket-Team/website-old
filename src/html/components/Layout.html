@@ -1,6 +1,7 @@
 <link rel="prop" title="description">
 <link rel="prop" title="title">
 <link rel="prop" title="name">
+<link rel="prop" title="index">
 
 <template>
     <!DOCTYPE html>
@@ -9,15 +10,15 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/${ name }.css">
+        <link rel="stylesheet" href="/css/${ name }.css">
         <meta name="author" content="Federico Guglielmi">
 
         <title>${ title }</title>
         <meta name="description" content="${ description }">
 
-        <link rel="shortcut icon" href="./favicon/icon.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="./favicon/icon.png" type="image/png">
-        <link rel="shortcut icon" href="./favicon/icon.svg" type="image/svg+xml">
+        <link rel="shortcut icon" href="/favicon/icon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon/icon.png" type="image/png">
+        <link rel="shortcut icon" href="/favicon/icon.svg" type="image/svg+xml">
 
         <meta property="og:image" content="https://www.politorocketteam.it/img/preview.png">
         <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +46,21 @@
                 </svg>
             </a>
             <ul class="links">
-                <slot name="links"></slot>
+                <li class:current="index==0"><a href="./">Home</a></li>
+                <li class:current="index==1" class="multi">
+                    <input type="checkbox" id="about-multi">
+                    <label for="about-multi">
+                        <span>About</span>
+                        <ul>
+                            <li><a href="./about.html">Mission</a></li>
+                            <li><a href="./about.html">Current Team</a></li>
+                            <li><a href="./about.html">Past Teams</a></li>
+                        </ul>
+                    </label>
+                </li>
+                <li class:current="index==2"><a href="./projects.html">Projects</a></li>
+                <li class:current="index==3"><a href="./sponsors.html">Sponsors</a></li>
+                <li class:current="index==4"><a href="./apply.html">Apply</a></li>
             </ul>
             <div class="theme">
                 <label>
@@ -99,7 +114,7 @@
             </footer>
         </div>
         <slot name="extra"></slot>
-        <script src="./js/${ name }.js"></script>
+        <script src="/js/${ name }.js"></script>
     </body>
     </html>
 </template>

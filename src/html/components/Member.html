@@ -1,0 +1,24 @@
+<link rel="prop" title="name">
+<link rel="prop" title="title">
+<link rel="prop" title="desc">
+<link rel="prop" title="socials">
+
+
+<li template class="member">
+    <conditional>
+        <div if="socials">
+            <each item="{url, label, icon}" array="socials">
+                <a href="${url}" target="_blank" aria-label="${label}", title="${label}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48">
+                        <use href="#${icon}"></use>
+                    </svg>
+                </a>
+            </each>
+        </div>
+    </conditional>
+    <span class="name">${name}</span>
+    <conditional>
+        <span if="title" class="title">${title}</span>
+    </conditional>
+    <span class="desc">${desc}</span>
+</li>

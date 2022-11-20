@@ -2,12 +2,24 @@ const { writeFile } = require("fs/promises");
 const { componentify } = require("functional-html");
 const { render } = require("posthtml-render");
 
-process.argv.slice(2).forEach(handle)
+
+handle("about/current-team", {
+    operations: [
+        {
+            name: "Fabio Meloni",
+            desc: "President & Chief Engineer"
+        }
+    ]
+});
+
+handle("about/mission", {});
+
+// process.argv.slice(2).forEach(handle)
     
-async function handle(name) {
+async function handle(name, props) {
     try {
         const c = await componentify(`./src/html/${name}.html`);
-        await writeFile(`discarded/${name}.html`, render(c({})), "utf-8");
+        await writeFile(`public/${name}.html`, render(c(props)), "utf-8");
         console.log(` > ${name} rendered`);
     } catch(err) {
         console.error(err);

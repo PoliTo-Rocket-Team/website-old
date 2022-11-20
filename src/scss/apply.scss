@@ -165,14 +165,6 @@ em {
     color: var(--accent-text);
 }
 
-footer {
-    background-color: var(--bg-2);
-    color: var(--fg-2);
-    padding: var(--pad);
-    padding-top: 0;
-    text-align: center;
-}
-
 $marker-dim: .3rem;
 
 @media (max-width: $width-th-1) {
