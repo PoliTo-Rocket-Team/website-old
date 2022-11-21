@@ -1,6 +1,6 @@
 import { setupNavigation, setupThemePreference, trackmouse } from "./utils";
 import { createSVG, SVG_el } from "./utils/SVG-utils";
-import { Pie, pies, PieSlice } from "./utils/about-stats";
+import { Pie, PieSlice } from "./utils/about-stats";
 import { el, text } from './utils/HTML-utils';
 
 setupNavigation(100);
@@ -8,10 +8,26 @@ setupThemePreference();
 
 const PIE_RADIUS = 10;
 const PIE_SCALE = 1.1;
-const piesContainer = document.getElementById("pies");
-const floatingLabel = document.getElementById("floating-label");
 
-piesContainer.append(...pies.map(createPie));
+const piesContainers = document.querySelectorAll(".pies-container");
+piesContainers.forEach(el => {
+    const script = el.querySelector("script");
+    if(!script) return;
+    const label = el.querySelector(".pie-floating-label") as HTMLElement;
+    if(!label) return;
+    try {
+        const data = JSON.parse(script.text);
+        el.append.apply(el, data.map(createPie));
+        el.querySelectorAll(".pie-slice").forEach(s => setupSlice(
+            s as SVGElement, 
+            label, 
+            el as HTMLElement
+        ));
+    }
+    catch(err) {
+        console.log(err);
+    }
+});
 
 function createPie(pie: Pie) {
     const total = pie.slices.reduce((p,c) => p + c.value, 0);
@@ -72,15 +88,13 @@ function createPieGraph(slices: PieSlice[], rotate: number, total: number, thres
                 y = PIE_RADIUS*(PIE_SCALE+sins[i+1])
             } Z`
         };
-        setupSlice(
-            svg.appendChild(
-                p < threshold 
-                ? SVG_el("path", Object.assign(pathAttr, sliceAttr))
-                : SVG_el("g", sliceAttr, [
-                    SVG_el("path", pathAttr),
-                    SVG_el("text", percentageTextAttrs, [ percetageStringOf(p) ]),
-                ])
-            )
+        svg.appendChild(
+            p < threshold 
+            ? SVG_el("path", Object.assign(pathAttr, sliceAttr))
+            : SVG_el("g", sliceAttr, [
+                SVG_el("path", pathAttr),
+                SVG_el("text", percentageTextAttrs, [ percetageStringOf(p) ]),
+            ])
         );
     }
     // sep lines
@@ -96,24 +110,30 @@ function createPieGraph(slices: PieSlice[], rotate: number, total: number, thres
     return svg;
 }
 
-function setupSlice(slice: SVGElement) {
-    trackmouse(slice, { extra: slice, enter, leave, move });
+interface HoverPieElements {
+    slice: SVGElement;
+    label: HTMLElement;
+    container: HTMLElement;
 }
 
-function enter(slice: SVGElement) {
-    slice.classList.add("active");
-    floatingLabel.children.item(0).textContent = slice.getAttribute("data-label")
-    floatingLabel.classList.add("show");
+function setupSlice(slice: SVGElement, label: HTMLElement, container: HTMLElement) {
+    trackmouse(slice, { extra: {slice, label, container}, enter, leave, move });
 }
-function leave(slice: SVGElement) {
-    slice.classList.remove("active");
-    floatingLabel.classList.remove("show");
+
+function enter(e: HoverPieElements) {
+    e.slice.classList.add("active");
+    e.label.children.item(0).textContent = e.slice.getAttribute("data-label")
+    e.label.classList.add("show");
 }
-function move(x: number, y: number, rect: DOMRect) {
-    const cbcr = piesContainer.getBoundingClientRect();
-    floatingLabel.style.setProperty("--mx", (x+rect.left-cbcr.left)+"px");
-    floatingLabel.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
-    floatingLabel.style.setProperty("--dl", (x+rect.left)+"px");
+function leave(e: HoverPieElements) {
+    e.slice.classList.remove("active");
+    e.label.classList.remove("show");
+}
+function move(x: number, y: number, rect: DOMRect, e: HoverPieElements) {
+    const cbcr = e.container.getBoundingClientRect();
+    e.label.style.setProperty("--mx", (x+rect.left-cbcr.left)+"px");
+    e.label.style.setProperty("--my", (y+rect.top-cbcr.top)+"px");
+    e.label.style.setProperty("--dl", (x+rect.left)+"px");
 }
 
 function percetageStringOf(portion: number) { return (portion*100).toPrecision(3) + '%' }
