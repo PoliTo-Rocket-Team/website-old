@@ -1,41 +1,37 @@
 <link rel="import" href="../components/Layout.html">
 <link rel="import" href="../components/Member.html">
+<link rel="import" href="../components/Lead.html">
+<link rel="import" href="../components/Pies.html">
 <link rel="prop" title="operations">
+<link rel="prop" title="leads">
+<link rel="prop" title="pies">
 
 <Layout template name="about" index="@ 1" title="PoliTo Rocket Team - About us" description="">
     <main slot="content">
-        <div class="header">
-            <h1>About us</h1>
-            <nav class="table-of-contents" aria-labelledby="toc">
+        <div>
+            <h1>The Team</h1>
+            <p class="stop-growth mb">As of the end of the 2021-2022 Academic Year, the Team is composed of more than 20 between undergraduate students, graduate students, and PhD candidates. Most of the Team members come from the aerospace, mechanical and electronic engineering courses.</p>
+            <!-- <nav class="table-of-contents" aria-labelledby="toc">
                 <h2 id="toc">Table of contents</h2>
                 <ol>
                     <li><a href="#mission&vision">Mission & Vision</a></li>
                     <li><a href="#team">The Team</a></li>
                 </ol>
-            </nav>
+            </nav> -->
         </div>
-        <section aria-labelledby="mission&vision">
-            <h2 class="section-title" id="mission&vision">Mission & Vision</h2>
-            <div class="text-cols">
-                <p>With government space agencies and private companies planning multiple missions to the Moon and Mars in the forthcoming years, the rate of innovation in space-related technologies is steadily rising. Italy, since the inception of the space age, has always had a leading role, initially acting as a valuable partner of the major world space actors and, over the years, establishing a space industry that covers the whole space supply chain, with excellent results in all application sectors, also thanks to the academic and research community and the support of the government and the Italian Space Agency.</p>
-                <p>PoliTo Rocket Team’s mission is to contribute to Italy's space innovation, with the study of next-generation space exploration technologies in a student-driven context. The Team wants to provide students with the possibility to complete the theoretical knowledge learnt in the classroom with projects that involve considerable challenges and solid results. That is why we believe that Politecnico students must have a solid understanding of the challenges associated with space exploration and the systems involved in missiles, rockets, and spacecraft. With both technical and non-technical roles available, there are numerous prospects for students of all backgrounds to develop their skills and passion for space exploration. In addition, the Team wants to provide an environment where students from different courses and levels of experience can undergo academic and personal growth.</p>
-                <p>Furthermore, PoliTo Rocket Team is dedicated to providing Politecnico di Torino students and researchers with the ability to design, build and launch their own experimental rockets. Launching sounding rockets also provides an excellent opportunity to carry out otherwise impossible technical, scientific and medical research.</p>
-                <p>By starting simple with our first rocket, Cavour, we will validate our flight simulations and learn about rocket dynamics. In the future, with the evolution of Cavour's design, the Team will conceive a reusable rocket with payload capacity, capable of conducting scientific experiments inexpensively and reliably.</p>
-                <ul class="we-are">
-                    <li>We are constantly focused on progress.</li>
-                    <li>We believe in the simple, not the complex.</li>
-                    <li>We are engineers: if it works...</li>
-                </ul>
-            </div>
+        <section aria-labelledby="key">
+            <h2 id="key">Key figures</h2>
+            <each item of="leads">
+                <Lead f:spread="item" />
+            </each>
         </section>
         <section aria-labelledby="team">
-            <h2 class="section-title" id="team">The Team</h2>
-            <p class="stop-growth mb">As of the end of the 2021-2022 Academic Year, the Team is composed of more than 20 between undergraduate students, graduate students, and PhD candidates. Most of the Team members come from the aerospace, mechanical and electronic engineering courses.</p>
+            <h2 class="section-title" id="team">Members</h2>
             <div class="cols mb">
                 <h3 class="division-name">Operations</h3>
                 <ul class="division-members">
                     <each item array="operations">
-                        <Member name="@ item.name" title="@ item.title" desc="@ item.desc" socials="@ item.socials" />
+                        <Member f:spread="item" />
                     </each>
                 </ul>
                 <h3 class="division-name">Avionics</h3>
@@ -55,12 +51,10 @@
                     
                 </ul>
             </div>
-            <div id="pies">
-                <div id="floating-label" aria-hidden="true">
-                    <div class="text"></div>
-                    <div class="pointer"></div>
-                </div>
-            </div>
+        </section>
+        <section aria-labelledby="stats">
+            <h2 id="stats">Statistics</h2>
+            <Pies id="pies" data="@ pies" />
         </section>
     </main>
     <svg slot="extra" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" style="display: none;">
