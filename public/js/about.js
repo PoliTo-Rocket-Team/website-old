@@ -145,47 +145,6 @@
         return el;
     }
 
-    const pies = [
-        {
-            title: "Members by program",
-            slices: [
-                { value: 16, label: "Aerospace Engineering", color: "#3bdb84" },
-                { value: 1, label: "Electronic Engineering", color: "#dd4991" },
-                { value: 3, label: "Mechanical Engineering", color: "#dd0011" },
-                { value: 1, label: "Physical Engineering", color: "#2479cf" },
-                { value: 1, label: "Other non-Engineering", color: "#e1a463" },
-            ],
-            rotate: 255,
-            threshold: 5,
-        },
-        {
-            title: "Members by level",
-            slices: [
-                { value: 12, label: "Bachelor's", color: "#4e7bc1" },
-                { value: 7, label: "Master's", color: "#e1a463" },
-                { value: 2, label: "Ph.D.", color: "#3bdb84" },
-            ],
-            rotate: 0,
-            threshold: 0,
-        },
-        {
-            title: "International students rate",
-            slices: [
-                { value: 19, label: "Domestic", color: "#dd4991" },
-                { value: 2, label: "International", color: "#e1a463" },
-            ],
-            rotate: 0,
-            threshold: 0,
-        }
-    ];
-    /**
-     * pastel colors
-     * blue: #4e7bc1
-     * green: #3bdb84
-     * gold: #e1a463
-     * pink: #dd4991
-     */
-
     function el(name, attrs, children) {
         const res = document.createElement(name);
         if (attrs)
@@ -208,9 +167,23 @@
     setupThemePreference();
     const PIE_RADIUS = 10;
     const PIE_SCALE = 1.1;
-    const piesContainer = document.getElementById("pies");
-    const floatingLabel = document.getElementById("floating-label");
-    piesContainer.append(...pies.map(createPie));
+    const piesContainers = document.querySelectorAll(".pies-container");
+    piesContainers.forEach(el => {
+        const script = el.querySelector("script");
+        if (!script)
+            return;
+        const label = el.querySelector(".pie-floating-label");
+        if (!label)
+            return;
+        try {
+            const data = JSON.parse(script.text);
+            el.append.apply(el, data.map(createPie));
+            el.querySelectorAll(".pie-slice").forEach(s => setupSlice(s, label, el));
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
     function createPie(pie) {
         const total = pie.slices.reduce((p, c) => p + c.value, 0);
         return el("div", { class: "pie-chart" }, [
@@ -264,12 +237,12 @@
                 fill: slices[i].color,
                 d: `M${c},${c} L${x},${y} A${PIE_RADIUS},${PIE_RADIUS},${p * 360},${+(p > 0.5)},1,${x = PIE_RADIUS * (PIE_SCALE + coss[i + 1])},${y = PIE_RADIUS * (PIE_SCALE + sins[i + 1])} Z`
             };
-            setupSlice(svg.appendChild(p < threshold
+            svg.appendChild(p < threshold
                 ? SVG_el("path", Object.assign(pathAttr, sliceAttr))
                 : SVG_el("g", sliceAttr, [
                     SVG_el("path", pathAttr),
                     SVG_el("text", percentageTextAttrs, [percetageStringOf(p)]),
-                ])));
+                ]));
         }
         // sep lines
         for (i = 0; i < len; i++) {
@@ -282,23 +255,23 @@
         }
         return svg;
     }
-    function setupSlice(slice) {
-        trackmouse(slice, { extra: slice, enter, leave, move });
+    function setupSlice(slice, label, container) {
+        trackmouse(slice, { extra: { slice, label, container }, enter, leave, move });
     }
-    function enter(slice) {
-        slice.classList.add("active");
-        floatingLabel.children.item(0).textContent = slice.getAttribute("data-label");
-        floatingLabel.classList.add("show");
+    function enter(e) {
+        e.slice.classList.add("active");
+        e.label.children.item(0).textContent = e.slice.getAttribute("data-label");
+        e.label.classList.add("show");
     }
-    function leave(slice) {
-        slice.classList.remove("active");
-        floatingLabel.classList.remove("show");
+    function leave(e) {
+        e.slice.classList.remove("active");
+        e.label.classList.remove("show");
     }
-    function move(x, y, rect) {
-        const cbcr = piesContainer.getBoundingClientRect();
-        floatingLabel.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
-        floatingLabel.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
-        floatingLabel.style.setProperty("--dl", (x + rect.left) + "px");
+    function move(x, y, rect, e) {
+        const cbcr = e.container.getBoundingClientRect();
+        e.label.style.setProperty("--mx", (x + rect.left - cbcr.left) + "px");
+        e.label.style.setProperty("--my", (y + rect.top - cbcr.top) + "px");
+        e.label.style.setProperty("--dl", (x + rect.left) + "px");
     }
     function percetageStringOf(portion) { return (portion * 100).toPrecision(3) + '%'; }
 

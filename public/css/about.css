@@ -208,7 +208,7 @@ svg.divider {
   padding: 0.8rem;
   font-size: var(--fs-50);
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: hidden;
   transition: transform 200ms ease, background-color 350ms ease;
 }
 #page-nav.hide {
@@ -647,16 +647,16 @@ section {
   transform: scale(0);
 }
 
-#pies {
+.pies-container {
   position: relative;
 }
 
-#floating-label {
+.pie-floating-label {
   position: absolute;
   top: 0;
   left: 0;
 }
-#floating-label .text {
+.pie-floating-label .text {
   top: 0;
   left: 0;
   transform: scale(0);
@@ -667,7 +667,7 @@ section {
   padding: 0.3em 0.6em;
   border-radius: 0.3em;
 }
-#floating-label .pointer {
+.pie-floating-label .pointer {
   position: absolute;
   top: -1.07rem;
   left: -0.5rem;
@@ -687,10 +687,10 @@ section {
     margin-top: 1rem;
     max-width: 16rem;
   }
-  #floating-label.show .text {
+  .pie-floating-label.show .text {
     transform: translate(calc(var(--mx) - min(50%, var(--dl) - 0.5rem) - max(0.1px, 50% + 0.5rem + var(--dl) - 100vw)), calc(var(--my) - 100% - 1rem));
   }
-  #floating-label.show .pointer {
+  .pie-floating-label.show .pointer {
     transform: translate(var(--mx), var(--my));
   }
 }
@@ -698,10 +698,10 @@ section {
   .aside {
     margin-left: 2rem;
   }
-  #floating-label.show .text {
+  .pie-floating-label.show .text {
     transform: translate(calc(var(--mx) + 1.5ch), calc(var(--my) - 50%));
   }
-  #pies {
+  .pies-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 36rem);
     gap: 3.5rem;
