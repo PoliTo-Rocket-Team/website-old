@@ -8,3 +8,4 @@ discarded/
 *.unrel/
 *.unrel.*
 .env
+pnpm-lock.yaml
