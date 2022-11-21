@@ -156,6 +156,36 @@ section {
     }
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+    gap: 1.5rem;
+    padding-top: 3rem;
+}
+
+.lead-card {
+    background-color: var(--bg-1);
+    padding: 1rem;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        max-height: 15rem;
+        background-color: #ccc8;
+        border-radius: .2rem;
+        margin-bottom: 1rem;
+    }
+
+    .name {
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+}
+
 $pie-graph-size: 16rem;
 
 .pie-chart {

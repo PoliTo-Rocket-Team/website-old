@@ -589,6 +589,34 @@ section {
   height: 1.8rem;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+  gap: 1.5rem;
+  padding-top: 3rem;
+}
+
+.lead-card {
+  background-color: var(--bg-1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lead-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-height: 15rem;
+  background-color: rgba(204, 204, 204, 0.5333333333);
+  border-radius: 0.2rem;
+  margin-bottom: 1rem;
+}
+.lead-card .name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
 .pie-chart {
   display: flex;
   align-items: center;

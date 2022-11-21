@@ -21,9 +21,11 @@
         </div>
         <section aria-labelledby="key">
             <h2 id="key">Key figures</h2>
-            <each item of="leads">
-                <Lead f:spread="item" />
-            </each>
+            <div class="grid-container">
+                <each item of="leads">
+                    <Lead f:spread="item" />
+                </each>
+            </div>
         </section>
         <section aria-labelledby="team">
             <h2 class="section-title" id="team">Members</h2>
