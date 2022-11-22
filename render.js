@@ -1,19 +1,7 @@
 const { writeFile } = require("fs/promises");
-const { Builder } = require("functional-html");
+const { createWatcher, Builder } = require("functional-html");
 const { render: renderast } = require("posthtml-render");
 
-
-const builder = new Builder("src/html");
-async function render(path, props = {}) {
-    try {
-        const c = await builder.componentify(path + ".html");
-        await writeFile(`public/${path}.html`, renderast(c.ast(props)), "utf-8");
-        console.log(` > ${path} rendered`);
-    } catch(err) {
-        console.log("error in rendering "+path);
-        console.error(err);
-    }
-}
 
 /**
  * @typedef {{
@@ -65,7 +53,7 @@ const pies = [
     }
 ]
 
-render("about/current-team", {
+const currentteamdata = {
     pies,
     leads: [
         {
@@ -80,8 +68,41 @@ render("about/current-team", {
             desc: "President & Chief Engineer"
         }
     ]
-});
+};
 
+// const watch = createWatcher("src/html");
+// function develop(path, props) {
+//     watch(path + ".html", async ast => {
+//         try {
+//             await writeFile(`public/${path}.html`, renderast(ast(props)), "utf-8");
+//             console.log(`>>> ${path}.html rendered`);
+//         } catch(err) {
+//             console.log("Error in rendering "+path);
+//             console.error(err);
+//         }
+//     }, errs => {
+//         console.log(`Errors in compiling ${path}:`);
+//         for(var err of errs) console.log(" - " + (err instanceof Error ? err.message : err));
+//     });
+// }
+// develop("about/current-team", currentteamdata);
+// develop("about/mission", {});
+// develop("projects", {});
+// develop("apply", {});
+
+
+const builder = new Builder("src/html");
+async function render(path, props = {}) {
+    try {
+        const c = await builder.componentify(path + ".html");
+        await writeFile(`public/${path}.html`, renderast(c.ast(props)), "utf-8");
+        console.log(` > ${path} rendered`);
+    } catch(err) {
+        console.log("error in rendering "+path);
+        console.error(err);
+    }
+}
+render("about/current-team", currentteamdata);
 render("about/mission", {});
-
-// process.argv.slice(2).forEach(handle)
+render("projects", {});
+render("apply", {});

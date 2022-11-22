@@ -10,12 +10,8 @@
             <div><span class="on-sm">Subteam: </span>${subteam}</div>
             <div><span class="on-sm">Division: </span>${division}</div>
             <conditional>
-                <case if="group">
-                    <div><span class="on-sm">Group: </span>${group}</div>
-                </case>
-                <default>
-                    <div class="na on-lg">${group}</div>
-                </default>
+                <div if="group"><span class="on-sm">Group: </span>${group}</div>
+                <div else class="na on-lg">${group}</div>
             </conditional>
         </summary>
         <hr>
