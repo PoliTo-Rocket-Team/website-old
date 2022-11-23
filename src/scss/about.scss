@@ -34,26 +34,6 @@ section {
     }
 }
 
-// .collapsible {
-//     overflow-y: hidden;
-//     transition: height 5s ease;
-//     height: var(--h);
-    
-//     &[data-state="open"] {
-//         height: auto;
-//     }
-//     &[data-state="opening"] {
-//         height: var(--h);
-//     }
-//     &[data-state="closing"],
-//     &[data-state="closed"] {
-//         height: 0;
-//     }
-
-//     .collapsible__content { width: 100%; }
-// }
-
-
 .text-cols {
     column-width: 35ch;
     column-gap: 4rem;
@@ -158,9 +138,38 @@ section {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(25ch, 35ch));
+    gap: 2rem;
     padding-top: 3rem;
+}
+
+.key-figure {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-1);
+    border-radius: .5rem;
+    overflow: hidden;
+
+    img {
+        max-width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        filter: grayscale(0.7);
+    }
+    .name {
+        font-size: var(--fs-65);
+    }
+    .text {
+        padding: 1rem;
+    }
+    p {
+        margin-top: .7rem;
+        opacity: 0.95;
+    }
+    .contacts {
+        margin-top: .7rem;
+        list-style: none;
+    }
 }
 
 .lead-card {

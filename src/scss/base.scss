@@ -20,6 +20,7 @@ $accent-hue: 19;
     --fs-40: 1rem;
     --fs-50: 1.1rem;
     --fs-60: 1.4rem;
+    --fs-65: 1.7rem;
     --fs-70: 2rem;
     --fs-80: 4rem;
 
@@ -153,6 +154,7 @@ svg.divider {
         --fs-40: 1rem;
         --fs-50: 1.15rem;
         --fs-60: 1.5rem;
+        --fs-65: 1.8rem;
         --fs-70: 2.5rem;
         --fs-80: 4.5rem;
 
@@ -189,10 +191,8 @@ $nav-trans: 350ms ease;
     justify-content: end;
     padding: .8rem;
     font-size: var(--fs-50);
-
     overflow-y: visible;
-
-
+    background-color: var(--bg-0);
     transition: transform 200ms ease, background-color 350ms ease;
 
     &.hide {
@@ -211,7 +211,6 @@ $nav-trans: 350ms ease;
         transition: filter $nav-trans, border-bottom-color $nav-trans;
     }
     &.down::before {
-        background-color: var(--bg-0);
         border-bottom-color: #7777;
     }
 
@@ -431,9 +430,6 @@ footer {
         input:checked ~ ul {
             clip-path: inset(-7px 0 0 0);
         }
-    }
-    .hide .link-combo ul {
-        clip-path: inset(0);
     }
 }
 

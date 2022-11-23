@@ -42,6 +42,7 @@
   --fs-40: 1rem;
   --fs-50: 1.1rem;
   --fs-60: 1.4rem;
+  --fs-65: 1.7rem;
   --fs-70: 2rem;
   --fs-80: 4rem;
   --pad: 1rem;
@@ -183,6 +184,7 @@ svg.divider {
     --fs-40: 1rem;
     --fs-50: 1.15rem;
     --fs-60: 1.5rem;
+    --fs-65: 1.8rem;
     --fs-70: 2.5rem;
     --fs-80: 4.5rem;
     --pad: max(2rem, 8vw);
@@ -216,6 +218,7 @@ svg.divider {
   padding: 0.8rem;
   font-size: var(--fs-50);
   overflow-y: visible;
+  background-color: var(--bg-0);
   transition: transform 200ms ease, background-color 350ms ease;
 }
 #page-nav.hide {
@@ -233,7 +236,6 @@ svg.divider {
   transition: filter 350ms ease, border-bottom-color 350ms ease;
 }
 #page-nav.down::before {
-  background-color: var(--bg-0);
   border-bottom-color: rgba(119, 119, 119, 0.4666666667);
 }
 #page-nav .logo {
@@ -457,9 +459,6 @@ footer {
   .link-combo input:checked ~ ul {
     clip-path: inset(-7px 0 0 0);
   }
-  .hide .link-combo ul {
-    clip-path: inset(0);
-  }
 }
 .stop-growth {
   max-width: 50ch;
@@ -642,9 +641,37 @@ section {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(25ch, 35ch));
+  gap: 2rem;
   padding-top: 3rem;
+}
+
+.key-figure {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.key-figure img {
+  max-width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  filter: grayscale(0.7);
+}
+.key-figure .name {
+  font-size: var(--fs-65);
+}
+.key-figure .text {
+  padding: 1rem;
+}
+.key-figure p {
+  margin-top: 0.7rem;
+  opacity: 0.95;
+}
+.key-figure .contacts {
+  margin-top: 0.7rem;
+  list-style: none;
 }
 
 .lead-card {
