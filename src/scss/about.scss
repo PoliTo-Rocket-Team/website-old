@@ -85,6 +85,23 @@ section {
     }
 }
 
+.socials {
+    display: flex;
+
+    a:hover {
+        transform: scale(1.1);
+    }
+    a + a {
+        margin-left: .15rem;
+    }
+
+    svg {
+        display: block;
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+}
+
 .member {
     break-inside: avoid;
     background-color: var(--bg-1);
@@ -122,17 +139,6 @@ section {
     }
     a:hover {
         --fg: var(--fg-1);
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    a + a {
-        margin-left: .15rem;
-    }
-
-    svg {
-        display: block;
-        width: 1.8rem;
-        height: 1.8rem;
     }
 }
 
@@ -147,7 +153,7 @@ section {
     display: flex;
     flex-direction: column;
     background-color: var(--bg-1);
-    border-radius: .5rem;
+    border-radius: .6rem;
     overflow: hidden;
 
     img {
@@ -172,26 +178,56 @@ section {
     }
 }
 
+.lead-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35ch, 1fr));
+    column-gap: 5ch;
+    max-width: 90ch;
+
+    & > li {
+        margin-bottom: 1.5rem;
+    }
+}
 .lead-card {
-    background-color: var(--bg-1);
-    padding: 1rem;
-    border-radius: .5rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
 
     img {
-        width: 100%;
-        aspect-ratio: 1/1;
-        max-height: 15rem;
-        background-color: #ccc8;
-        border-radius: .2rem;
-        margin-bottom: 1rem;
+        width: 6rem;
+        height: 6rem;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 1rem;
+        border: 2px solid #8884;
+    }
+    .lead__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        & > * {
+            margin-top: .1rem;
+            margin-bottom: .1rem;
+        }
     }
 
     .name {
         font-weight: 600;
         font-size: 1.2rem;
+    }
+
+    .socials {
+        margin-left: -.22rem;
+    }
+
+    a {
+        --fg: #b3b3b3ba;
+        --bg: var(--bg-0);
+    }
+    svg {
+        width: 2.2rem;
+        height: 2.2rem;
     }
 }
 

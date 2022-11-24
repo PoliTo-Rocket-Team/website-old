@@ -406,25 +406,26 @@ footer {
             left: 50%;
             transform: translate(-50%, 100%);
             align-items: center;
-            padding: .5rem .7rem;
+            padding: .6rem .75rem;
             background-color: var(--bg-1);
-            border-radius: .35rem;
+            border-radius: .45rem;
+            border: 2px solid #777;
             clip-path: inset(-7px 0 calc(100% + 7px) 0);
             transition: clip-path .15s ease;
         }
         ul::after {
             content: '';
             position: absolute;
-            top: 1px;
+            top: 0px;
             left: 50%;
             transform: translate(-50%, -100%);
             height: 6px;
             width: 12px;
-            background-color: var(--bg-1);
+            background-color: #777;
             clip-path: polygon(50% 0, 100% 100%, 0% 100%);
         }
         li + li {
-            margin-top: .6rem;
+            margin-top: .45rem;
         }
 
         input:checked ~ ul {

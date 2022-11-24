@@ -1,9 +1,24 @@
 <link rel="prop" title="name">
 <link rel="prop" title="title">
 <link rel="prop" title="img">
+<link rel="prop" title="mail">
 
-<div class="lead-card" template>
-    <img src="${img}" alt="Face of ${name}">
-    <span class="name">${name}</span>
-    <span class="title">${title}</span>
-</div>
+<li class="lead-card" template>
+    <img src="https://avatars.dicebear.com/api/micah/${name}.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk" alt="Face of ${name}">
+    <div class="lead__info">
+        <span class="name">${name}</span>
+        <span class="title">${title}</span>
+        <div class="socials">
+            <a href="https://it.linkedin.com/in/fabioski01" target="_blank" aria-label="LinkedIn" title="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48">
+                    <use href="#linkedin-icon"></use>
+                </svg>
+            </a>
+            <a href="mailto:${mail}" target="_blank" aria-label="Email" title="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 50 50">
+                    <use href="#email-icon"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+</li>
