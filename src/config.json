@@ -52,6 +52,7 @@
         "projects": [ "projects:scss", "projects:ts" ],
         "sponsors": [ "sponsors:scss", "sponsors:ts" ],
         "apply": [ "apply:scss", "apply:ts" ],
-        "scss": [ "index:scss", "about:scss", "projects:scss", "sponsors:scss" ]
+        "scss": [ "index:scss", "about:scss", "projects:scss", "sponsors:scss" ],
+        "ts": [ "index:ts", "about:ts", "projects:ts", "sponsors:ts" ]
     }
 }
