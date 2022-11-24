@@ -53,6 +53,22 @@ export function setupNavigation(deltaY: number) {
         nav.classList.toggle("hide", currentY > lastY);
         lastY = currentY;
     }
+
+    (document.querySelectorAll(".link-combo > input") as NodeListOf<HTMLInputElement>).forEach(i => {
+        i.checked = false;
+        i.addEventListener("change", onlinkcombo);
+    });
+    function onlinkcombo(this: HTMLInputElement) {
+        if(this.checked) document.body.addEventListener("click", closelinkcombos);
+        else document.body.removeEventListener("click", closelinkcombos);
+    }
+    function closelinkcombos(e: Event) {
+        const input = document.querySelector(".link-combo > input:checked") as HTMLInputElement;
+        if(!input) return;
+        if(input.parentElement.contains(e.target as Element)) return;
+        (document.querySelector(".link-combo > input") as HTMLInputElement).checked = false;
+        document.body.removeEventListener("click", closelinkcombos);
+    }
 }
 
 export function throttle( ms: number, fn: () => any) {
