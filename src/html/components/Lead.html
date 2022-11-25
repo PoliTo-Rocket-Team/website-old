@@ -2,14 +2,15 @@
 <link rel="prop" title="title">
 <link rel="prop" title="img">
 <link rel="prop" title="mail">
+<link rel="prop" title="linkedin">
 
 <li class="lead-card" template>
-    <img src="https://avatars.dicebear.com/api/micah/${name}.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk" alt="Face of ${name}">
+    <img src="${img ? '/img/members/'+img : 'https://avatars.dicebear.com/api/micah/' + name + '.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk'}" alt="Face of ${name}">
     <div class="lead__info">
         <span class="name">${name}</span>
         <span class="title">${title}</span>
         <div class="socials">
-            <a href="https://it.linkedin.com/in/fabioski01" target="_blank" aria-label="LinkedIn" title="LinkedIn">
+            <a href="https://${linkedin}" target="_blank" aria-label="LinkedIn" title="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48">
                     <use href="#linkedin-icon"></use>
                 </svg>
