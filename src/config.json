@@ -1,58 +1,16 @@
 {
-    "entries": {
-        "index:scss": {
-            "type": "scss",
-            "file": "index" 
-        },
-        "index:ts": {
-            "type": "ts",
-            "file": "index" 
-        },
-        "index:rocket": {
-            "type": "ts",
-            "file": "rocket",
-            "node": true 
-        },
-        "projects:scss": {
-            "type": "scss",
-            "file": "projects" 
-        },
-        "projects:ts": {
-            "type": "ts",
-            "file": "projects" 
-        },
-        "sponsors:scss": {
-            "type": "scss",
-            "file": "sponsors" 
-        },
-        "sponsors:ts": {
-            "type": "ts",
-            "file": "sponsors" 
-        },
-        "about:scss": {
-            "type": "scss",
-            "file": "about" 
-        },
-        "about:ts": {
-            "type": "ts",
-            "file": "about" 
-        },
-        "apply:scss": {
-            "type": "scss",
-            "file": "apply" 
-        },
-        "apply:ts": {
-            "type": "ts",
-            "file": "apply" 
-        }
+    "index": "auto",
+    "about": {
+        "past": [0, "about/past-teams", false],
+        "current": [0, "about/current-team", true],
+        "mission": [0, "about/mission", false],
+        "scss": null,
+        "ts": null
     },
-    "profiles": {
-        "index": [ "index:scss", "index:ts" ],
-        "about": [ "about:scss", "about:ts" ],
-        "projects": [ "projects:scss", "projects:ts" ],
-        "sponsors": [ "sponsors:scss", "sponsors:ts" ],
-        "apply": [ "apply:scss", "apply:ts" ],
-        "scss": [ "index:scss", "about:scss", "projects:scss", "sponsors:scss" ],
-        "ts": [ "index:ts", "about:ts", "projects:ts", "sponsors:ts" ]
+    "projects": "auto",
+    "sponsors": "auto",
+    "apply": "auto",
+    "3D": {
+        "index": [2, "rocket", true]
     }
 }

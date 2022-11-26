@@ -1,4 +1,6 @@
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
+import { Builder as HTMLBuilder, createWatcher as createHTMLWatcher } from "functional-html";
+import { render } from "posthtml-render";
 import sass from "sass";
 import { rollup, watch as rollup_watch } from "rollup";
 import { terser } from "rollup-plugin-terser";
@@ -11,99 +13,155 @@ import { config } from "dotenv";
 config();
 const pathToSass = process.env.SASS;
 
-/**@typedef {{type: "ts"|"scss", file: string, node: boolean}} Entry */
-/**@type {{entries: Object.<string,Entry>, profiles: Object.<string,string[]}}*/
+
 const source = JSON.parse(await readFile("./src/config.json"));
 const args = process.argv.slice(2);
+const argRE = /(\w+)(?:\[([\w,]+)\])?/;
+
+/**@type {Map<string, Set<string>} */
+const selection = new Map();
 
 let watch = false;
 let exclusion = false;
-let lookAmongProfiles = false;
-let entries = new Set();
-
 for(var arg of args) {
     switch(arg) {
         case "-W":
         case "--watch":
             watch = true;
             break;
-        case "-E":
-        case "--entry":
-            lookAmongProfiles = false;
-            break;
-        case "-P":
-        case "--profile":
-            lookAmongProfiles = true;
-            break;
         case "-X":
         case "--exclusion":
             exclusion = true;
             break;
-        default:
-            if(lookAmongProfiles) addProfile(arg);
-            else addEntry(arg);
+        default: {
+            const what = argRE.exec(arg);
+            if(!what) {
+                console.log("Invalid entry");
+                continue;
+            }
+            if(!(what[1] in source)) {
+                console.log(`${what[1]} is not a config entry`);
+                continue;
+            }
+            let set = selection.get(what[1]);
+            if(!set) selection.set(what[1], set = new Set());
+            if(what[2]) set.add(...what[2].split(','));
+        }
     }
 }
 
-if(exclusion) {
-    let newEntries = new Set();
-    for(var key in source.entries) {
-        if(entries.has(key)) continue;
-        newEntries.add(key);
+/**
+ * 
+ * @param {string} name 
+ * @param {object} value 
+ * @returns {Record<string, ConfigEntry>}
+ */
+function correctConfigRecord(name, value) {
+    if(!value || value === "auto") return {
+        "html": [0, name+".html", false],
+        "scss": [1, name+".scss", false],
+        "ts": [2, name+".ts", false],
+    };
+    if(value.html === null) value.html = ["html", name, false];
+    if(value.scss === null) value.scss = ["scss", name, false];
+    if(value.ts === null) value.ts = ["ts", name, false];
+    return value;
+}
+
+/**
+ * @typedef {{
+ * type: "html"|"scss"|"ts",
+ * url: string,
+ * extra?: boolean
+ * }} ConfigEntry
+ */
+
+if(watch) develop();
+else build();
+
+
+function build() {
+    const htmlb = new HTMLBuilder("src/html");
+    for(var [name, set] of selection.entries()) {
+        /**@type {Record<string, ConfigEntry>|"auto"} */
+        const config = source[name];
+        if(config === "auto") {
+            if(set.size === 0) {
+                buildHTML(name, false, htmlb);
+                buildSCSS(name);
+                buildTS(name, false);
+                continue;
+            }
+            if(set.has("html")) buildHTML(name, false, htmlb);
+            if(set.has("scss")) buildSCSS(name);
+            if(set.has("ts")) buildTS(name, false);
+        }
+        else {
+            for(var key in set.size ? set : config) {
+                const item = config[key];
+                if(item === null) {
+                    switch(key) {
+                        case "html":
+                            buildHTML(name, false, htmlb);
+                            break;
+                        case "scss":
+                            buildSCSS(name);
+                            break;
+                        case "ts":
+                            buildTS(name, false);
+                            break;
+                        default:
+                            console.warn(`There is no fallback for ${name} ${key}`);
+                    }
+                } else {
+                    switch(item[0]) {
+                        case 0:
+                            buildHTML(item[1], item[2], htmlb);
+                            break;
+                        case 1:
+                            buildSCSS(item[1]);
+                            break;
+                        case 2:
+                            buildTS(item[1], item[2]);
+                            break;
+                        default:
+                            console.warn(`${item[0]} is not a valid type`);
+                    }
+                }
+            }
+        }
     }
-    entries = newEntries;
 }
 
-/**@type{Entry}*/let entry;
-let filename;
-const simpleTS = [];
-const nodedTS = [];
-const scss = [];
-
-for(var name of entries) {
-    entry = source.entries[name];
-    filename = entry.file;
-    if(typeof filename !== "string" || filename.length === 0) {
-        console.warn(name + " has no file");
-        continue;
-    }
-    switch(entry.type) {
-        case "scss":
-            scss.push(filename);
-            break;
-        case "ts":
-            (entry.node ? nodedTS : simpleTS).push(filename);
-            break;
-        default:
-            console.warn(name + " has no valid type");
+/**
+ * 
+ * @param {string} name 
+ * @param {string} with_props 
+ * @param {HTMLBuilder} builder 
+ */
+async function buildHTML(name, with_props, builder) {
+    try {
+        let start = performance.now();
+        const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
+        const { ast } = await builder.componentify(name+".html");
+        await writeFile(`public/${name}.html`, render(ast(props)), "utf-8");
+        console.log(name+".html compiled in "+(performance.now()-start).toFixed(2)+"ms");
+    } catch(err) {
+        console.error(`Functional html encountered an error in compiling ${name}.html`);
+        console.error(err);
     }
 }
 
-if(watch) {
-    const stopTS = devTS();
-    const stopSCSS = devSCSS();
-    process.on("SIGINT", async () => {
-        await stopTS();
-        await stopSCSS();
-        process.exit(0);
-    })
-} else {
-    var name;
-    for(name of simpleTS) buildTS(name);
-    for(name of nodedTS) buildTS(name,true);
-    for(name of scss) buildSCSS(name);
-}
-
-
-function addProfile(name) {
-    const es = source.profiles[name];
-    if(!es) console.warn(name + " is not a profile");
-    else for(var e of es) addEntry(e);
-}
-
-function addEntry(name) {
-    if(!source.entries[name]) console.warn(name + " is not an entry");
-    else entries.add(name);
+async function buildSCSS(name) {
+    try {
+        let start = performance.now();
+        let css = sass.compile(`src/scss/${name}.scss`, {style: "compressed"}).css;
+        await writeFile(`public/css/${name}.css`, css, "utf-8");
+        console.log(name+".css compiled in "+(performance.now()-start).toFixed(2)+"ms");
+    } catch(err) {
+        console.error(`Sass encountered an error compiling ${name}.scss`);
+        console.error(err.message);
+    }
 }
 
 async function buildTS(name, with_node) {
@@ -124,76 +182,110 @@ async function buildTS(name, with_node) {
     }
 }
 
-async function buildSCSS(name) {
-    try {
-        let start = performance.now();
-        let css = sass.compile(`src/scss/${name}.scss`, {style: "compressed"}).css;
-        await writeFile(`public/css/${name}.css`, css, "utf-8");
-        console.log(name+".css compiled in "+(performance.now()-start).toFixed(2)+"ms");
-    } catch(err) {
-        console.error(`Sass encountered an error compiling ${name}.scss`);
-        console.error(err.message);
+
+function develop() {
+    const watchHTMl = createHTMLWatcher("src/html");
+    const scss_options = ["--watch"];
+    const rollups = [];
+
+    for(var [name, set] of selection.entries()) {
+        /**@type {Record<string, ConfigEntry>|"auto"} */
+        const config = source[name];
+        if(config === "auto") {
+            if(set.has("html")) devHTML(name, false, watchHTMl);
+            else if(set.has("scss")) scss_options.push(`src/scss/${name}.scss:public/css/${name}.css`);
+            else if(set.has("ts")) rollups.push(devTS(name, false));
+        }
+        else {
+            for(var key of set.size ? set : config) {
+                const item = config[key];
+                if(item === null) {
+                    switch(key) {
+                        case "html":
+                            devHTML(name, false, watchHTMl);
+                            break;
+                        case "scss":
+                            scss_options.push(`src/scss/${name}.scss:public/css/${name}.css`);
+                            break;
+                        case "ts":
+                            rollups.push(devTS(name, false));
+                            break;
+                        default:
+                            console.warn(`There is no fallback for ${name} ${key}`);
+                    }
+                } else {
+                    switch(item[0]) {
+                        case 0:
+                            devHTML(item[1], item[2], watchHTMl);
+                            break;
+                        case 1:
+                            scss_options.push(`src/scss/${item[1]}.scss:public/css/${item[1]}.css`);
+                            break;
+                        case 2:
+                            rollups.push(devTS(item[1], item[2]));
+                            break;
+                        default:
+                            console.warn(`${item[0]} is not a valid type`);
+                    }
+                }
+            }
+        }
     }
-}
 
-function devSCSS() {
-    const len = scss.length;
-    if(len === 0) return NO_FN;
-    const options = new Array(len+1);
-    options[0] = "--watch";
-    for(var i=0; i<len; i++) options[i+1] = `src/scss/${scss[i]}.scss:public/css/${scss[i]}.css`; 
-    const process = spawn(pathToSass, options);
-    process.on("error", err => { console.log("scss error: "+err); })
-    process.stdout.setEncoding("utf-8");
-    process.stdout.on("data", data => console.log(data.trimEnd()));
-    process.stderr.setEncoding("utf8");
-    process.stderr.on("data", data => console.error("scss error: "+data));
+    let scss_process;
+    if(scss_options.length > 1) {
+        scss_process = spawn(pathToSass, scss_options);
+        scss_process.on("error", err => { console.log("scss error: "+err); })
+        scss_process.stdout.setEncoding("utf-8");
+        scss_process.stdout.on("data", data => console.log(data.trimEnd()));
+        scss_process.stderr.setEncoding("utf8");
+        scss_process.stderr.on("data", data => console.error("scss error: "+data));
+    }
 
-    return () => new Promise(resolve => {
-        console.log("Stopping sass compiler");
-        process.kill("SIGINT");
-        resolve()
+    process.on("SIGINT", async () => {
+        if(scss_process) {
+            console.log("Stopping sass compiler");
+            scss_options.kill("SIGINT");
+        }
+        if(rollups.length > 0) {
+            console.log("Stopping rollup");
+            await Promise.all(rollups.map(w => w.close()));
+        }
+        process.exit(0);
     });
 }
 
-function devTS() {
-    if(simpleTS.length + nodedTS.length === 0) return NO_FN;
-
-    /**@type {import("rollup").RollupWatcher[]} */
-    const watchers = [];
-
-    var name;
-    for(name of simpleTS) {
-        let watcher = rollup_watch({
-            input: `src/ts/${name}.ts`,
-            output: {
-                format: "iife",
-                file: `public/js/${name}.js`
-            },
-            plugins: [ typescript() ]
-        })
-        watcher.on("event", onWatchEvent);
-        watchers.push(watcher);
-    }
-    for(name of nodedTS) {
-        let watcher = rollup_watch({
-            input: `src/ts/${name}.ts`,
-            output: {
-                format: "iife",
-                file: `public/js/${name}.js`
-            },
-            plugins: [ typescript(), nodeResolve() ]
-        })
-        watcher.on("event", onWatchEvent);
-        watchers.push(watcher);
-    }
-
-    return () => {
-        console.log("Stopping rollup");
-        return Promise.all(watchers.map(w => w.close()))
+async function devHTML(name, with_props, watch) {
+    const out = `public/${name}.html`;
+    try {
+        const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
+        // console.log(props)
+        watch(
+            name+".html",
+            ast => writeFile(out, render(ast(props)), "utf-8").then(
+                () => console.log(`${name}.html rendered`),
+                err => console.error(`Error in rendering ${name}.html:\n`, err)
+            ),
+            errors => console.error(`function html encountered errors in rendering ${name}.html:${errors.map(e => "\n - "+e.message)}`)
+        );
+    } catch(err) {
+        console.error(`Encountered error in starting watcher for ${name}.html`);
+        console.error(err);
     }
 }
 
+function devTS(name, with_node) {
+    let watcher = rollup_watch({
+        input: `src/ts/${name}.ts`,
+        output: {
+            format: "iife",
+            file: `public/js/${name}.js`
+        },
+        plugins: [ typescript(), with_node && nodeResolve() ]
+    })
+    watcher.on("event", onWatchEvent);
+    return watcher
+}
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -222,5 +314,3 @@ function onWatchEvent(e) {
             break;
     }
 }
-
-async function NO_FN() {}

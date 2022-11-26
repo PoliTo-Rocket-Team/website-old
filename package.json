@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node builder.mjs -W",
     "build": "node builder.mjs",
-    "build-all": "node builder.mjs -X index:rocket",
+    "build-all": "node builder.mjs index about projects sponsors apply",
     "rollup": "rollup -c",
     "ts-html": "tsc -P src/build/"
   },
