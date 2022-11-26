@@ -1,5 +1,6 @@
 [build]
   publish = "public/"
+  command = "pnpm build-all"
 
 [build.processing]
   skip_processing = false
