@@ -193,11 +193,8 @@ section {
         margin-top: 2.5rem;
     }
 }
-.division-members {
+.no-list {
     list-style: none;
-    & > * {
-        margin-bottom: 1rem;
-    }
 }
 
 .member {
@@ -205,6 +202,7 @@ section {
     background-color: var(--bg-1);
     padding: .4rem .7rem;
     border-radius: .45rem;
+    margin-bottom: 1rem;
 
     .name {
         font-size: 1.1rem;

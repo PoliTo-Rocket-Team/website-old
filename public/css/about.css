@@ -703,11 +703,8 @@ section {
   margin-top: 2.5rem;
 }
 
-.division-members {
+.no-list {
   list-style: none;
-}
-.division-members > * {
-  margin-bottom: 1rem;
 }
 
 .member {
@@ -715,6 +712,7 @@ section {
   background-color: var(--bg-1);
   padding: 0.4rem 0.7rem;
   border-radius: 0.45rem;
+  margin-bottom: 1rem;
 }
 .member .name {
   font-size: 1.1rem;
