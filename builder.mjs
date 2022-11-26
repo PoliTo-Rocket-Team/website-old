@@ -97,7 +97,7 @@ function build() {
             if(set.has("ts")) buildTS(name, false);
         }
         else {
-            for(var key in set.size ? set : Object.keys(config)) {
+            for(var key of (set.size ? set : Object.keys(config))) {
                 const item = config[key];
                 if(item === null) {
                     switch(key) {
@@ -251,7 +251,7 @@ function develop() {
     process.on("SIGINT", async () => {
         if(scss_process) {
             console.log("Stopping sass compiler");
-            scss_options.kill("SIGINT");
+            scss_process.kill("SIGINT");
         }
         if(rollups.length > 0) {
             console.log("Stopping rollup");
