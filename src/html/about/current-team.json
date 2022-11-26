@@ -6,7 +6,6 @@
         ["Alessio Improta", "Propulsion Engineer"],
         ["Alex Jarod Sclafani", "Propulsion Engineer"],
         ["Andrea Ruscica", "Recovery Specialist"],
-        ["Andrea Troglia", "Recovery Specialist"],
         ["Andrea Pantano", "Mission Analyst - Safety and Launch Manager"],
         ["Andrea De Masi", "Software Engineer"],
         ["Anna Del Tin", "Hardware Engineer"],
@@ -22,7 +21,6 @@
         ["Federica Carollo", "Propulsion Engineer"],
         ["Federica Pellegrini ", "Propulsion Engineer"],
         ["Federica Portis", "Sponsoring Manager - Safety and Launch manager"],
-        ["Francesco Masciari", "Propulsion Engineer"],
         ["Gabriele Caso", "Propulsion Engineer"],
         ["Gabriele Tanca", "Outreach & Recognition Specialist"],
         ["Giacomo Luccisano", "Avionics engineer"],
@@ -68,9 +66,9 @@
         {
             "title": "Members by program",
             "slices": [
-                { "value": 51, "label": "Aerospace Engineering", "color": "#4e7bc1" },
+                { "value": 50, "label": "Aerospace Engineering", "color": "#4e7bc1" },
                 { "value": 12, "label": "Mechanical Engineering", "color": "#e1a463" },
-                { "value": 7, "label": "Computer Engineering", "color": "#3bdb84" },
+                { "value": 6, "label": "Computer Engineering", "color": "#3bdb84" },
                 { "value": 4, "label": "Other Engineering", "color": "#8aa0a6" },
                 { "value": 2, "label": "Other non-Engineering", "color": "#945277" }
             ],
@@ -80,8 +78,8 @@
         {
             "title": "Members by level",
             "slices": [
-                { "value": 38, "label": "Bachelor's", "color": "#4e7bc1" },
-                { "value": 32, "label": "Master's", "color": "#e1a463" },
+                { "value": 37, "label": "Bachelor's", "color": "#4e7bc1" },
+                { "value": 31, "label": "Master's", "color": "#e1a463" },
                 { "value": 4, "label": "Ph.D.", "color": "#3bdb84" }
             ],
             "rotate": 0,
@@ -90,7 +88,7 @@
         {
             "title": "International students rate",
             "slices": [
-                { "value": 59, "label": "Domestic", "color": "#8aa0a6" },
+                { "value": 57, "label": "Domestic", "color": "#8aa0a6" },
                 { "value": 15, "label": "International", "color": "#e1a463" }
             ],
             "rotate": 35,
