@@ -2,9 +2,8 @@
 <link rel="import" href="../components/Member.html">
 <link rel="import" href="../components/Lead.html">
 <link rel="import" href="../components/Pies.html">
-<link rel="prop" title="operations">
-<link rel="prop" title="leads">
 <link rel="prop" title="pies">
+<link rel="prop" title="members">
 
 <Layout template name="about" index="@ 1" title="PoliTo Rocket Team - About us" description="">
     <main slot="content">
@@ -68,30 +67,14 @@
         </section>
         <section aria-labelledby="core-members">
             <h2 class="section-title" id="core-members">Core members</h2>
-            <div class="cols mb">
-                <h3 class="division-name">Operations</h3>
-                <ul class="division-members">
-                    <each item array="operations">
-                        <Member f:spread="item" />
-                    </each>
-                </ul>
-                <h3 class="division-name">Avionics</h3>
-                <ul class="division-members">
-
-                </ul>
-                <h3 class="division-name">Liquid Propulsion</h3>
-                <ul class="division-members">
-                    
-                </ul>
-                <h3 class="division-name">Recovery & Mission Analysis</h3>
-                <ul class="division-members">
-                    
-                </ul>
-                <h3 class="division-name">Aerostructures</h3>
-                <ul class="division-members">
-                    
-                </ul>
-            </div>
+            <ul class="cols mb">
+                <each item="member" of="members">
+                    <li class="member">
+                        <span class="name">${member[0]}</span>
+                        <span class="desc">${member[1]}</span>
+                    </li>
+                </each>
+            </ul>
         </section>
         <section aria-labelledby="stats">
             <h2 id="stats">Statistics</h2>
