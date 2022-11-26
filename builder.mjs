@@ -45,7 +45,7 @@ for(var arg of args) {
             }
             let set = selection.get(what[1]);
             if(!set) selection.set(what[1], set = new Set());
-            if(what[2]) set.add(...what[2].split(','));
+            if(what[2])  what[2].split(',').forEach(v => set.add(v));
         }
     }
 }
@@ -97,7 +97,7 @@ function build() {
             if(set.has("ts")) buildTS(name, false);
         }
         else {
-            for(var key in set.size ? set : config) {
+            for(var key in set.size ? set : Object.keys(config)) {
                 const item = config[key];
                 if(item === null) {
                     switch(key) {
@@ -192,12 +192,18 @@ function develop() {
         /**@type {Record<string, ConfigEntry>|"auto"} */
         const config = source[name];
         if(config === "auto") {
+            if(set.size === 0) {
+                devHTML(name, false, watchHTMl);
+                scss_options.push(`src/scss/${name}.scss:public/css/${name}.css`);
+                rollups.push(devTS(name, false));
+                continue;
+            }
             if(set.has("html")) devHTML(name, false, watchHTMl);
             else if(set.has("scss")) scss_options.push(`src/scss/${name}.scss:public/css/${name}.css`);
             else if(set.has("ts")) rollups.push(devTS(name, false));
         }
         else {
-            for(var key of set.size ? set : config) {
+            for(var key of (set.size ? set : Object.keys(config))) {
                 const item = config[key];
                 if(item === null) {
                     switch(key) {
