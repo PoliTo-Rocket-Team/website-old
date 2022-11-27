@@ -10,6 +10,6 @@
     "sponsors": "auto",
     "apply": "auto",
     "3D": {
-        "index": [2, "rocket", true]
+        "index": [2, "rocket.h", true]
     }
 }
