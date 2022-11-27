@@ -81,7 +81,7 @@ else build();
 
 
 function build() {
-    const htmlb = new HTMLBuilder("src/html");
+    const htmlb = new HTMLBuilder("./src/html");
     for(var [name, set] of selection.entries()) {
         /**@type {Record<string, ConfigEntry>|"auto"} */
         const config = source[name];
@@ -184,7 +184,7 @@ async function buildTS(name, with_node) {
 
 
 function develop() {
-    const watchHTMl = createHTMLWatcher("src/html");
+    const watchHTMl = createHTMLWatcher("./src/html");
     const scss_options = ["--watch"];
     const rollups = [];
 
