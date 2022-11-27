@@ -1,7 +1,6 @@
 {
     "index": "auto",
     "about": {
-        "past": [0, "about/past-teams", false],
         "current": [0, "about/current-team", true],
         "mission": [0, "about/mission", false],
         "scss": null,

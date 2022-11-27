@@ -1,5 +1,4 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path"
 import { Builder as HTMLBuilder, createWatcher as createHTMLWatcher } from "functional-html";
 import { render } from "posthtml-render";
 import sass from "sass";
@@ -15,7 +14,7 @@ config();
 const pathToSass = process.env.SASS;
 
 
-const source = JSON.parse(await readFile(resolve("./src/config.json")));
+const source = JSON.parse(await readFile("./src/config.json"));
 const args = process.argv.slice(2);
 const argRE = /(\w+)(?:\[([\w,]+)\])?/;
 
@@ -143,7 +142,7 @@ function build() {
 async function buildHTML(name, with_props, builder) {
     try {
         let start = performance.now();
-        const props = with_props ? JSON.parse(await readFile(resolve(`src/html/${name}.json`), "utf-8")) : {};
+        const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
         const { ast } = await builder.componentify(name+".html");
         await writeFile(`public/${name}.html`, render(ast(props)), "utf-8");
         console.log(name+".html compiled in "+(performance.now()-start).toFixed(2)+"ms");
@@ -265,7 +264,7 @@ function develop() {
 async function devHTML(name, with_props, watch) {
     const out = `public/${name}.html`;
     try {
-        const props = with_props ? JSON.parse(await readFile(resolve(`src/html/${name}.json`), "utf-8")) : {};
+        const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
         // console.log(props)
         watch(
             name+".html",
