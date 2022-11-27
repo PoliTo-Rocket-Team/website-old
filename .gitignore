@@ -1,6 +1,8 @@
 .vscode/
 node_modules/
 public/assets/*.amf
+public/*.html
+public/*.css
 public/js/worker*
 src/worker*
 discarded/
