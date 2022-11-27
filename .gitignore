@@ -1,9 +1,10 @@
 .vscode/
 node_modules/
 public/assets/*.amf
-public/*.html
-public/*.css
-public/js/worker*
+public/**/*.html
+public/css/*.css
+public/js/*.js
+!public/js/*.h.js
 src/worker*
 discarded/
 *.css.map
