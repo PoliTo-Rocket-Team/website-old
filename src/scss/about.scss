@@ -78,18 +78,14 @@ section {
 
 .socials {
     display: flex;
+    margin-left: -.22rem;
+    margin-right: -.22rem;
 
     a:hover {
         transform: scale(1.1);
     }
     a + a {
         margin-left: .15rem;
-    }
-
-    svg {
-        display: block;
-        width: 1.8rem;
-        height: 1.8rem;
     }
 }
 
@@ -185,11 +181,6 @@ section {
         font-size: 1.2rem;
     }
 
-    .socials {
-        margin-left: -.22rem;
-        margin-right: -.22rem;
-    }
-
     a {
         --fg: rgba(160,160,160,0.7);
         --bg: var(--bg-0);
@@ -197,11 +188,6 @@ section {
     a:hover {
         --fg: var(--accent-fig);
         opacity: 0.9;
-        animation: shake .25s linear forwards;
-    }
-    svg {
-        width: 2.2rem;
-        height: 2.2rem;
     }
 }
 
