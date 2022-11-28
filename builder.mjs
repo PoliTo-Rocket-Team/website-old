@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { Builder as HTMLBuilder, createWatcher as createHTMLWatcher } from "functional-html";
 import { render } from "posthtml-render";
 import sass from "sass";
@@ -48,24 +48,6 @@ for(var arg of args) {
             if(what[2])  what[2].split(',').forEach(v => set.add(v));
         }
     }
-}
-
-/**
- * 
- * @param {string} name 
- * @param {object} value 
- * @returns {Record<string, ConfigEntry>}
- */
-function correctConfigRecord(name, value) {
-    if(!value || value === "auto") return {
-        "html": [0, name+".html", false],
-        "scss": [1, name+".scss", false],
-        "ts": [2, name+".ts", false],
-    };
-    if(value.html === null) value.html = ["html", name, false];
-    if(value.scss === null) value.scss = ["scss", name, false];
-    if(value.ts === null) value.ts = ["ts", name, false];
-    return value;
 }
 
 /**
@@ -144,6 +126,8 @@ async function buildHTML(name, with_props, builder) {
         let start = performance.now();
         const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
         const { ast } = await builder.componentify(name+".html");
+        const slash = name.lastIndexOf('/'); 
+        if(slash === -1) await mkdir("public/" + name.slice(0, slash));
         await writeFile(`public/${name}.html`, render(ast(props)), "utf-8");
         console.log(name+".html compiled in "+(performance.now()-start).toFixed(2)+"ms");
     } catch(err) {
@@ -156,6 +140,8 @@ async function buildSCSS(name) {
     try {
         let start = performance.now();
         let css = sass.compile(`src/scss/${name}.scss`, {style: "compressed"}).css;
+        const slash = name.lastIndexOf('/'); 
+        if(slash === -1) await mkdir("public/" + name.slice(0, slash));
         await writeFile(`public/css/${name}.css`, css, "utf-8");
         console.log(name+".css compiled in "+(performance.now()-start).toFixed(2)+"ms");
     } catch(err) {
