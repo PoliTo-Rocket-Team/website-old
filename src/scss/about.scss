@@ -1,6 +1,7 @@
 @use "./font.scss" as *;
 @use "utils.scss";
 @include font(400, true);
+@include font(600);
 
 @import "./base.scss";
 
@@ -92,8 +93,27 @@ section {
     }
 }
 
-.key-figure-list {
-    list-style: none;
+.social {
+    text-decoration: none;
+
+    svg {
+        display: block;
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    &:hover svg {
+        animation: shake .25s ease;
+    }
+}
+.social--explicit {
+    display: flex;
+    align-items: center;
+
+    span {
+        text-decoration: underline;
+        font-weight: 600;
+    }
 }
 
 .key-figure {
@@ -104,6 +124,11 @@ section {
     border-radius: .6rem;
     overflow: hidden;
 
+    .role {
+        font-size: var(--fs-50);
+        font-weight: 600;
+        color: var(--accent-text);
+    }
     img {
         max-width: 100%;
         aspect-ratio: 1/1;
@@ -113,7 +138,7 @@ section {
     .name {
         font-size: var(--fs-65);
     }
-    .text {
+    .body {
         padding: 1rem;
     }
     p {
@@ -123,6 +148,8 @@ section {
     .contacts {
         margin-top: .7rem;
         list-style: none;
+        --bg: var(--bg-1);
+        --fg: var(--fg-1);
     }
 }
 
@@ -422,8 +449,15 @@ $pie-graph-size: 16rem;
         grid-template-columns: repeat(3,1fr);
         gap: 2rem;
     }
-    .key-figure {
+    .key-figure .body {
+        flex-grow: 1;
+        display: flex;
         flex-direction: column;
+        justify-content: space-between;
+
+        .text {
+            margin-bottom: 1.5rem;
+        }
     }
 }
 
