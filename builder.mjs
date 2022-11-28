@@ -117,6 +117,18 @@ function build() {
 
 /**
  * 
+ * @param {string} base 
+ * @param {string} name 
+ * @param {string} text 
+ */
+async function safeWriteFile(base, name, text) {
+    const slash = name.lastIndexOf('/');
+    if(slash !== -1) await mkdir(base + name.slice(0,slash+1), {recursive: true});
+    await writeFile(base + name, text, "utf-8");
+}
+
+/**
+ * 
  * @param {string} name 
  * @param {string} with_props 
  * @param {HTMLBuilder} builder 
@@ -126,9 +138,7 @@ async function buildHTML(name, with_props, builder) {
         let start = performance.now();
         const props = with_props ? JSON.parse(await readFile(`src/html/${name}.json`, "utf-8")) : {};
         const { ast } = await builder.componentify(name+".html");
-        const slash = name.lastIndexOf('/'); 
-        if(slash === -1) await mkdir("public/" + name.slice(0, slash));
-        await writeFile(`public/${name}.html`, render(ast(props)), "utf-8");
+        await safeWriteFile("public/", name+".html", render(ast(props)));
         console.log(name+".html compiled in "+(performance.now()-start).toFixed(2)+"ms");
     } catch(err) {
         console.error(`Functional html encountered an error in compiling ${name}.html`);
@@ -140,9 +150,7 @@ async function buildSCSS(name) {
     try {
         let start = performance.now();
         let css = sass.compile(`src/scss/${name}.scss`, {style: "compressed"}).css;
-        const slash = name.lastIndexOf('/'); 
-        if(slash === -1) await mkdir("public/" + name.slice(0, slash));
-        await writeFile(`public/css/${name}.css`, css, "utf-8");
+        await safeWriteFile("public/css/", name+".css", css);
         console.log(name+".css compiled in "+(performance.now()-start).toFixed(2)+"ms");
     } catch(err) {
         console.error(`Sass encountered an error compiling ${name}.scss`);
