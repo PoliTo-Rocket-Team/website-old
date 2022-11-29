@@ -8,7 +8,7 @@
     "dev": "node builder.mjs -W",
     "build": "node builder.mjs",
     "build-all": "node builder.mjs index about projects sponsors apply",
-    "no-index": "pnpm build-all && echo 'User-agent: *\nDisallow: /' > dist/robots.txt",
+    "no-index": "pnpm build-all && echo 'User-agent: *\nDisallow: /' > public/robots.txt",
     "rollup": "rollup -c",
     "ts-html": "tsc -P src/build/"
   },
