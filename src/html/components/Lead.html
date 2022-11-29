@@ -1,14 +1,27 @@
 <link rel="prop" title="name">
-<link rel="prop" title="title">
+<link rel="prop" title="role">
+<link rel="prop" title="scope">
 <link rel="prop" title="img">
 <link rel="prop" title="mail">
 <link rel="prop" title="linkedin">
+<link rel="prop" title="cofounder">
 
 <li class="lead-card" template>
-    <img src="${img ? '/img/members/'+img : 'https://avatars.dicebear.com/api/micah/' + name + '.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk'}" alt="Face of ${name}">
+    <div class="img">
+        <img src="${img ? '/img/members/'+img : 'https://avatars.dicebear.com/api/micah/' + name + '.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk'}" alt="Face of ${name}">
+    </div>
     <div class="lead__info">
-        <span class="name">${name}</span>
-        <span class="title">${title}</span>
+        <span class="name">${name}<conditional>
+            <div if="cofounder" class="co-founder-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32" title="Co-Founder of the team" aria-label="Co-Founder of the team">
+                    <use href="#founder-icon"></use>
+                </svg>
+            </div>
+        </conditional></span>
+        <span class="title">${role}</span>
+        <conditional>
+            <span if="scope">${scope}</span>
+        </conditional>
         <div class="socials">
             <a class="social" href="https://www.linkedin.com/in/${linkedin}" target="_blank" aria-label="LinkedIn" title="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48">
