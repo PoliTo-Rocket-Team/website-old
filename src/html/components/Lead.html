@@ -11,14 +11,13 @@
         <img src="${img ? '/img/members/'+img : 'https://avatars.dicebear.com/api/micah/' + name + '.svg?mouth[]=surprised&mouth[]=laughing&mouth[]=smile&mouth[]=smirk'}" alt="Face of ${name}">
     </div>
     <div class="lead__info">
-        <span class="name">${name}<conditional>
-            <div if="cofounder" class="co-founder-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32" title="Co-Founder of the team" aria-label="Co-Founder of the team">
-                    <use href="#founder-icon"></use>
-                </svg>
-            </div>
-        </conditional></span>
-        <span class="title">${role}</span>
+        <span class="name">${name}</span>
+        <span class="title">
+            <conditional>
+                <fragment if="cofounder">Co-Founder |</fragment>
+            </conditional>
+            ${role}
+        </span>
         <conditional>
             <span if="scope">${scope}</span>
         </conditional>
