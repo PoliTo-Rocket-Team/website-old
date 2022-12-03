@@ -218,14 +218,19 @@ h2 {
 $point-radius: .75rem;
 $extreme-radius: .5rem;
 
-a.btn {
+.btns {
+    display: flex;
     margin-top: 1.5rem;
+}
+
+a.btn {
     display: block;
     padding: .4em .7em;
     border: 2px solid var(--accent-fig);
     width: fit-content;
     text-decoration: none;
     font-weight: 600;
+    margin-right: 1.5rem;
 
     &:focus {
         text-decoration: underline;
@@ -326,7 +331,7 @@ a.btn {
 @media (min-width: $width-th-1) {
     .timeline {
         padding-left: .5ch;
-        column-gap: max(1rem, 3vw);
+        // column-gap: max(1rem, 3vw);
     }
     .event__body {
         max-width: fit-content;
