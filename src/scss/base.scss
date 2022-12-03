@@ -435,6 +435,7 @@ footer {
             margin-top: .45rem;
         }
 
+        ul:focus-within,
         input:checked ~ ul {
             clip-path: inset(-7px 0 0 0);
         }
