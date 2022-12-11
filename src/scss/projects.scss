@@ -31,9 +31,25 @@ footer {
     text-align: center;
 }
 
-$rocket-width: 5rem;
-
 article {
+    margin-top: 8rem;
+}
+ol {
+    padding-left: 2ch;
+}
+li {
+    margin-top: 1rem;
+}
+li::marker {
+    color: var(--accent-text);
+    font-weight: 700;
+}
+h3:not(:first-child) {
+    margin-top: 1em;
+}
+
+$rocket-width: 5rem;
+.with-rocket {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-areas: 
@@ -41,7 +57,6 @@ article {
         "main img"
         "aside aside";
     column-gap: .7rem;
-    margin-top: 8rem;
 
     h2 { grid-area: title; }
     .main { grid-area: main; }
@@ -53,25 +68,10 @@ article {
         max-height: 70vh;
         max-width: 4rem;
     }
-
-    ol {
-        padding-left: 2ch;
-    }
-    li {
-        margin-top: 1rem;
-    }
-
-    li::marker {
-        color: var(--accent-text);
-        font-weight: 700;
-    }
-    h3 {
-        margin-top: 1em;
-    } 
 }
 
 @media (min-width: $width-th-1) {
-    article {
+    .with-rocket {
         grid-template-areas: 
             "title title"
             "main img"
@@ -92,11 +92,24 @@ article {
             max-width: $rocket-width;
         }
     }
+    .two-cols {
+        column-count: 2;
+        column-gap: 3rem;
+        
+        p, li {
+            break-inside: avoid;
+        }
+    }
 }
 
 @media (min-width: $width-th-2) {
     article {
-        grid-template-columns: minmax(25ch, $large-width) $rocket-width minmax(25ch, $large-width);
+        max-width: $large-width * 2;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .with-rocket {
+        grid-template-columns: minmax(25ch, 1fr) $rocket-width minmax(25ch, 1fr);
         grid-template-areas: 
             "title title title"
             "main img aside";
