@@ -72,7 +72,7 @@ $card-padding: 1.5rem;
             rotateY(calc(var(--x) * -5deg))
             rotateX(calc(var(--y) * 5deg));
         background-color: var(--bg-1);
-        border-radius: $card-padding;
+        border-radius: $card-padding*0.75;
         padding: $card-padding;
         margin-top: 0;
     }
@@ -82,27 +82,34 @@ $card-padding: 1.5rem;
     }
 }
 
+$arrow-w: 1.8ch;
+
 .card__body {
     h3 {
         font-size: var(--fs-60);
-        a {
-            text-decoration: none;
-            // color: var(--accent-30);
+        // padding-right: 2.5ch;
+    }
+    h3 a {
+        text-decoration: none;
+        display: inline-block;
+        padding-right: $arrow-w;
+        // color: var(--accent-30);
 
-            &::after {
-                content: "\279C";
-                display: inline-block;
-                position: relative;
-                opacity: .5;
-                padding-left: .75ch;
-                transition:
-                    transform 150ms ease-out,
-                    opacity 150ms ease-out;
-            }
-            &:hover::after {
-                transform: translateX(.4ch);
-                opacity: 1;
-            }
+        &::after {
+            content: "\00A0\279C";
+            opacity: .5;
+            display: inline-block;
+            position: relative;
+            width: $arrow-w;
+            padding-left: $arrow-w;
+            margin-left: -1 * $arrow-w;
+            transition:
+                transform 150ms ease-out,
+                opacity 150ms ease-out;
+        }
+        &:hover::after {
+            transform: translateX(.4ch);
+            opacity: 1;
         }
     }
     p {
