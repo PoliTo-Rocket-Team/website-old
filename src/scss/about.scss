@@ -285,6 +285,12 @@ section {
     }
 }
 
+.wide-img {
+    max-width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 0.7rem;
+}
+
 $pie-graph-size: 16rem;
 
 .pie-chart {
