@@ -239,6 +239,17 @@ a.btn {
     }
 }
 
+$contour: 1px;
+img.float {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    filter: drop-shadow($contour $contour 0 var(--light-bg-0)) 
+            drop-shadow($contour (-$contour) 0 var(--light-bg-0))
+            drop-shadow(-$contour $contour 0 var(--light-bg-0))
+            drop-shadow(-$contour (-$contour) 0 var(--light-bg-0));
+}
+
 .timeline {
     display: grid;
     grid-template-columns: 2*$point-radius 1fr;
@@ -329,6 +340,11 @@ a.btn {
 }
 
 @media (min-width: $width-th-1) {
+    img.float {
+        float: right;
+        max-width: 45%;
+        margin-bottom: 2rem;
+    }
     .timeline {
         padding-left: .5ch;
         // column-gap: max(1rem, 3vw);
