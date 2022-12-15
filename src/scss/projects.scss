@@ -37,12 +37,14 @@ article {
 ol {
     padding-left: 2ch;
 }
-li {
-    margin-top: 1rem;
-}
-li::marker {
-    color: var(--accent-text);
-    font-weight: 700;
+main {
+    li {
+        margin-top: 1rem;
+    }
+    li::marker {
+        color: var(--accent-text);
+        font-weight: 700;
+    }
 }
 h3:not(:first-child) {
     margin-top: 1em;
