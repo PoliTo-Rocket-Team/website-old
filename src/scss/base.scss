@@ -13,9 +13,9 @@ $accent-hue: 19;
     --light-fg-1: #555;
 
     --dark-bg-0: #121212;
-    --dark-bg-1: #181818;
-    --dark-fg-0: #ededed;
-    --dark-fg-1: #b6b6b6;
+    --dark-bg-1: #282828;
+    --dark-fg-0: #dfdfdf;
+    --dark-fg-1: #c6c6c6;
 
     --fs-40: 1rem;
     --fs-50: 1.1rem;
@@ -43,8 +43,7 @@ $accent-hue: 19;
     --fg-1: var(--light-fg-1);
     --fg-2: var(--dark-fg-0);
 
-    --fg-sel: var(--light-bg-1);
-    --fg-link: var(--accent-50);
+    // --fg-sel: var(--light-bg-1);
 
     --accent-text: hsl(19,85%,47.5%);
     --accent-fig: hsl(19,100%,50%);
@@ -57,7 +56,7 @@ $accent-hue: 19;
     --fg-0: var(--dark-fg-0);
     --fg-1: var(--dark-fg-1);
     // --fg-sel: var(--dark-fg-0);
-    --fg-link: var(--accent-20);
+    // --fg-link: var(--accent-20);
     
     --accent-text: hsl(19,95%,65%);
     --accent-fig: hsl(19,85%,55%);
