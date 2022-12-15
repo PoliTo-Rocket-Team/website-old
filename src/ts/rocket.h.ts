@@ -9,7 +9,7 @@ const FOV = 75;
 const rot = new Euler(Math.PI/3, Math.PI/4, Math.PI/16, 'YXZ');
 
 const scene = new Scene();
-function setSceneBg(dark: boolean) { scene.background = new Color(dark ? 0x333333 : 0xefefef); }
+function setSceneBg(dark: boolean) { scene.background = new Color(dark ? 0x121212 : 0xefefef); }
 
 
 const camera = new PerspectiveCamera(FOV, 1, .1, 100);
