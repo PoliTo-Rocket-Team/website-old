@@ -2,16 +2,18 @@
 <link rel="prop" title="subteam">
 <link rel="prop" title="division">
 <link rel="prop" title="group">
+<link rel="prop" title="code">
 
 <article template class="position" data-role="${ role }" data-subteam="${subteam}" data-division="${division}">
     <details>
         <summary>
             <h3>${ role }</h3>
+            <div class="color code">${ code }</div>
             <div><span class="on-sm">Subteam: </span>${subteam}</div>
             <div><span class="on-sm">Division: </span>${division}</div>
             <conditional>
                 <div if="group"><span class="on-sm">Group: </span>${group}</div>
-                <div else class="na on-lg">${group}</div>
+                <div else class="na on-lg" aria-hidden="true">N/A</div>
             </conditional>
         </summary>
         <hr>

@@ -1,5 +1,6 @@
 <link rel="import" href="./components/Layout.html">
 <link rel="import" href="./components/FAQ.html">
+<link rel="import" href="./components/Position.html">
 
 <Layout template name="apply" index="@ 4" title="PoliTo Rocket Team - Apply" description="">
     <main slot="content">
@@ -8,7 +9,25 @@
             <hr class="subtle">
             <p>Get Involved! PoliTo Rocket Team has numerous positions available for undergraduate and graduate students of Politecnico di Torino. Here you can find our Open Positions and some Frequently Asked Questions about our recruitment process or about the Team. If you still have some questions, don’t hesitate to reach out to us on social media or at <a href="mailto:recruitment@politorocketteam.it">recruitment@politorocketteam.it</a></p>
         </div>
-
+        <section aria-labelledby="positions" class="center">
+            <h2 id="positions" class="section-title">Open positions</h2>
+            <div class="position-labels on-lg" aria-hidden="true">
+                <span>Role</span>
+                <span>Subteam</span>
+                <span>Division</span>
+                <span>Group</span>
+                <div class="code-label"><span>Code</span></div>
+            </div>
+            <Position role="Computer/Electronic Engineer" subteam="Efesto" division="Engine Control Strategy" code="EFS-ECS-005">
+                <h4>Description</h4>
+                <p>bla bla</p>
+                <h4>Required skills</h4>
+                <ul>
+                    <li>Programming skills</li>
+                    <li>Strong knowledge of theory of signals</li>
+                </ul>
+            </Position>
+        </section>
         <section aria-labelledby="faqs" id="faqs-section" class="center">
             <h2 id="faqs" class="section-title"><abbr title="Frequently Asked Questions">FAQs</abbr></h2>
             <article class="question">
