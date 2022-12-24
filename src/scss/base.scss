@@ -83,8 +83,8 @@ body[data-theme="dark"] { @include dark-theme; }
 
 ::selection {
     background-color: var(--bg-sel);
-    color: var(--fg-sel);
-    text-decoration-color: var(--fg-sel);
+    color: var(--light-bg-1);
+    text-decoration-color: var(--light-bg-1);
 }
 
 html {height: 100%;}
