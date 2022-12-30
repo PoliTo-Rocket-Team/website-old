@@ -43,6 +43,20 @@ section.center {
     margin-right: auto;
 }
 
+a.btn {
+    display: block;
+    padding: .4em .7em;
+    border: 2px solid var(--accent-fig);
+    width: fit-content;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 2rem auto;
+
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
 $details-radius: .5rem;
 $details-pad-x: .8rem;
 $details-pad-y: .5rem;
@@ -97,6 +111,11 @@ $details-border: 2px solid #b3b3b3ba;
     td {
         width: 33.3333%;
     }
+}
+.position .disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 $faq-radius: .8rem;
@@ -223,7 +242,7 @@ $position-gap-third: math.div($position-gap, 3);
     .position-labels,
     .position summary {
         display: grid;
-        grid-template-columns: 2fr repeat(3, 1fr) auto $marker-dim;
+        grid-template-columns: 2fr 1fr 1fr 0.8fr auto $marker-dim;
         grid-auto-flow: dense;
         align-items: center;
         column-gap: $position-gap;
@@ -264,6 +283,13 @@ $position-gap-third: math.div($position-gap, 3);
     .liquid-propulsion .position-labels,
     .liquid-propulsion .position summary {
         grid-template-columns: 2fr 1fr auto $marker-dim;
+    }
+
+    .position .disclaimer {
+        max-width: 55ch;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
