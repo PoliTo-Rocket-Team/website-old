@@ -1,6 +1,6 @@
-# PoliTo Rocket Team Website
+# Old PoliTo Rocket Team Website
 
-Files of the PRT website, written in html, typescript, and scss.
+These are the source files of the old PRT website written in html, typescript, and scss. This repository is now archived: please refer to [website-new](https://github.com/PoliTo-Rocket-Team/website-new) for the new SvelteKit website.
 
 ## File structure
 
